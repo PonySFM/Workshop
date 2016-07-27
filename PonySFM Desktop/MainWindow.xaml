@@ -1,0 +1,38 @@
+﻿<Window x:Class="PonySFM_Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PonySFM_Desktop"
+        mc:Ignorable="d"
+        Title="PonySFM Desktop" Height="350" Width="525">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File" />
+                <MenuItem Header="_Help">
+                    <MenuItem Name="MenuItemAbout" Header="_About" Click="MenuItemAbout_Click"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+
+        <StackPanel Height="Auto">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,30,0,0" Height="30">
+                <Button Name="btnInstall" Margin="0,0,10,0" >Install</Button>
+                <Button Name="btnUninstall" Margin="0,0,10,0">Uninstall</Button>
+                <Button Name="btnVerify" Margin="0,0,10,0">Verify</Button>
+            </StackPanel>
+            <DataGrid Name="dataGrid" AutoGenerateColumns="False" Height="250" Margin="0,10,-0.333,0">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="ID" Width="SizeToCells" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding ID}"></Label>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>
