@@ -74,7 +74,7 @@ namespace PonySFM_Desktop.Test
             var r = new Random();
             int id = r.Next(1000);
             List<string> files = new List<string>();
-            for(int i = 1; i < r.Next(10); i++)
+            for(int i = 0; i < 5; i++)
             {
                 files.Add(stubfile);
             }
