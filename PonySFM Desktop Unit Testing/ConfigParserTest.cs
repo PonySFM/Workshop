@@ -1,31 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using System.IO;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Xml;
 
 namespace PonySFM_Desktop.Test
 {
-    [TestFixture]
+    [TestClass]
     public class ConfigParserTest
     {
         string configLocation = "C:\\ponysfm\\config.xml";
 
-        [Test]
+        [TestMethod]
+        [TestCategory("ConfigParser")]
         public void ChecksForExistenceCorrectly()
         {
             var fs = new MockFileSystem();
             var configParser = new ConfigParser(configLocation, fs);
 
-            Assert.False(configParser.Exists());
+            Assert.IsFalse(configParser.Exists());
             fs.AddFile(new MockFile("C:\\ponysfm\\config.xml", MockFileType.FILE));
-            Assert.True(configParser.Exists());
+            Assert.IsTrue(configParser.Exists());
         }
 
-        [Test]
+        [TestMethod]
+        [TestCategory("ConfigParser")]
         public void ParsesCorrectly()
         {
             var doc = new XmlDocument();
@@ -36,11 +32,12 @@ namespace PonySFM_Desktop.Test
 
             var parsedConfig = configParser.Read(doc);
 
-            Assert.That(parsedConfig.Equals(configFile));
-            Assert.That(doc.ChildNodes.Count == 1);
+            Assert.IsTrue(parsedConfig.Equals(configFile));
+            Assert.IsTrue(doc.ChildNodes.Count == 1);
         }
 
-        [Test]
+        [TestMethod]
+        [TestCategory("ConfigParser")]
         public void WritesCorrectly()
         {
             var configFile = new ConfigFile();
@@ -50,8 +47,8 @@ namespace PonySFM_Desktop.Test
 
             configParser.Write(configFile, doc);
 
-            Assert.That(doc.ChildNodes.Count == 1);
-            Assert.That(configFile.Equals(ConfigFile.FromXML((XmlElement)doc.FirstChild)));
+            Assert.IsTrue(doc.ChildNodes.Count == 1);
+            Assert.IsTrue(configFile.Equals(ConfigFile.FromXML((XmlElement)doc.FirstChild)));
         }
     }
 }

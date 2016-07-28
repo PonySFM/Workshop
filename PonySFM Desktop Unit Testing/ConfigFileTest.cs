@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Xml;
 
 namespace PonySFM_Desktop.Test
 {
-    [TestFixture]
+    [TestClass]
     public class ConfigFileTest
     {
-        [Test]
+        [TestMethod]
+        [TestCategory("ConfigFile")]
         public void EnsureCorrectXMLParsing()
         {
             var configFile = new ConfigFile();
@@ -22,7 +18,7 @@ namespace PonySFM_Desktop.Test
             var parsedFromXML = ConfigFile.FromXML(xml);
 
             /* Converting to XML and then correctly deconverting should return same result */
-            Assert.That(parsedFromXML.Equals(configFile));
+            Assert.IsTrue(parsedFromXML.Equals(configFile));
         }
     }
 }

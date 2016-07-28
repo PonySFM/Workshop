@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PonySFM_Desktop.Test
 {
-    [TestFixture]
+    [TestClass]
     public class DirectoryCopierTest
     {
-        [Test]
+        [TestMethod]
+        [TestCategory("DirectoryCopier")]
         public void CopiesDirectoryCorrectlyOnlyFiles()
         {
             var fs = new MockFileSystem();
@@ -22,11 +19,12 @@ namespace PonySFM_Desktop.Test
 
             directoryCopier.Execute();
 
-            Assert.True(fs.FileExists("C:\\SFM\\file1.txt"));
-            Assert.True(fs.FileExists("C:\\SFM\\file2.txt"));
+            Assert.IsTrue(fs.FileExists("C:\\SFM\\file1.txt"));
+            Assert.IsTrue(fs.FileExists("C:\\SFM\\file2.txt"));
         }
 
-        [Test]
+        [TestMethod]
+        [TestCategory("DirectoryCopier")]
         public void CopiesDirectoryCorrectlyWithSubDirs()
         {
             var fs = new MockFileSystem();
@@ -44,17 +42,16 @@ namespace PonySFM_Desktop.Test
 
             directoryCopier.Execute();
 
-            Assert.True(fs.FileExists("C:\\SFM\\file1.txt"));
-            Assert.True(fs.FileExists("C:\\SFM\\file2.txt"));
-
-            Assert.True(fs.DirectoryExists("C:\\SFM\\folder"));
-            Assert.True(fs.FileExists("C:\\SFM\\folder\\file3.txt"));
-
-            Assert.True(fs.DirectoryExists("C:\\SFM\\folder\\folder2"));
-            Assert.True(fs.FileExists("C:\\SFM\\folder\\folder2\\file4.txt"));
+            Assert.IsTrue(fs.FileExists("C:\\SFM\\file1.txt"));
+            Assert.IsTrue(fs.FileExists("C:\\SFM\\file2.txt"));
+            Assert.IsTrue(fs.DirectoryExists("C:\\SFM\\folder"));
+            Assert.IsTrue(fs.FileExists("C:\\SFM\\folder\\file3.txt"));
+            Assert.IsTrue(fs.DirectoryExists("C:\\SFM\\folder\\folder2"));
+            Assert.IsTrue(fs.FileExists("C:\\SFM\\folder\\folder2\\file4.txt"));
         }
 
-        [Test]
+        [TestMethod]
+        [TestCategory("DirectoryCopier")]
         public void FiresEventCorrectly()
         {
             var fs = new MockFileSystem();
@@ -71,13 +68,13 @@ namespace PonySFM_Desktop.Test
 
             directoryCopier.Execute();
 
-            Assert.NotNull(eventArgs);
-
+            Assert.AreNotEqual(null, eventArgs);
             Assert.AreEqual(eventArgs.File1, "C:\\fakeDir\\file1.txt");
             Assert.AreEqual(eventArgs.File2, "C:\\SFM\\file1.txt");
         }
 
-        [Test]
+        [TestMethod]
+        [TestCategory("DirectoryCopier")]
         public void FiresEventCorrectlyWithOverwrite()
         {
             var fs = new MockFileSystem();
@@ -98,7 +95,7 @@ namespace PonySFM_Desktop.Test
 
             directoryCopier.Execute();
 
-            Assert.NotNull(eventArgs);
+            Assert.AreNotEqual(null, eventArgs);
 
             Assert.AreEqual(eventArgs.File1, "C:\\fakeDir\\file1.txt");
             Assert.AreEqual(fs.ReadFile("C:\\fakeDir\\file1.txt"), d1);

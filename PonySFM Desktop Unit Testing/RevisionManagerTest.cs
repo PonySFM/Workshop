@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PonySFM_Desktop.Test
 {
-    [TestFixture]
+    [TestClass]
     public class RevisionManagerTest
     {
         private string dir = "C:\\SFM";
 
-        [Test]
+        [TestMethod]
+        [TestCategory("RevisionManager")]
         public void CreatesDirectory()
         {
             var configFile = new ConfigFile();
@@ -20,8 +16,7 @@ namespace PonySFM_Desktop.Test
             var fs = new MockFileSystem();
             var revisionManager = new RevisionManager(configFile, fs);
 
-            Assert.That(fs.DirectoryExists(dir));
+            Assert.IsTrue(fs.DirectoryExists(dir));
         }
-
     }
 }

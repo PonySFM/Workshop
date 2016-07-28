@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PonySFM_Desktop.Test
 {
-    [TestFixture]
+    [TestClass]
     public class MockFileSystemTest
     {
-        [Test]
+        [TestMethod]
+        [TestCategory("MockFileSystem")]
         public void GetFilesReturnsCorrectFiles()
         {
-            var fs = new MockFileSystem();
+            MockFileSystem fs = new MockFileSystem();
 
             fs.CreateFile("C:\\someFolder\\myFile.txt");
             fs.CreateFile("C:\\someFolder\\gaben.txt");
@@ -22,15 +18,16 @@ namespace PonySFM_Desktop.Test
             Assert.AreEqual(files.Count, 2);
         }
 
-        [Test]
+        [TestMethod]
+        [TestCategory("MockFileSystem")]
         public void CopyFile()
         {
-            var fs = new MockFileSystem();
+            MockFileSystem fs = new MockFileSystem();
             fs.CreateFile("C:\\someFolder\\myFile.txt"); /* TODO: set data */
             fs.CopyFile("C:\\someFolder\\myFile.txt", "C:\\someFolder\\copy.txt");
 
-            Assert.True(fs.FileExists("C:\\someFolder\\myFile.txt"));
-            Assert.True(fs.FileExists("C:\\someFolder\\copy.txt"));
+            Assert.IsTrue(fs.FileExists("C:\\someFolder\\myFile.txt"));
+            Assert.IsTrue(fs.FileExists("C:\\someFolder\\copy.txt"));
         }
     }
 }

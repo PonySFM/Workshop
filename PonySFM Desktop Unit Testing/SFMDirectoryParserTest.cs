@@ -1,26 +1,23 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using System.IO;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PonySFM_Desktop.Test
 {
-    [TestFixture]
+    [TestClass]
     public class SFMDirectoryParserTest
     {
-        [Test]
+        [TestMethod]
+        [TestCategory("SFMDirectoryParser")]
         public void IdentifyInvalidDirectory()
         {
             string baseDir = "C:\\SecretPlace\\";
             var fs = new MockFileSystem();
             var parser = new SFMDirectoryParser(baseDir, fs);
-            Assert.That(parser.Validate() == SFMDirectoryParserError.NOT_EXISTS);
+            Assert.AreEqual(SFMDirectoryParserError.NOT_EXISTS, parser.Validate());
         }
 
-        [Test]
+        [TestMethod]
+        [TestCategory("SFMDirectoryParser")]
         public void IdentifyNotLikelyDirectory()
         {
             string baseDir = "C:\\AwesomeStuff\\";
@@ -32,10 +29,11 @@ namespace PonySFM_Desktop.Test
                 fs.AddFile(new MockFile(Path.Combine(baseDir, d), MockFileType.DIRECTORY));
             }
             var parser = new SFMDirectoryParser(baseDir, fs);
-            Assert.That(parser.Validate() == SFMDirectoryParserError.NOT_LIKELY);
+            Assert.AreEqual(SFMDirectoryParserError.NOT_LIKELY, parser.Validate());
         }
 
-        [Test]
+        [TestMethod]
+        [TestCategory("SFMDirectoryParser")]
         public void IdentifyCorrectDirectory()
         {
             string baseDir = "C:\\SourceFilmmaker\\game";
@@ -48,7 +46,7 @@ namespace PonySFM_Desktop.Test
                 fs.AddFile(new MockFile(Path.Combine(baseDir, d), MockFileType.DIRECTORY));
             }
             var parser = new SFMDirectoryParser(baseDir, fs);
-            Assert.That(parser.Validate() == SFMDirectoryParserError.OK);
+            Assert.AreEqual(SFMDirectoryParserError.OK, parser.Validate());
         }
     }
 }

@@ -37,7 +37,7 @@ namespace PonySFM_Desktop
         {
             get
             {
-                return global::System.IO.Path.GetFileName(_path);
+                return System.IO.Path.GetFileName(_path);
             }
         }
 

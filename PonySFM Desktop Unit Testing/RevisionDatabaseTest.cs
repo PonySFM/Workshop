@@ -1,48 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Xml;
 
 namespace PonySFM_Desktop.Test
 {
-    [TestFixture]
+    [TestClass]
     public class RevisionDatabaseTest
     {
         private string filepath;
         private string stubfile;
 
-        [SetUp]
+        [ClassInitialize]
         protected void Setup()
         {
             filepath = Path.Combine(Path.GetTempPath(), "ponysfmtest.xml");
             stubfile = Path.Combine(Path.GetTempPath(), "stubtest.xml");
         }
 
-        [Test]
+        [TestMethod]
+        [TestCategory("RevisionDatabase")]
         public void CreateDefaultDB()
         {
             var fs = new MockFileSystem();
             var db = new RevisionDatabase(filepath, fs);
-            Assert.True(fs.FileExists(filepath));
+            Assert.IsTrue(fs.FileExists(filepath));
 
             var doc = fs.OpenXML(filepath);
 
-            Assert.That(doc.HasChildNodes);
-            Assert.That(doc.FirstChild.Name == "PonySFM");
-            Assert.That(!doc.FirstChild.HasChildNodes);
+            Assert.IsTrue(doc.HasChildNodes);
+            Assert.IsTrue(doc.FirstChild.Name == "PonySFM");
+            Assert.IsTrue(!doc.FirstChild.HasChildNodes);
         }
 
-        [Test]
+        [TestMethod]
+        [TestCategory("RevisionDatabase")]
         public void PopulateData()
         {
             var fs = new MockFileSystem();
             fs.CreateFile(stubfile);
             var db = new RevisionDatabase(filepath, fs);
-            Assert.True(fs.FileExists(filepath));
+            Assert.IsTrue(fs.FileExists(filepath));
 
             for (int i = 0; i < 5; i ++)
                 db.Revisions.Add(CreateStubRevision());
@@ -51,23 +50,25 @@ namespace PonySFM_Desktop.Test
 
             var doc = fs.OpenXML(filepath);
 
-            Assert.That(doc.HasChildNodes);
-            Assert.That(doc.FirstChild.Name == "PonySFM");
-            Assert.That(doc.FirstChild.HasChildNodes);
-            Assert.That(doc.FirstChild.ChildNodes.Count == 5);
+            Assert.IsTrue(doc.HasChildNodes);
+            Assert.IsTrue(doc.FirstChild.Name == "PonySFM");
+            Assert.IsTrue(doc.FirstChild.HasChildNodes);
+            Assert.IsTrue(doc.FirstChild.ChildNodes.Count == 5);
 
             foreach (XmlElement elem in doc.FirstChild.ChildNodes)
             {
-                Assert.That(elem.HasAttribute("ID"));
-                Assert.That(elem.HasChildNodes);
+                Assert.IsTrue(elem.HasAttribute("ID"));
+                Assert.IsTrue(elem.HasChildNodes);
 
                 foreach (XmlElement fileElem in elem.ChildNodes)
                 {
-                    Assert.That(fileElem.GetAttribute("Location") == stubfile);
+                    Assert.IsTrue(fileElem.GetAttribute("Location") == stubfile);
                 }
             }
         }
 
+        [TestMethod]
+        [TestCategory("RevisionDatabase")]
         private Revision CreateStubRevision()
         {
             var r = new Random();
