@@ -150,7 +150,7 @@ namespace PonySFM_Desktop
             {
                 XmlElement fileElem = doc.CreateElement("File");
                 fileElem.SetAttribute("Location", file);
-                fileElem.SetAttribute("SHA512", FileUtil.GetChecksum(file));
+                //fileElem.SetAttribute("SHA512", FileUtil.GetChecksum(file));
 
                 revisionElem.AppendChild(fileElem);
             }
@@ -412,6 +412,7 @@ namespace PonySFM_Desktop
                     Console.Write("Testing " + location + "... ");
                     Logger.Log("Testing file " + location + "\n");
                     string checksum = null;
+                    /*
                     if(File.Exists(location) && (checksum = FileUtil.GetChecksum(location)) == sha512)
                     {
                         Console.WriteLine("OK");
@@ -427,6 +428,7 @@ namespace PonySFM_Desktop
                         }
                         failures++;
                     }
+                    */
 
                     Logger.Log("Computed hash: " + checksum + "\n");
                     Logger.Log("Expected hash: " + sha512 + "\n");

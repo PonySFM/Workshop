@@ -81,6 +81,7 @@
     <Compile Include="ModManager.cs" />
     <Compile Include="Revision.cs" />
     <Compile Include="RevisionDatabase.cs" />
+    <Compile Include="RevisionManager.cs" />
     <Compile Include="SetupDirectory.xaml.cs">
       <DependentUpon>SetupDirectory.xaml</DependentUpon>
     </Compile>
@@ -95,6 +96,7 @@
     <Compile Include="Test\ConfigFileTest.cs" />
     <Compile Include="Test\ConfigParserTest.cs" />
     <Compile Include="Test\RevisionDatabaseTest.cs" />
+    <Compile Include="Test\RevisionManagerTest.cs" />
     <Compile Include="Test\SFMDirectoryParserTest.cs" />
     <Compile Include="WindowsFileSystem.cs" />
     <Page Include="AboutDialog.xaml">

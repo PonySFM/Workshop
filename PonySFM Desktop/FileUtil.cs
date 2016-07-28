@@ -6,14 +6,11 @@ namespace PonySFM_Desktop
 {
     public class FileUtil
     {
-        public static string GetChecksum(string file)
+        public static string GetChecksum(Stream stream)
         {
-            using (FileStream stream = File.OpenRead(file))
-            {
-                var sha = new SHA256Managed();
-                byte[] checksum = sha.ComputeHash(stream);
-                return BitConverter.ToString(checksum).Replace("-", String.Empty);
-            }
+            var sha = new SHA256Managed();
+            byte[] checksum = sha.ComputeHash(stream);
+            return BitConverter.ToString(checksum).Replace("-", String.Empty);
         }
     }
 }

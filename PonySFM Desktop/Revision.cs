@@ -31,14 +31,14 @@ namespace PonySFM_Desktop
             return new Revision(id, files);
         }
 
-        public XmlElement ToXML(XmlDocument doc)
+        public XmlElement ToXML(XmlDocument doc, IFileSystem fs)
         {
             var elem = doc.CreateElement("Revision");
             elem.SetAttribute("ID", ID.ToString());
             foreach (var file in Files)
             {
                 var fileElem = doc.CreateElement("File");
-                fileElem.SetAttribute("SHA512", FileUtil.GetChecksum(file));
+                fileElem.SetAttribute("SHA512", fs.GetChecksum(file));
                 fileElem.SetAttribute("Location", file);
                 elem.AppendChild(fileElem);
             }

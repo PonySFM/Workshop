@@ -20,28 +20,16 @@ namespace PonySFM_Desktop.Test
         {
             filepath = Path.Combine(Path.GetTempPath(), "ponysfmtest.xml");
             stubfile = Path.Combine(Path.GetTempPath(), "stubtest.xml");
-
-            File.Create(stubfile).Close();
-        }
-
-        [TearDown]
-        protected void Cleanup()
-        {
-            if (File.Exists(filepath))
-                File.Delete(filepath);
-
-            if (File.Exists(stubfile))
-                File.Delete(stubfile);
         }
 
         [Test]
         public void CreateDefaultDB()
         {
-            var db = new RevisionDatabase(filepath);
-            Assert.True(File.Exists(filepath));
+            var fs = new MockFileSystem();
+            var db = new RevisionDatabase(filepath, fs);
+            Assert.True(fs.FileExists(filepath));
 
-            var doc = new XmlDocument();
-            doc.Load(filepath);
+            var doc = fs.OpenXML(filepath);
 
             Assert.That(doc.HasChildNodes);
             Assert.That(doc.FirstChild.Name == "PonySFM");
@@ -51,16 +39,17 @@ namespace PonySFM_Desktop.Test
         [Test]
         public void PopulateData()
         {
-            var db = new RevisionDatabase(filepath);
-            Assert.True(File.Exists(filepath));
+            var fs = new MockFileSystem();
+            fs.CreateFile(stubfile);
+            var db = new RevisionDatabase(filepath, fs);
+            Assert.True(fs.FileExists(filepath));
 
             for (int i = 0; i < 5; i ++)
                 db.Revisions.Add(CreateStubRevision());
 
-            db.WriteDB();
+            db.WriteDBDisk();
 
-            var doc = new XmlDocument();
-            doc.Load(filepath);
+            var doc = fs.OpenXML(filepath);
 
             Assert.That(doc.HasChildNodes);
             Assert.That(doc.FirstChild.Name == "PonySFM");
@@ -84,7 +73,7 @@ namespace PonySFM_Desktop.Test
             var r = new Random();
             int id = r.Next(1000);
             List<string> files = new List<string>();
-            for(int i = 0; i < r.Next(10); i++)
+            for(int i = 1; i < r.Next(10); i++)
             {
                 files.Add(stubfile);
             }

@@ -12,6 +12,7 @@ namespace PonySFM_Desktop
     {
         private List<Revision> _revisions = new List<Revision>();
         private string _filepath;
+        private IFileSystem _fs;
 
         public List<Revision> Revisions
         {
@@ -33,35 +34,45 @@ namespace PonySFM_Desktop
             }
         }
 
-        public RevisionDatabase(string filepath)
+        public RevisionDatabase(string filepath, IFileSystem fs)
         {
             _filepath = filepath;
+            _fs = fs;
 
-            if(!File.Exists(_filepath))
-                WriteDB();
+            if(!fs.FileExists(filepath))
+                WriteDBDisk();
         }
 
-        public void RefreshData()
+        public void RefreshData(XmlDocument doc)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(_filepath);
-
             foreach(XmlElement elem in doc.FirstChild.ChildNodes)
             {
                 _revisions.Add(Revision.CreateFromXML(elem));
             }
         }
 
-        public void WriteDB()
+        public void RefreshDataDisk()
+        {
+            var doc = _fs.OpenXML(_filepath);
+            RefreshData(doc);
+        }
+
+        public XmlDocument WriteDB()
         {
             XmlDocument doc = new XmlDocument();
             var root = doc.CreateElement("PonySFM");
 
             foreach (var revision in _revisions)
-                root.AppendChild(revision.ToXML(doc));
+                root.AppendChild(revision.ToXML(doc, _fs));
 
             doc.AppendChild(root);
-            doc.Save(_filepath);
+            return doc;
+        }
+
+        public void WriteDBDisk()
+        {
+            var doc = WriteDB();
+            _fs.SaveXML(doc, _filepath);
         }
     }
 }
