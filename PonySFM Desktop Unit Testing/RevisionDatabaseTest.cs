@@ -13,7 +13,7 @@ namespace PonySFM_Desktop.Test
         private static string stubfile;
 
         [ClassInitialize]
-        protected static void Setup()
+        public static void Setup(TestContext context)
         {
             filepath = Path.Combine(Path.GetTempPath(), "ponysfmtest.xml");
             stubfile = Path.Combine(Path.GetTempPath(), "stubtest.xml");
