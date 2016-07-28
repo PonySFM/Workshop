@@ -9,11 +9,11 @@ namespace PonySFM_Desktop.Test
     [TestClass]
     public class RevisionDatabaseTest
     {
-        private string filepath;
-        private string stubfile;
+        private static string filepath;
+        private static string stubfile;
 
         [ClassInitialize]
-        protected void Setup()
+        protected static void Setup()
         {
             filepath = Path.Combine(Path.GetTempPath(), "ponysfmtest.xml");
             stubfile = Path.Combine(Path.GetTempPath(), "stubtest.xml");
