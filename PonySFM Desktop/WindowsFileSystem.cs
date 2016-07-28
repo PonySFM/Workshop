@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace PonySFM_Desktop
@@ -24,7 +21,7 @@ namespace PonySFM_Desktop
         {
             get
             {
-                return global::System.IO.Path.GetFileName(_path);
+                return System.IO.Path.GetFileName(_path);
             }
         }
 

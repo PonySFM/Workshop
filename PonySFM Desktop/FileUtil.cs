@@ -10,7 +10,7 @@ namespace PonySFM_Desktop
         {
             var sha = new SHA256Managed();
             byte[] checksum = sha.ComputeHash(stream);
-            return BitConverter.ToString(checksum).Replace("-", String.Empty);
+            return BitConverter.ToString(checksum).Replace("-", string.Empty);
         }
     }
 }

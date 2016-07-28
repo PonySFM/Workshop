@@ -12,7 +12,13 @@ namespace PonySFM_Desktop
     {
         public static void Open()
         {
-            Trace.Listeners.Add(new TextWriterTraceListener(File.AppendText(Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "ponysfm_mod_manager.log"))));
+            Trace.Listeners.Add(
+                new TextWriterTraceListener(
+                    File.AppendText(
+                        Path.Combine(
+                            Path.GetDirectoryName(
+                                System.Reflection.Assembly.GetExecutingAssembly().Location),
+                            "ponysfm_mod_manager.log"))));
             Log("-- Logger started -- \n");
             Log("\n");
             Trace.AutoFlush = true;

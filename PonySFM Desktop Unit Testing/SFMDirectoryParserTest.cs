@@ -13,7 +13,7 @@ namespace PonySFM_Desktop.Test
             string baseDir = "C:\\SecretPlace\\";
             var fs = new MockFileSystem();
             var parser = new SFMDirectoryParser(baseDir, fs);
-            Assert.AreEqual(SFMDirectoryParserError.NOT_EXISTS, parser.Validate());
+            Assert.AreEqual(SFMDirectoryParserError.NotExists, parser.Validate());
         }
 
         [TestMethod]
@@ -29,7 +29,7 @@ namespace PonySFM_Desktop.Test
                 fs.AddFile(new MockFile(Path.Combine(baseDir, d), MockFileType.Directory));
             }
             var parser = new SFMDirectoryParser(baseDir, fs);
-            Assert.AreEqual(SFMDirectoryParserError.NOT_LIKELY, parser.Validate());
+            Assert.AreEqual(SFMDirectoryParserError.NotLikely, parser.Validate());
         }
 
         [TestMethod]

@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-
-namespace PonySFM_Desktop
+﻿namespace PonySFM_Desktop
 {
     public enum SFMDirectoryParserError
     {
         OK,
-        NOT_EXISTS,
-        NOT_LIKELY,
+        NotExists,
+        NotLikely,
     }
 
     public class SFMDirectoryParser
@@ -72,10 +65,10 @@ namespace PonySFM_Desktop
         public SFMDirectoryParserError Validate()
         {
             if ((!_fs.DirectoryExists(_path)))
-                return SFMDirectoryParserError.NOT_EXISTS;
+                return SFMDirectoryParserError.NotExists;
 
             if (!HasCorrectSubDirs())
-                return SFMDirectoryParserError.NOT_LIKELY;
+                return SFMDirectoryParserError.NotLikely;
 
             return SFMDirectoryParserError.OK;
         }

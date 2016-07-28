@@ -322,7 +322,7 @@ namespace PonySFM_Desktop
 
         public static void DownloadAndInstall(int id)
         {
-            if(GetInstalledRevision(id) != null)
+            if (GetInstalledRevision(id) != null)
             {
                 bool uninstall = false;
                 Console.Write("Already installed! Uninstall? [y/n] ");
@@ -334,7 +334,7 @@ namespace PonySFM_Desktop
                         break;
                 }
 
-                if(uninstall)
+                if (uninstall)
                 {
                     UninstallRevision(id);
                     Console.WriteLine("Done!");
@@ -358,7 +358,7 @@ namespace PonySFM_Desktop
             {
                 webClient.DownloadFile(string.Format("{0}/rev/{1}/internal_download_redirect", ModManager.PonySFMURL, id), tmpFile);
             }
-            catch(WebException e)
+            catch (WebException e)
             {
                 Console.WriteLine("Failed to download: "+e.Message);
                 Logger.Log("Failed to download " + e.Message +" \n");
@@ -442,15 +442,16 @@ namespace PonySFM_Desktop
             Logger.Log("Tested: "+tested+"\n");
             Logger.Log("Failed: "+failures+"\n");
 
-            if(failedRevisions.Count > 0)
+            if (failedRevisions.Count > 0)
             {
                 Console.Write("Reinstall all corrupt revisions? [y/n] ");
                 string input = Console.ReadLine();
 
                 bool reinstall = false;
 
-                switch(input.ToLower())
+                switch (input)
                 {
+                    case "Y":
                     case "y":
                         reinstall = true;
                         break;

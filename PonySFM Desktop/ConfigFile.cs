@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using System.Xml;
 
 namespace PonySFM_Desktop
 {
@@ -27,7 +22,7 @@ namespace PonySFM_Desktop
 
         public bool Equals(ConfigFile other)
         {
-            return other.SFMDirectoryPath == this.SFMDirectoryPath;
+            return other.SFMDirectoryPath == SFMDirectoryPath;
         }
     }
 }

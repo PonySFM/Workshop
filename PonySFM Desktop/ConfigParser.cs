@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using System.Xml;
 
 namespace PonySFM_Desktop
 {
@@ -44,7 +39,7 @@ namespace PonySFM_Desktop
 
         public ConfigFile Read(XmlDocument doc)
         {
-            if(doc.FirstChild != null)
+            if (doc.FirstChild != null)
             {
                 return ConfigFile.FromXML((XmlElement)doc.FirstChild);
             }
