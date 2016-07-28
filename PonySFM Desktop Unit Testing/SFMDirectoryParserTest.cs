@@ -22,11 +22,11 @@ namespace PonySFM_Desktop.Test
         {
             string baseDir = "C:\\AwesomeStuff\\";
             var fs = new MockFileSystem();
-            fs.AddFile(new MockFile(baseDir, MockFileType.DIRECTORY));
+            fs.AddFile(new MockFile(baseDir, MockFileType.Directory));
             string[] subDirs = { "Ponies", "NSFWStuff" };
             foreach (var d in subDirs)
             {
-                fs.AddFile(new MockFile(Path.Combine(baseDir, d), MockFileType.DIRECTORY));
+                fs.AddFile(new MockFile(Path.Combine(baseDir, d), MockFileType.Directory));
             }
             var parser = new SFMDirectoryParser(baseDir, fs);
             Assert.AreEqual(SFMDirectoryParserError.NOT_LIKELY, parser.Validate());
@@ -39,11 +39,11 @@ namespace PonySFM_Desktop.Test
             string baseDir = "C:\\SourceFilmmaker\\game";
             var fs = new MockFileSystem();
             /* Create a fake default SFM installation */
-            fs.AddFile(new MockFile(baseDir, MockFileType.DIRECTORY));
+            fs.AddFile(new MockFile(baseDir, MockFileType.Directory));
             string[] subDirs = { "bin", "hl2", "left4dead2_movies", "platform", "sdktools", "tf", "tf_movies", "usermod" };
             foreach (var d in subDirs)
             {
-                fs.AddFile(new MockFile(Path.Combine(baseDir, d), MockFileType.DIRECTORY));
+                fs.AddFile(new MockFile(Path.Combine(baseDir, d), MockFileType.Directory));
             }
             var parser = new SFMDirectoryParser(baseDir, fs);
             Assert.AreEqual(SFMDirectoryParserError.OK, parser.Validate());

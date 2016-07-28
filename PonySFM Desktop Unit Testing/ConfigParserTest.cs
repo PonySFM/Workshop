@@ -16,7 +16,7 @@ namespace PonySFM_Desktop.Test
             var configParser = new ConfigParser(configLocation, fs);
 
             Assert.IsFalse(configParser.Exists());
-            fs.AddFile(new MockFile("C:\\ponysfm\\config.xml", MockFileType.FILE));
+            fs.AddFile(new MockFile("C:\\ponysfm\\config.xml", MockFileType.File));
             Assert.IsTrue(configParser.Exists());
         }
 

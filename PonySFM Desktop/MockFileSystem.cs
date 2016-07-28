@@ -10,8 +10,7 @@ namespace PonySFM_Desktop
 {
     public enum MockFileType
     {
-        FILE,
-        DIRECTORY,
+        File, Directory,
     }
 
     public class MockFile : IFile
@@ -76,12 +75,12 @@ namespace PonySFM_Desktop
 
         public bool IsDirectory()
         {
-            return _fileType == MockFileType.DIRECTORY;
+            return _fileType == MockFileType.Directory;
         }
 
         public bool IsFile()
         {
-            return _fileType == MockFileType.FILE;
+            return _fileType == MockFileType.File;
         }
     }
 
@@ -103,12 +102,12 @@ namespace PonySFM_Desktop
 
         public bool DirectoryExists(string path)
         {
-            return EntryExists(path, MockFileType.DIRECTORY);
+            return EntryExists(path, MockFileType.Directory);
         }
 
         public bool FileExists(string path)
         {
-            return EntryExists(path, MockFileType.FILE);
+            return EntryExists(path, MockFileType.File);
         }
 
         public void AddFile(MockFile file)
@@ -136,6 +135,20 @@ namespace PonySFM_Desktop
             return null;
         }
 
+        public IEnumerable<MockFile> GetEntries(string path)
+        {
+            foreach (var file in files)
+            {
+                if (file.Path == path)
+                    yield return file;
+            }
+        }
+
+        public void DeleteEntry(MockFile item)
+        {
+            files.Remove(item);
+        }
+
         public void DeleteEntry(string path)
         {
             foreach (var file in files)
@@ -151,19 +164,19 @@ namespace PonySFM_Desktop
         /* TODO: should overwrite be default behaviour? */
         public void CreateFile(string path, byte[] data = null)
         {
-            if (EntryExists(path, MockFileType.FILE))
+            if (EntryExists(path, MockFileType.File))
                 DeleteEntry(path);
-            AddFile(new MockFile(path, MockFileType.FILE, data));
+            AddFile(new MockFile(path, MockFileType.File, data));
         }
 
         public void CreateDirectory(string path)
         {
-            AddFile(new MockFile(path, MockFileType.DIRECTORY, null));
+            AddFile(new MockFile(path, MockFileType.Directory, null));
         }
 
         public byte[] ReadFile(string path)
         {
-            if (!EntryExists(path, MockFileType.FILE))
+            if (!EntryExists(path, MockFileType.File))
                 return null;
 
             return GetEntry(path).Data;
@@ -195,15 +208,9 @@ namespace PonySFM_Desktop
         public string GetChecksum(string filepath)
         {
             var data = ReadFile(filepath);
-            if (data == null)
-            {
-                return string.Empty;
-            }
-            else
-            {
-                var stream = new MemoryStream(data);
-                return FileUtil.GetChecksum(stream);
-            }
+
+            return data == null ?
+                string.Empty : FileUtil.GetChecksum(new MemoryStream(data));
         }
 
         public List<IFile> GetFiles(string dir)

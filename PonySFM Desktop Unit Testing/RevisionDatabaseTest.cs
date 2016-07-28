@@ -38,9 +38,9 @@ namespace PonySFM_Desktop.Test
         [TestCategory("RevisionDatabase")]
         public void PopulateData()
         {
-            var fs = new MockFileSystem();
+            MockFileSystem fs = new MockFileSystem();
             fs.CreateFile(stubfile);
-            var db = new RevisionDatabase(filepath, fs);
+            RevisionDatabase db = new RevisionDatabase(filepath, fs);
             Assert.IsTrue(fs.FileExists(filepath));
 
             for (int i = 0; i < 5; i ++)
@@ -48,7 +48,7 @@ namespace PonySFM_Desktop.Test
 
             db.WriteDBDisk();
 
-            var doc = fs.OpenXML(filepath);
+            XmlDocument doc = fs.OpenXML(filepath);
 
             Assert.IsTrue(doc.HasChildNodes);
             Assert.IsTrue(doc.FirstChild.Name == "PonySFM");
