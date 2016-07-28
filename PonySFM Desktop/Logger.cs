@@ -15,12 +15,12 @@ namespace PonySFM_Desktop
             Trace.Listeners.Add(new TextWriterTraceListener(File.AppendText(Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "ponysfm_mod_manager.log"))));
             Log("-- Logger started -- \n");
             Log("\n");
+            Trace.AutoFlush = true;
         }
 
         public static void Log(string log)
         {
             Trace.WriteLine("["+DateTime.Now.ToString()+"] " + log);
-            Trace.Flush();
         }
     }
 }

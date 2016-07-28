@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Xml;
 using System.Windows;
-using System.Security.Cryptography;
-using System.Web;
 using Ionic.Zip;
 using WinForms = System.Windows.Forms;
 using System.Net;
@@ -32,7 +28,7 @@ namespace PonySFM_Desktop
             if (dialog.ShowDialog() == WinForms.DialogResult.OK)
                 return dialog.SelectedPath;
             else
-                return "";
+                return string.Empty;
         }
 
         static void RelocateSFMDirectory()
