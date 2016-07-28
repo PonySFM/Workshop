@@ -39,8 +39,22 @@ namespace PonySFM_Desktop
             _filepath = filepath;
             _fs = fs;
 
-            if(!fs.FileExists(filepath))
+            if (!fs.FileExists(filepath))
                 WriteDBDisk();
+            else
+                RefreshDataDisk();
+        }
+
+        public void AddToDB(Revision revision)
+        {
+            _revisions.Add(revision);
+        }
+
+        internal void RemoveRevision(int id)
+        {
+            var revision = _revisions.Find(r => r.ID == id);
+            if (revision != null)
+                _revisions.Remove(revision);
         }
 
         public void RefreshData(XmlDocument doc)

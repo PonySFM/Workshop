@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace PonySFM_Desktop
 {
-    public interface IFile
+    interface IAPIConnector
     {
-        string Path { get; }
-        string Name { get; }
-        bool IsDirectory();
-        bool IsFile();
+        int FetchCurrentVersion();
+        Task DownloadRevisionZIP(int id, string filepath);
     }
 }

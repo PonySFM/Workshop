@@ -8,8 +8,49 @@ using System.Xml;
 
 namespace PonySFM_Desktop
 {
+    public class WindowsFile : IFile
+    {
+        string _path;
+
+        public string Path
+        {
+            get
+            {
+                return _path;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return global::System.IO.Path.GetFileName(_path);
+            }
+        }
+
+        public WindowsFile(string path)
+        {
+            _path = path;
+        }
+
+        public bool IsDirectory()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsFile()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class WindowsFileSystem : IFileSystem
     {
+        public void CopyFile(string src, string dest)
+        {
+            File.Copy(src, dest);
+        }
+
         public void CreateDirectory(string path)
         {
             Directory.CreateDirectory(path);
@@ -38,6 +79,32 @@ namespace PonySFM_Desktop
             return FileUtil.GetChecksum(stream);
         }
 
+        public List<IFile> GetFiles(string dir)
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(dir);
+            List<IFile> ret = new List<IFile>();
+
+            foreach (var file in dirInfo.GetFiles())
+            {
+                ret.Add(new WindowsFile(file.FullName));
+            }
+
+            return ret;
+        }
+
+        public List<IFile> GetDirectories(string dir)
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(dir);
+            List<IFile> ret = new List<IFile>();
+
+            foreach (var file in dirInfo.GetDirectories())
+            {
+                ret.Add(new WindowsFile(file.FullName));
+            }
+
+            return ret;
+        }
+
         public XmlDocument OpenXML(string filepath)
         {
             var doc = new XmlDocument();
@@ -49,6 +116,16 @@ namespace PonySFM_Desktop
         public void SaveXML(XmlDocument doc, string filepath)
         {
             doc.Save(filepath);
+        }
+
+        public void DeleteFile(string filepath)
+        {
+            File.Delete(filepath);
+        }
+
+        public void DeleteDirectory(string filepath)
+        {
+            Directory.Delete(filepath);
         }
     }
 }

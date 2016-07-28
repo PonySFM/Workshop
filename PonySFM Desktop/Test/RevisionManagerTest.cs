@@ -11,6 +11,7 @@ namespace PonySFM_Desktop.Test
     public class RevisionManagerTest
     {
         private string dir = "C:\\SFM";
+
         [Test]
         public void CreatesDirectory()
         {
@@ -21,5 +22,6 @@ namespace PonySFM_Desktop.Test
 
             Assert.That(fs.DirectoryExists(dir));
         }
+
     }
 }

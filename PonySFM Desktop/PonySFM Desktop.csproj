@@ -70,7 +70,10 @@
     <Compile Include="CookedWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DirectoryCopier.cs" />
+    <Compile Include="DirectoryCopierFileExistsEventArgs.cs" />
     <Compile Include="FileUtil.cs" />
+    <Compile Include="IAPIConnector.cs" />
     <Compile Include="IFile.cs" />
     <Compile Include="IFileSystem.cs" />
     <Compile Include="InstallationWindow.xaml.cs">
@@ -79,6 +82,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="MockFileSystem.cs" />
     <Compile Include="ModManager.cs" />
+    <Compile Include="PonySFMAPIConnector.cs" />
     <Compile Include="Revision.cs" />
     <Compile Include="RevisionDatabase.cs" />
     <Compile Include="RevisionManager.cs" />
@@ -95,6 +99,8 @@
     <Compile Include="SFMDirectoryParser.cs" />
     <Compile Include="Test\ConfigFileTest.cs" />
     <Compile Include="Test\ConfigParserTest.cs" />
+    <Compile Include="Test\DirectoryCopierTest.cs" />
+    <Compile Include="Test\MockFileSystemTest.cs" />
     <Compile Include="Test\RevisionDatabaseTest.cs" />
     <Compile Include="Test\RevisionManagerTest.cs" />
     <Compile Include="Test\SFMDirectoryParserTest.cs" />

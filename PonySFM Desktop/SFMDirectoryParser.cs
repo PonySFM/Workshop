@@ -29,12 +29,44 @@ namespace PonySFM_Desktop
             }
         }
 
+        public string GameinfoPath
+        {
+            get
+            {
+                return _gameinfoPath;
+            }
+
+            set
+            {
+                _gameinfoPath = value;
+            }
+        }
+
+        public string InstallationPath
+        {
+            get
+            {
+                return _installationPath;
+            }
+
+            set
+            {
+                _installationPath = value;
+            }
+        }
+
         public SFMDirectoryParser(string filepath, IFileSystem fs)
         {
             _path = filepath;
             _fs = fs;
-            _gameinfoPath = System.IO.Path.Combine(_path, "usermod", "gameinfo");
-            _installationPath = System.IO.Path.Combine(_path, "ponysfm");
+            GameinfoPath = System.IO.Path.Combine(_path, "usermod", "gameinfo");
+            InstallationPath = System.IO.Path.Combine(_path, "ponysfm");
+        }
+
+        public void CreateDirectories()
+        {
+            if (!_fs.DirectoryExists(InstallationPath))
+                _fs.CreateDirectory(InstallationPath);
         }
 
         public SFMDirectoryParserError Validate()
