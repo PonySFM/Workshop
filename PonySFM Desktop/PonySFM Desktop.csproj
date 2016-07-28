@@ -65,6 +65,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Config.cs" />
+    <Compile Include="ConfigFile.cs" />
+    <Compile Include="ConfigParser.cs" />
     <Compile Include="CookedWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -90,6 +92,8 @@
     </Compile>
     <Compile Include="SFM.cs" />
     <Compile Include="SFMDirectoryParser.cs" />
+    <Compile Include="Test\ConfigFileTest.cs" />
+    <Compile Include="Test\ConfigParserTest.cs" />
     <Compile Include="Test\RevisionDatabaseTest.cs" />
     <Compile Include="Test\SFMDirectoryParserTest.cs" />
     <Compile Include="WindowsFileSystem.cs" />
