@@ -35,6 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetZip, Version=1.10.1.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -57,7 +65,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Config.cs" />
+    <Compile Include="CookedWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FileUtil.cs" />
+    <Compile Include="IFile.cs" />
+    <Compile Include="IFileSystem.cs" />
+    <Compile Include="InstallationWindow.xaml.cs">
+      <DependentUpon>InstallationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logger.cs" />
+    <Compile Include="MockFileSystem.cs" />
+    <Compile Include="ModManager.cs" />
     <Compile Include="Revision.cs" />
+    <Compile Include="RevisionDatabase.cs" />
     <Compile Include="SetupDirectory.xaml.cs">
       <DependentUpon>SetupDirectory.xaml</DependentUpon>
     </Compile>
@@ -68,7 +89,15 @@
       <DependentUpon>SetupWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SFM.cs" />
+    <Compile Include="SFMDirectoryParser.cs" />
+    <Compile Include="Test\RevisionDatabaseTest.cs" />
+    <Compile Include="Test\SFMDirectoryParserTest.cs" />
+    <Compile Include="WindowsFileSystem.cs" />
     <Page Include="AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InstallationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -118,6 +147,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -129,6 +159,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="banner.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
