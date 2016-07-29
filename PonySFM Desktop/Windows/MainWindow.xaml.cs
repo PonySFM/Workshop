@@ -27,7 +27,7 @@ namespace PonySFM_Desktop
             InitializeComponent();
 
             _installedRevisions.Add(new Revision(2, null));
-            dataGrid.DataContext = _installedRevisions;
+            dataGrid.DataContext = this;
         }
 
         public List<Revision> _installedRevisions = new List<Revision>();

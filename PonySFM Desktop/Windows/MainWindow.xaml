@@ -22,7 +22,7 @@
                 <Button Name="btnUninstall" Margin="0,0,10,0">Uninstall</Button>
                 <Button Name="btnVerify" Margin="0,0,10,0">Verify</Button>
             </StackPanel>
-            <DataGrid Name="dataGrid" AutoGenerateColumns="False" Height="250" Margin="0,10,-0.333,0">
+            <DataGrid Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" AutoGenerateColumns="False" Height="250" Margin="0,10,-0.333,0">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="ID" Width="SizeToCells" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
