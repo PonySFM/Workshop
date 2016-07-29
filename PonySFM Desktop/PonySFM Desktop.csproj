@@ -69,7 +69,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Source\DirectoryCopier.cs" />
-    <Compile Include="Source\DirectoryCopierFileExistsEventArgs.cs" />
     <Compile Include="Source\FileUtil.cs" />
     <Compile Include="Source\IAPIConnector.cs" />
     <Compile Include="Source\IFile.cs" />

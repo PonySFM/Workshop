@@ -3,6 +3,7 @@
 namespace PonySFM_Desktop
 {
     /* TODO: instead of just accepting one string as param this class should hold a list of attributes with a dictionary */
+    // There is nothing wrong with holding a path with a string type.
     public class ConfigFile
     {
         public string SFMDirectoryPath { get; set; }

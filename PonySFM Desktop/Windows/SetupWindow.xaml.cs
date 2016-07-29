@@ -43,6 +43,8 @@ namespace PonySFM_Desktop
             /* Order matters here */
             pages.Add(new SetupGreeting());
             /* TODO: where to put config? Global var? */
+            /// Settings could be a public static variable in <see cref="ConfigHandler"/> or another
+            /// represented class, such as Settings.
             pages.Add(new SetupDirectory(new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance)));
         }
 

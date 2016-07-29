@@ -10,6 +10,7 @@ namespace PonySFM_Desktop
         File, Directory,
     }
 
+    //TODO: Consider using FileInfo, since it covers both directories and files.
     public class MockFile : IFile
     {
         private string _path;
@@ -81,6 +82,8 @@ namespace PonySFM_Desktop
         }
     }
 
+    //TODO: Optimize MockFileSystem.
+    // Simply because I think quite a bit could be optimized.
     public class MockFileSystem : IFileSystem
     {
         private List<MockFile> files = new List<MockFile>();
@@ -88,7 +91,7 @@ namespace PonySFM_Desktop
         /* TODO: should overwrite be default behaviour? */
         public void CopyFile(string src, string dest)
         {
-            var file = GetEntry(src);
+            var file = GetEntryByPath(src);
             if (file != null)
             {
                 var copy = new MockFile(dest, file.FileType, file.Data);
@@ -122,7 +125,17 @@ namespace PonySFM_Desktop
             return false;
         }
 
-        public MockFile GetEntry(string path)
+        /// <summary>
+        /// Verifies if an entry exists within the file list.
+        /// </summary>
+        /// <param name="file">Entry file.</param>
+        /// <returns>Returns true if found.</returns>
+        private bool EntryExists(MockFile file)
+        {
+            return files.Contains(file);
+        }
+
+        public MockFile GetEntryByPath(string path)
         {
             foreach (var file in files)
             {
@@ -176,7 +189,7 @@ namespace PonySFM_Desktop
             if (!EntryExists(path, MockFileType.File))
                 return null;
 
-            return GetEntry(path).Data;
+            return GetEntryByPath(path).Data;
         }
 
         public XmlDocument OpenXML(string filepath)
@@ -244,6 +257,49 @@ namespace PonySFM_Desktop
             }
 
             return ret;
+        }
+
+        /// <summary>
+        /// Get an <see cref="IEnumerable{T}"/> of files within the specified directory.
+        /// </summary>
+        /// <param name="dir">Directory path.</param>
+        /// <returns>A file enumeration.</returns>
+        /// <remarks>
+        /// Named GetFileEnumeration to not to break comptability with <see cref="GetFiles(string)"/>
+        /// </remarks>
+        public IEnumerable<IFile> GetFileEnumeration(string dir)
+        {
+            if (!dir.EndsWith("\\"))
+                dir = dir + "\\";
+
+            foreach (var file in files)
+            {
+                if (file.IsFile() && file.Path.StartsWith(dir) &&
+                    !file.Path.Trim(dir.ToCharArray()).Contains("\\"))
+                {
+                    yield return file;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get an <see cref="IEnumerable{T}"/> of directories within the specified directory.
+        /// </summary>
+        /// <param name="dir">Directory path.</param>
+        /// <returns>A directory enumeration.</returns>
+        public IEnumerable<IFile> GetDirectoryEnumeration(string dir)
+        {
+            if (!dir.EndsWith("\\"))
+                dir = dir + "\\";
+
+            foreach (var file in files)
+            {
+                if (file.IsDirectory() && file.Path.StartsWith(dir) &&
+                    !file.Path.Trim(dir.ToCharArray()).Contains("\\"))
+                {
+                    yield return file;
+                }
+            }
         }
 
         public void DeleteFile(string filepath)
