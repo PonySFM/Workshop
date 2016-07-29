@@ -67,6 +67,9 @@ namespace PonySFM_Desktop
             {
                 if (!_fs.FileExists(file.Path))
                     return false;
+
+                if (_fs.GetChecksum(file.Path) != file.Sha512)
+                    return false;
             }
 
             return true;

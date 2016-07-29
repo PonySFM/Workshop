@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace PonySFM_Desktop.Test
 {
@@ -17,6 +18,35 @@ namespace PonySFM_Desktop.Test
             var revisionManager = new RevisionManager(configFile, fs);
 
             Assert.IsTrue(fs.DirectoryExists(dir));
+        }
+
+        [TestMethod]
+        [TestCategory("RevisionManager")]
+        public void InstallsRevisionCorrectly()
+        {
+            var configFile = new ConfigFile();
+            configFile.SFMDirectoryPath = dir;
+            var fs = new MockFileSystem();
+            var revisionManager = new RevisionManager(configFile, fs);
+
+            fs.CreateDirectory("C:\\SFM");
+            fs.CreateDirectory("C:\\SFM\\ponysfm");
+
+            fs.CreateDirectory("C:\\tmp");
+            fs.CreateDirectory("C:\\tmp\\models");
+            fs.CreateFile("C:\\tmp\\models\\pony.vtf");
+
+            fs.CreateDirectory("C:\\tmp\\materials");
+            fs.CreateFile("C:\\tmp\\pony.vmt");
+
+            var files = new List<RevisionFileEntry>();
+            files.Add(RevisionFileEntry.FromFile("C:\\tmp\\models\\pony.vtf", fs));
+            files.Add(RevisionFileEntry.FromFile("C:\\tmp\\materials\\pony.vtf", fs));
+
+            var revision = new Revision(1, files);
+
+            revisionManager.InstallRevision(revision, "C:\\tmp");
+            Assert.IsTrue(revisionManager.VerifyInstalled(revision));
         }
     }
 }
