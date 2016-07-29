@@ -64,46 +64,46 @@
     <Compile Include="Source\Config.cs" />
     <Compile Include="Source\ConfigFile.cs" />
     <Compile Include="Source\ConfigParser.cs" />
-    <Compile Include="CookedWebClient.cs">
+    <Compile Include="Controls\CookedWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DirectoryCopier.cs" />
-    <Compile Include="DirectoryCopierFileExistsEventArgs.cs" />
-    <Compile Include="FileUtil.cs" />
-    <Compile Include="IAPIConnector.cs" />
-    <Compile Include="IFile.cs" />
-    <Compile Include="IFileSystem.cs" />
-    <Compile Include="InstallationWindow.xaml.cs">
+    <Compile Include="Source\DirectoryCopier.cs" />
+    <Compile Include="Source\DirectoryCopierFileExistsEventArgs.cs" />
+    <Compile Include="Source\FileUtil.cs" />
+    <Compile Include="Source\IAPIConnector.cs" />
+    <Compile Include="Source\IFile.cs" />
+    <Compile Include="Source\IFileSystem.cs" />
+    <Compile Include="Windows\InstallationWindow.xaml.cs">
       <DependentUpon>InstallationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Logger.cs" />
-    <Compile Include="MockFileSystem.cs" />
-    <Compile Include="ModManager.cs" />
-    <Compile Include="PonySFMAPIConnector.cs" />
-    <Compile Include="Revision.cs" />
-    <Compile Include="RevisionDatabase.cs" />
-    <Compile Include="RevisionManager.cs" />
-    <Compile Include="SetupDirectory.xaml.cs">
+    <Compile Include="Source\Logger.cs" />
+    <Compile Include="Source\MockFileSystem.cs" />
+    <Compile Include="Source\ModManager.cs" />
+    <Compile Include="Source\PonySFMAPIConnector.cs" />
+    <Compile Include="Source\Revision.cs" />
+    <Compile Include="Source\RevisionDatabase.cs" />
+    <Compile Include="Source\RevisionManager.cs" />
+    <Compile Include="Windows\SetupDirectory.xaml.cs">
       <DependentUpon>SetupDirectory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SetupGreeting.xaml.cs">
+    <Compile Include="Windows\SetupGreeting.xaml.cs">
       <DependentUpon>SetupGreeting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SetupWindow.xaml.cs">
+    <Compile Include="Windows\SetupWindow.xaml.cs">
       <DependentUpon>SetupWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SFM.cs" />
-    <Compile Include="SFMDirectoryParser.cs" />
-    <Compile Include="WindowsFileSystem.cs" />
+    <Compile Include="Source\SFM.cs" />
+    <Compile Include="Source\SFMDirectoryParser.cs" />
+    <Compile Include="Source\WindowsFileSystem.cs" />
     <Page Include="Windows\AboutDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="InstallationWindow.xaml">
+    <Page Include="Windows\InstallationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -114,19 +114,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SetupDirectory.xaml">
+    <Page Include="Windows\SetupDirectory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SetupGreeting.xaml">
+    <Page Include="Windows\SetupGreeting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SetupWindow.xaml">
+    <Page Include="Windows\SetupWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,7 +160,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="logo.png">
+    <Resource Include="Images\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -168,10 +168,11 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="banner.png">
+    <Resource Include="Images\banner.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
