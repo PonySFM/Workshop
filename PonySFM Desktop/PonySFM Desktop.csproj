@@ -61,9 +61,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Config.cs" />
-    <Compile Include="ConfigFile.cs" />
-    <Compile Include="ConfigParser.cs" />
+    <Compile Include="Source\Config.cs" />
+    <Compile Include="Source\ConfigFile.cs" />
+    <Compile Include="Source\ConfigParser.cs" />
     <Compile Include="CookedWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -95,7 +95,7 @@
     <Compile Include="SFM.cs" />
     <Compile Include="SFMDirectoryParser.cs" />
     <Compile Include="WindowsFileSystem.cs" />
-    <Page Include="AboutDialog.xaml">
+    <Page Include="Windows\AboutDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -107,7 +107,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AboutDialog.xaml.cs">
+    <Compile Include="Windows\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
