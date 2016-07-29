@@ -63,6 +63,7 @@
     </ApplicationDefinition>
     <Compile Include="Source\Config.cs" />
     <Compile Include="Source\ConfigFile.cs" />
+    <Compile Include="Source\ConfigHandler.cs" />
     <Compile Include="Source\ConfigParser.cs" />
     <Compile Include="Controls\CookedWebClient.cs">
       <SubType>Component</SubType>

@@ -12,8 +12,7 @@ namespace PonySFM_Desktop.Test
         [TestCategory("RevisionManager")]
         public void CreatesDirectory()
         {
-            var configFile = new ConfigFile();
-            configFile.SFMDirectoryPath = dir;
+            var configFile = new ConfigFile(dir);
             var fs = new MockFileSystem();
             var revisionManager = new RevisionManager(configFile, fs);
 
@@ -24,8 +23,7 @@ namespace PonySFM_Desktop.Test
         [TestCategory("RevisionManager")]
         public void InstallsRevisionCorrectly()
         {
-            var configFile = new ConfigFile();
-            configFile.SFMDirectoryPath = dir;
+            var configFile = new ConfigFile(dir);
             var fs = new MockFileSystem();
             var revisionManager = new RevisionManager(configFile, fs);
 

@@ -6,28 +6,13 @@ namespace PonySFM_Desktop.Test
     [TestClass]
     public class ConfigParserTest
     {
-        string configLocation = "C:\\ponysfm\\config.xml";
-
-        [TestMethod]
-        [TestCategory("ConfigParser")]
-        public void ChecksForExistenceCorrectly()
-        {
-            var fs = new MockFileSystem();
-            var configParser = new ConfigParser(configLocation, fs);
-
-            Assert.IsFalse(configParser.Exists());
-            fs.AddFile(new MockFile("C:\\ponysfm\\config.xml", MockFileType.File));
-            Assert.IsTrue(configParser.Exists());
-        }
-
         [TestMethod]
         [TestCategory("ConfigParser")]
         public void ParsesCorrectly()
         {
             var doc = new XmlDocument();
-            var configFile = new ConfigFile();
-            var configParser = new ConfigParser(configLocation, new MockFileSystem());
-            configFile.SFMDirectoryPath = "C:\\SFM";
+            var configFile = new ConfigFile("C:\\SFM");
+            var configParser = new ConfigParser(new MockFileSystem());
             doc.AppendChild(configFile.ToXML(doc));
 
             var parsedConfig = configParser.Read(doc);
@@ -40,9 +25,8 @@ namespace PonySFM_Desktop.Test
         [TestCategory("ConfigParser")]
         public void WritesCorrectly()
         {
-            var configFile = new ConfigFile();
-            configFile.SFMDirectoryPath = "C:\\SFM";
-            var configParser = new ConfigParser(configLocation, new MockFileSystem());
+            var configFile = new ConfigFile("C:\\SFM");
+            var configParser = new ConfigParser(new MockFileSystem());
             var doc = new XmlDocument();
 
             configParser.Write(configFile, doc);

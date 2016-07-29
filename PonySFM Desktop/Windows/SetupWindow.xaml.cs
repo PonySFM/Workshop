@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PonySFM_Desktop.Source;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -41,7 +42,8 @@ namespace PonySFM_Desktop
             InitializeComponent();
             /* Order matters here */
             pages.Add(new SetupGreeting());
-            pages.Add(new SetupDirectory());
+            /* TODO: where to put config? Global var? */
+            pages.Add(new SetupDirectory(new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance)));
         }
 
         public void SetPage(Page page)

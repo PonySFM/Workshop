@@ -10,8 +10,7 @@ namespace PonySFM_Desktop.Test
         [TestCategory("ConfigFile")]
         public void EnsureCorrectXMLParsing()
         {
-            var configFile = new ConfigFile();
-            configFile.SFMDirectoryPath = "C:\\Gaben";
+            var configFile = new ConfigFile("C:\\Gaben");
             var fakeDoc = new XmlDocument();
 
             var xml = configFile.ToXML(fakeDoc);

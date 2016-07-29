@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PonySFM_Desktop.Source;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,8 +23,11 @@ namespace PonySFM_Desktop
     /// </summary>
     public partial class SetupDirectory : Page
     {
-        public SetupDirectory()
+        private ConfigHandler _config;
+
+        public SetupDirectory(ConfigHandler config)
         {
+            _config = config;
             InitializeComponent();
         }
 
@@ -42,19 +46,21 @@ namespace PonySFM_Desktop
         private void BtnNext_Click(object sender, RoutedEventArgs e)
         {
             string dir = DirectoryPathBox.Text;
+            var parser = new SFMDirectoryParser(dir, WindowsFileSystem.Instance);
+            var error = parser.Validate();
 
-            if (!Directory.Exists(dir))
+            if (error == SFMDirectoryParserError.NotExists)
             {
                 MessageBox.Show("The path chosen is not a valid directory.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            if (!SFM.LikelyToBeSFMDir(dir))
+            if (error == SFMDirectoryParserError.NotLikely)
                 if (MessageBox.Show("The directory does not seem like the typical SFM installation. Continue?",
                     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.No)
                     return;
 
-            SFM.SetDirectory(dir);
+            _config.Write(new ConfigFile(dir));
         }
 
         private void DirectoryPathBox_TextChanged(object sender, TextChangedEventArgs e)
