@@ -44,7 +44,7 @@ namespace PonySFM_Desktop.Test
             Assert.IsTrue(fs.FileExists(filepath));
 
             for (int i = 0; i < 5; i ++)
-                db.Revisions.Add(CreateStubRevision());
+                db.Revisions.Add(CreateStubRevision(fs));
 
             db.WriteDBDisk();
 
@@ -67,16 +67,14 @@ namespace PonySFM_Desktop.Test
             }
         }
 
-        [TestMethod]
-        [TestCategory("RevisionDatabase")]
-        private Revision CreateStubRevision()
+        private Revision CreateStubRevision(IFileSystem fs)
         {
             var r = new Random();
             int id = r.Next(1000);
-            List<string> files = new List<string>();
+            List<RevisionFileEntry> files = new List<RevisionFileEntry>();
             for(int i = 0; i < 5; i++)
             {
-                files.Add(stubfile);
+                files.Add(RevisionFileEntry.FromFile(stubfile, fs));
             }
 
             return new Revision(id, files);

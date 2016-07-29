@@ -4,12 +4,56 @@ using System.Xml;
 
 namespace PonySFM_Desktop
 {
+    public class RevisionFileEntry
+    {
+        string _path;
+        string _sha512;
+
+        public string Path
+        {
+            get
+            {
+                return _path;
+            }
+
+            set
+            {
+                _path = value;
+            }
+        }
+
+        public string Sha512
+        {
+            get
+            {
+                return _sha512;
+            }
+
+            set
+            {
+                _sha512 = value;
+            }
+        }
+
+        public RevisionFileEntry(string path, string sha256)
+        {
+            Path = path;
+            Sha512 = sha256;
+        }
+
+        public static RevisionFileEntry FromFile(string path, IFileSystem fs)
+        {
+            var checksum = fs.GetChecksum(path);
+            return new RevisionFileEntry(path, checksum);
+        }
+    }
+
     public class Revision
     {
         public int ID { get; set; }
-        public List<string> Files { get; set; }
+        public List<RevisionFileEntry> Files { get; set; }
 
-        public Revision(int id, List<string> files)
+        public Revision(int id, List<RevisionFileEntry> files)
         {
             ID = id;
             Files = files;
@@ -17,12 +61,12 @@ namespace PonySFM_Desktop
 
         public static Revision CreateFromXML(XmlElement elem)
         {
-            List<string> files = new List<string>();
+            List<RevisionFileEntry> files = new List<RevisionFileEntry>();
             int id = Convert.ToInt32(elem.GetAttribute("ID"));
 
             foreach(XmlElement file in elem.ChildNodes)
             {
-                files.Add(file.GetAttribute("Location"));
+                files.Add(new RevisionFileEntry(elem.GetAttribute("Location"), elem.GetAttribute("SHA512")));
             }
 
             return new Revision(id, files);
@@ -35,8 +79,8 @@ namespace PonySFM_Desktop
             foreach (var file in Files)
             {
                 var fileElem = doc.CreateElement("File");
-                fileElem.SetAttribute("SHA512", fs.GetChecksum(file));
-                fileElem.SetAttribute("Location", file);
+                fileElem.SetAttribute("SHA512", file.Sha512);
+                fileElem.SetAttribute("Location", file.Path);
                 elem.AppendChild(fileElem);
             }
 

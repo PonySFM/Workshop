@@ -52,13 +52,24 @@ namespace PonySFM_Desktop
             /* FIXME: totally guranteed to be sorted by directory! */
             foreach (var file in revision.Files)
             {
-                if (_fs.FileExists(file))
-                    _fs.DeleteFile(file);
+                if (_fs.FileExists(file.Path))
+                    _fs.DeleteFile(file.Path);
                 else
-                    _fs.DeleteDirectory(file);
+                    _fs.DeleteDirectory(file.Path);
             }
 
             _db.WriteDBDisk();
+        }
+
+        public bool VerifyInstalled(Revision revision)
+        {
+            foreach (var file in revision.Files)
+            {
+                if (!_fs.FileExists(file.Path))
+                    return false;
+            }
+
+            return true;
         }
     }
 }
