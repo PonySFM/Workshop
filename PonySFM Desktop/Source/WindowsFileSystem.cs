@@ -43,6 +43,22 @@ namespace PonySFM_Desktop
 
     public class WindowsFileSystem : IFileSystem
     {
+        private static WindowsFileSystem _singleton;
+
+        public static WindowsFileSystem Instance
+        {
+            get
+            {
+                if (_singleton == null)
+                    _singleton = new WindowsFileSystem();
+                return _singleton;
+            }
+        }
+
+        private WindowsFileSystem()
+        {
+        }
+
         public void CopyFile(string src, string dest)
         {
             File.Copy(src, dest);
