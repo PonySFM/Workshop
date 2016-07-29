@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 
 namespace PonySFM_Desktop
@@ -85,6 +86,29 @@ namespace PonySFM_Desktop
             }
 
             return elem;
+        }
+
+        /*
+         * This method should be refactored as soon as possible. Probably when we start connecting the WPF-side.
+         * Because we have to effectively "move" the revision after it's extracted to a temporary directory. All
+         * the files in file-list have to as well. We'll have to think about what immediate representation the
+         * temporary revision should have. I would suggest making some class ITemporaryRevision and letting it derive
+         * from this one somehow.
+         */ 
+        public void ChangeTopDirectory(string currentDir, string topDir)
+        {
+            if (!currentDir.EndsWith("\\"))
+                currentDir = currentDir + "\\";
+
+            foreach (var file in Files)
+            {
+                if (file.Path.StartsWith(currentDir))
+                {
+                    var newPath = file.Path.Replace(currentDir, "");
+                    newPath = Path.Combine(topDir, newPath);
+                    file.Path = newPath;
+                }
+            }
         }
     }
 }
