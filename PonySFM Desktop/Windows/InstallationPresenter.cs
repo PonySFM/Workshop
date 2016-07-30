@@ -39,9 +39,17 @@ namespace PonySFM_Desktop
 
         public async Task ExecuteInstallation(int id)
         {
+            var zipTmp = Path.GetTempFileName();
             var tempDir = Path.GetTempFileName();
+
             await _api.DownloadRevisionZIP(id, tempDir);
-            //await _revisionMgr.InstallRevision(tempDir);
+            var zip = _fs.OpenZIP(tempDir);
+            await zip.Extract(zipTmp);
+
+            var tmpRev = Revision.CreateTemporaryRevisionFromFolder(id, zipTmp, _fs);
+            await _revisionMgr.InstallRevision(tmpRev, tempDir);
+
+            _fs.DeleteDirectory(zipTmp);
             _fs.DeleteDirectory(tempDir);
         }
     }

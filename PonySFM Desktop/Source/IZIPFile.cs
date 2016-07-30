@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PonySFM_Desktop
 {
-    interface IZIPFile
+    public interface IZIPFile
     {
         Task Extract(string dir);
     }

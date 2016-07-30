@@ -55,6 +55,7 @@
     <Compile Include="ConfigFileTest.cs" />
     <Compile Include="ConfigParserTest.cs" />
     <Compile Include="DirectoryCopierTest.cs" />
+    <Compile Include="InstallationPresenterTest.cs" />
     <Compile Include="MockFileSystemTest.cs" />
     <Compile Include="RevisionDatabaseTest.cs" />
     <Compile Include="RevisionManagerTest.cs" />

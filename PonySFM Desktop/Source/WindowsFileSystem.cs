@@ -148,5 +148,10 @@ namespace PonySFM_Desktop
                 File.Copy(src, dest);
             });
         }
+
+        public IZIPFile OpenZIP(string filepath)
+        {
+            return new ZIPFile(filepath);
+        }
     }
 }

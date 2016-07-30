@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PonySFM_Desktop.Source
+namespace PonySFM_Desktop
 {
     public class MockAPIConnector : IAPIConnector
     {

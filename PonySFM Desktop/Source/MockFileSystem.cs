@@ -277,8 +277,9 @@ namespace PonySFM_Desktop
 
             foreach (var file in files)
             {
+                var s = file.Path.Replace(dir, "");
                 if (file.IsFile() && file.Path.StartsWith(dir) &&
-                    !file.Path.Trim(dir.ToCharArray()).Contains("\\"))
+                    !s.Contains("\\"))
                 {
                     yield return file;
                 }
@@ -297,8 +298,9 @@ namespace PonySFM_Desktop
 
             foreach (var file in files)
             {
+                var s = file.Path.Replace(dir, "");
                 if (file.IsDirectory() && file.Path.StartsWith(dir) &&
-                    !file.Path.Trim(dir.ToCharArray()).Contains("\\"))
+                    !s.Contains("\\"))
                 {
                     yield return file;
                 }
@@ -314,9 +316,19 @@ namespace PonySFM_Desktop
 
         public void DeleteDirectory(string filepath)
         {
-            var file = files.Find(f => f.Path == filepath && f.IsDirectory());
-            if (file != null)
-                files.Remove(file);
+            foreach (var file in GetFiles(filepath))
+            {
+                DeleteFile(file.Path);
+            }
+
+            foreach (var dir in GetDirectories(filepath))
+            {
+                DeleteDirectory(dir.Path);
+            }
+
+            var direntry = files.Find(f => f.Path == filepath && f.IsDirectory());
+            if (direntry != null)
+                files.Remove(direntry);
         }
 
         public Task CopyFileAsync(string src, string dest)
@@ -324,6 +336,11 @@ namespace PonySFM_Desktop
             return Task.Factory.StartNew(() => {
                 CopyFile(src, dest);
             });
+        }
+
+        public IZIPFile OpenZIP(string filepath)
+        {
+            return new MockZIPFile(filepath, this);
         }
     }
 }

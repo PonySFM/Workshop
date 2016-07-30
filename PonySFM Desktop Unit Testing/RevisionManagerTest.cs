@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PonySFM_Desktop.Test
 {
@@ -21,7 +22,7 @@ namespace PonySFM_Desktop.Test
 
         [TestMethod]
         [TestCategory("RevisionManager")]
-        public void InstallsRevisionCorrectly()
+        public async Task InstallsRevisionCorrectly()
         {
             var configFile = new ConfigFile(dir);
             var fs = new MockFileSystem();
@@ -43,7 +44,7 @@ namespace PonySFM_Desktop.Test
 
             var revision = new Revision(1, files);
 
-            revisionManager.InstallRevision(revision, "C:\\tmp");
+            await revisionManager.InstallRevision(revision, "C:\\tmp");
             Assert.IsTrue(revisionManager.VerifyInstalled(revision));
         }
     }
