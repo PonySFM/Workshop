@@ -63,8 +63,8 @@
     </ApplicationDefinition>
     <Compile Include="Source\MockZIPFile.cs" />
     <Compile Include="Source\IZIPFile.cs" />
-    <Compile Include="Windows\InstallationPresenter.cs" />
-    <Compile Include="Windows\IPresenter.cs" />
+    <Compile Include="Source\InstallationPresenter.cs" />
+    <Compile Include="Source\IPresenter.cs" />
     <Compile Include="Source\Config.cs" />
     <Compile Include="Source\ConfigFile.cs" />
     <Compile Include="Source\ConfigHandler.cs" />

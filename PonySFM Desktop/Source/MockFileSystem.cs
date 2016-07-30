@@ -11,81 +11,26 @@ namespace PonySFM_Desktop
     {
         File, Directory,
     }
-
-    //TODO: Consider using FileInfo, since it covers both directories and files.
+    
     public class MockFile : IFile
     {
-        private string _path;
-        private MockFileType _fileType;
-        private byte[] _data;
+        public string Name => System.IO.Path.GetFileName(Path);
 
-        public string Path
-        {
-            get
-            {
-                return _path;
-            }
-
-            set
-            {
-                _path = value;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return System.IO.Path.GetFileName(_path);
-            }
-        }
-
-        public MockFileType FileType
-        {
-            get
-            {
-                return _fileType;
-            }
-
-            set
-            {
-                _fileType = value;
-            }
-        }
-
-        public byte[] Data
-        {
-            get
-            {
-                return _data;
-            }
-
-            set
-            {
-                _data = value;
-            }
-        }
+        public string Path { get; set; }
+        public MockFileType FileType { get; set; }
+        public byte[] Data { get; set; }
 
         public MockFile(string path, MockFileType fileType, byte[] data = null)
         {
-            _path = path;
-            _fileType = fileType;
-            _data = data;
+            Path = path;
+            FileType = fileType;
+            Data = data;
         }
 
-        public bool IsDirectory()
-        {
-            return _fileType == MockFileType.Directory;
-        }
-
-        public bool IsFile()
-        {
-            return _fileType == MockFileType.File;
-        }
+        public bool IsDirectory() => FileType == MockFileType.Directory;
+        public bool IsFile() => FileType == MockFileType.File;
     }
-
-    //TODO: Optimize MockFileSystem.
-    // Simply because I think quite a bit could be optimized.
+    
     public class MockFileSystem : IFileSystem
     {
         private List<MockFile> files = new List<MockFile>();
