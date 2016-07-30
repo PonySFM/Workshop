@@ -2,7 +2,7 @@
 
 namespace PonySFM_Desktop
 {
-    interface IAPIConnector
+    public interface IAPIConnector
     {
         int FetchCurrentVersion();
         Task DownloadRevisionZIP(int id, string filepath);

@@ -234,7 +234,8 @@ namespace PonySFM_Desktop
 
             foreach (var file in files)
             {
-                if (file.IsFile() && file.Path.StartsWith(dir) && !file.Path.Trim(dir.ToCharArray()).Contains("\\"))
+                var s = file.Path.Replace(dir, "");
+                if (file.IsFile() && file.Path.StartsWith(dir) && !s.Contains("\\"))
                 {
                     ret.Add(file);
                 }

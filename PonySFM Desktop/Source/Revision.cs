@@ -110,5 +110,29 @@ namespace PonySFM_Desktop
                 }
             }
         }
+
+        public static Revision CreateTemporaryRevisionFromFolder(int id, string dir, IFileSystem fs)
+        {
+            List<RevisionFileEntry> fileEntries = new List<RevisionFileEntry>();
+
+            GetFileEntriesFromDirectory(fileEntries, dir, fs);
+            return new Revision(id, fileEntries);
+        }
+
+        private static void GetFileEntriesFromDirectory(List<RevisionFileEntry> list, string dir, IFileSystem fs)
+        {
+            var files = fs.GetFiles(dir);
+            var dirs = fs.GetDirectories(dir);
+
+            foreach (var file in files)
+            {
+                list.Add(RevisionFileEntry.FromFile(file.Path, fs));
+            }
+
+            foreach (var d in dirs)
+            {
+                GetFileEntriesFromDirectory(list, d.Path, fs);
+            }
+        }
     }
 }

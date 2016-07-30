@@ -58,6 +58,7 @@
     <Compile Include="MockFileSystemTest.cs" />
     <Compile Include="RevisionDatabaseTest.cs" />
     <Compile Include="RevisionManagerTest.cs" />
+    <Compile Include="RevisionTest.cs" />
     <Compile Include="SFMDirectoryParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
