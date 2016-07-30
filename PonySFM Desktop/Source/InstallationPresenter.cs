@@ -9,6 +9,9 @@ using System.Windows.Controls;
 
 namespace PonySFM_Desktop
 {
+    /* TODO: I have a feeling this class does way too much for just being a presenter */
+    /* May encapsulate the whole installion-process and adapters to progress event in a way */
+    /* that actually looks nice */
     public class InstallationPresenter : IPresenter, INotifyPropertyChanged
     {
         Control _view;
@@ -100,6 +103,9 @@ namespace PonySFM_Desktop
             LogInstallation("Extracting zip file...\n");
             var zip = _fs.OpenZIP(zipTmp);
             await zip.Extract(tempDir, progress);
+
+            /* TODO: need to parse which folders to copy from extracted files */
+            /* They have to be similar to the SFM structure ( models/ and materials/ eg ) */
 
             _currentProgressState = "installation";
             LogInstallation("Installing files to SFM...\n");
