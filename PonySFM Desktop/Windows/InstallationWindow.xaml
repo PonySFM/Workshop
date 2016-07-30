@@ -5,12 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PonySFM_Desktop"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
+        ResizeMode="CanResize"
+        MinWidth="500"
+        MinHeight="300"
         Title="Installation" Height="300" Width="500" Loaded="Window_Loaded">
     <Grid>
-        <StackPanel>
-            <TextBox x:Name="installationLog" Text="{Binding InstallationLog, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Height="231" Margin="0,0,0.333,0"></TextBox>
-            <ProgressBar Maximum="{Binding MaxProgress}" Value="{Binding Progress, UpdateSourceTrigger=PropertyChanged}" Height="20"></ProgressBar>
-        </StackPanel>
+        <DockPanel HorizontalAlignment="Stretch" Margin="10">
+            <Grid DockPanel.Dock="Top">
+                <Label FontSize="20">Installing Revision</Label>
+            </Grid>
+            <ProgressBar DockPanel.Dock="Bottom" Maximum="{Binding MaxProgress}" Value="{Binding Progress, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Height="20"></ProgressBar>
+            <TextBox DockPanel.Dock="Top" x:Name="installationLog" Text="{Binding InstallationLog, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="Auto" Height="Auto"></TextBox>
+        </DockPanel>
     </Grid>
 </Window>
