@@ -23,7 +23,7 @@ namespace PonySFM_Desktop
                 zip1.ExtractProgress += delegate (object sender, ExtractProgressEventArgs e)
                 {
                     if (e.EntriesExtracted != 0)
-                        progress.Report(e.EntriesExtracted / e.EntriesTotal);
+                        progress.Report(e.EntriesExtracted / e.EntriesTotal * 100);
                 };
 
                 await Task.Run(() => zip1.ExtractAll(dir, ExtractExistingFileAction.DoNotOverwrite));
