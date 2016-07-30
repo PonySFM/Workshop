@@ -6,6 +6,21 @@ namespace PonySFM_Desktop
     public class PonySFMAPIConnector : IAPIConnector
     {
         string _baseUrl = "https://ponysfm.com/";
+        static PonySFMAPIConnector singleton;
+
+        public static PonySFMAPIConnector Instance
+        {
+            get
+            {
+                if (singleton == null)
+                    singleton = new PonySFMAPIConnector();
+                return singleton;
+            }
+        }
+
+        private PonySFMAPIConnector()
+        {
+        }
 
         public async Task DownloadRevisionZIP(int id, string filepath)
         {
