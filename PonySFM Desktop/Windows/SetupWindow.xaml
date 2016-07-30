@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:PonySFM_Desktop"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="PonySFM Setup" Height="400" Width="600" Closing="Window_Closing">
+        Title="PonySFM Setup" Height="460.845" Width="600" Closing="Window_Closing">
     <Grid>
         <StackPanel>
-            <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Image x:Name="LogoImage" Height="126" Source="/PonySFM Desktop;component/Images/logo.png" VerticalAlignment="Top"/>
+            <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="306"/>
         </StackPanel>
     </Grid>
 </Window>
