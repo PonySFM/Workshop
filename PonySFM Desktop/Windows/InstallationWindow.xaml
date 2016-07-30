@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:PonySFM_Desktop"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Installation" Height="300" Width="500">
+        Title="Installation" Height="300" Width="500" Loaded="Window_Loaded">
     <Grid>
         <StackPanel>
-            <TextBox Name="installationLog" IsReadOnly="True" Height="231" Margin="0,0,0.333,0"></TextBox>
+            <TextBox x:Name="installationLog" Text="{Binding InstallationLog, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Height="231" Margin="0,0,0.333,0"></TextBox>
+            <ProgressBar Maximum="{Binding MaxProgress}" Value="{Binding Progress, UpdateSourceTrigger=PropertyChanged}" Height="20"></ProgressBar>
         </StackPanel>
     </Grid>
 </Window>

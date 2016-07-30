@@ -31,11 +31,17 @@ namespace PonySFM_Desktop
             _dirParser.CreateDirectories();
         }
 
-        public async Task InstallRevision(Revision revision, string topDir)
+        public async Task InstallRevision(Revision revision, string topDir, IProgress<int> progress)
         {
             /* Copy files and blahblah */
             var directoryCopier = new DirectoryCopier(_fs, topDir, _dirParser.InstallationPath, true);
-            /* TODO: delegate */
+
+            if (progress != null)
+                directoryCopier.OnProgress += delegate (object sender, DirectoryProgressEventArgs e)
+                {
+                    progress.Report(e.Progress);
+                };
+
             await directoryCopier.Execute();
 
             revision.ChangeTopDirectory(topDir, _dirParser.InstallationPath);

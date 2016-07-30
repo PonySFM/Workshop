@@ -19,7 +19,7 @@ namespace PonySFM_Desktop
 
         /* In MockZIPFile the archive itself is not a file but just the folder with the zip contents.
          * This simplifies the process. */
-        public async Task Extract(string dir)
+        public async Task Extract(string dir, IProgress<int> progress)
         {
             var dirCopier = new DirectoryCopier(_fs, _path, dir, true);
             await dirCopier.Execute();

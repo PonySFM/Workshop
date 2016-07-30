@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Win32;
 using System.Diagnostics;
+using PonySFM_Desktop.Source;
 
 namespace PonySFM_Desktop
 {
@@ -64,14 +65,23 @@ namespace PonySFM_Desktop
             if (!UriProtocolExists())
                 InstallUriProtocol();
 
+            ConfigHandler config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
+            RevisionManager revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
+
+            /*
             if(e.Args.Length == 1)
             {
                 string uri = e.Args[0];
                 uri = uri.TrimStart("ponysfm://".ToCharArray());
                 uri = uri.TrimEnd('/');
-                new InstallationWindow(Convert.ToInt32(uri)).ShowDialog();
+                new InstallationWindow(Convert.ToInt32(uri), revMgr).ShowDialog();
                 return;
             }
+            */
+
+
+            new InstallationWindow(515, revMgr).ShowDialog();
+            return;
 
             /*
             if(!SFM.CheckConfigExists())

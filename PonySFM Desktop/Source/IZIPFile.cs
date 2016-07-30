@@ -8,6 +8,6 @@ namespace PonySFM_Desktop
 {
     public interface IZIPFile
     {
-        Task Extract(string dir);
+        Task Extract(string dir, IProgress<int> progress);
     }
 }

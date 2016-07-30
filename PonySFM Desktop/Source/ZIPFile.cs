@@ -16,11 +16,17 @@ namespace PonySFM_Desktop
             _path = path;
         }
 
-        public async Task Extract(string dir)
+        public async Task Extract(string dir, IProgress<int> progress)
         {
             using (ZipFile zip1 = ZipFile.Read(_path))
             {
-                await Task.Run(() => zip1.ExtractAll(dir, ExtractExistingFileAction.OverwriteSilently));
+                zip1.ExtractProgress += delegate (object sender, ExtractProgressEventArgs e)
+                {
+                    if (e.EntriesExtracted != 0)
+                        progress.Report(e.EntriesExtracted / e.EntriesTotal);
+                };
+
+                await Task.Run(() => zip1.ExtractAll(dir, ExtractExistingFileAction.DoNotOverwrite));
             }
         }
     }

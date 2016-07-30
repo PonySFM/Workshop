@@ -34,7 +34,7 @@ namespace PonySFM_Desktop
             _fakeRevisions.Add(new Tuple<string, Revision>(dir, revision));
         }
 
-        public async Task DownloadRevisionZIP(int id, string filepath)
+        public async Task DownloadRevisionZIP(int id, string filepath, IProgress<int> progress)
         {
             var rev = _fakeRevisions.Find(r => r.Item2.ID == id);
             if (rev == null)
@@ -42,6 +42,11 @@ namespace PonySFM_Desktop
 
             /* In this case, we just copy the revision to filepath as a folder */
             var dirCopier = new DirectoryCopier(_fs, rev.Item1, filepath, true);
+
+            dirCopier.OnProgress += delegate (object sender, DirectoryProgressEventArgs e)
+            {
+                progress?.Report(e.Progress);
+            };
 
             await dirCopier.Execute();
         }

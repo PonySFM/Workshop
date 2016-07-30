@@ -139,7 +139,7 @@ namespace PonySFM_Desktop
 
         public void DeleteDirectory(string filepath)
         {
-            Directory.Delete(filepath);
+            Directory.Delete(filepath, true);
         }
 
         public Task CopyFileAsync(string src, string dest)
