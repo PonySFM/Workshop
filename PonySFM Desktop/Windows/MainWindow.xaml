@@ -18,9 +18,9 @@
 
         <StackPanel Height="Auto">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,30,0,0" Height="30">
-                <Button Name="btnInstall" Margin="0,0,10,0" >Install</Button>
-                <Button Name="btnUninstall" Margin="0,0,10,0">Uninstall</Button>
-                <Button Name="btnVerify" Margin="0,0,10,0">Verify</Button>
+                <Button x:Name="btnInstall" Margin="0,0,10,0" Content="Install" />
+                <Button x:Name="btnUninstall" Margin="0,0,10,0" Content="Uninstall"/>
+                <Button x:Name="btnVerify" Margin="0,0,10,0" Content="Verify"/>
             </StackPanel>
             <DataGrid Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" AutoGenerateColumns="False" Height="250" Margin="0,10,-0.333,0">
                 <DataGrid.Columns>

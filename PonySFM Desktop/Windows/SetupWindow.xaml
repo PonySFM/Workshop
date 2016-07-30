@@ -8,7 +8,7 @@
         ResizeMode="NoResize"
         Title="PonySFM Setup" Height="460.845" Width="600" Closing="Window_Closing">
     <Grid>
-        <StackPanel>
+        <StackPanel Height="Auto">
             <Image x:Name="LogoImage" Height="126" Source="/PonySFM Desktop;component/Images/logo.png" VerticalAlignment="Top"/>
             <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="306"/>
         </StackPanel>
