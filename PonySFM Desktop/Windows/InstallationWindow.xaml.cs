@@ -19,41 +19,20 @@ namespace PonySFM_Desktop
     /// </summary>
     public partial class InstallationWindow : Window
     {
-        int id;
+        InstallationPresenter _presenter;
+        int _id;
 
-        public InstallationWindow(int id)
+        public InstallationWindow(int id, RevisionManager revisionMgr)
         {
-            this.id = id;
-            Title = "Installing Revision " + id;
+            _id = id;
+            _presenter = new InstallationPresenter(PonySFMAPIConnector.Instance, WindowsFileSystem.Instance, revisionMgr);
+            _presenter.View = this;
             InitializeComponent();
-
-            Start();
         }
 
-        private async void Start()
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                await Task.Run(() =>
-                {
-                    LogInstallation("Installing Revision " + id);
-                    LogInstallation("Done!");
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            //Close();
-        }
-
-        private void LogInstallation(string msg)
-        {
-            this.Dispatcher.Invoke((Action)(() =>
-            {
-                installationLog.Text += msg;
-            }));
+            await _presenter.ExecuteInstallation(_id);
         }
     }
 }
