@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Xml;
+using System.Threading.Tasks;
 
 namespace PonySFM_Desktop
 {
@@ -139,6 +140,13 @@ namespace PonySFM_Desktop
         public void DeleteDirectory(string filepath)
         {
             Directory.Delete(filepath);
+        }
+
+        public Task CopyFileAsync(string src, string dest)
+        {
+            return Task.Factory.StartNew(() => {
+                File.Copy(src, dest);
+            });
         }
     }
 }

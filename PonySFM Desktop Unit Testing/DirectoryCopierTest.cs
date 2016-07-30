@@ -1,5 +1,8 @@
 ﻿using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System;
 
 namespace PonySFM_Desktop.Test
 {
@@ -8,7 +11,7 @@ namespace PonySFM_Desktop.Test
     {
         [TestMethod]
         [TestCategory("DirectoryCopier")]
-        public void CopiesDirectoryCorrectlyOnlyFiles()
+        public async Task CopiesDirectoryCorrectlyOnlyFiles()
         {
             var fs = new MockFileSystem();
             var directoryCopier = new DirectoryCopier(fs, "C:\\fakeDir", "C:\\SFM", false);
@@ -17,7 +20,7 @@ namespace PonySFM_Desktop.Test
             fs.CreateFile("C:\\fakeDir\\file1.txt");
             fs.CreateFile("C:\\fakeDir\\file2.txt");
 
-            directoryCopier.Execute();
+            await directoryCopier.Execute();
 
             Assert.IsTrue(fs.FileExists("C:\\SFM\\file1.txt"));
             Assert.IsTrue(fs.FileExists("C:\\SFM\\file2.txt"));
@@ -25,7 +28,7 @@ namespace PonySFM_Desktop.Test
 
         [TestMethod]
         [TestCategory("DirectoryCopier")]
-        public void CopiesDirectoryCorrectlyWithSubDirs()
+        public async Task CopiesDirectoryCorrectlyWithSubDirs()
         {
             var fs = new MockFileSystem();
             var directoryCopier = new DirectoryCopier(fs, "C:\\fakeDir", "C:\\SFM", true);
@@ -40,7 +43,7 @@ namespace PonySFM_Desktop.Test
             fs.CreateDirectory("C:\\fakeDir\\folder\\folder2");
             fs.CreateFile("C:\\fakeDir\\folder\\folder2\\file4.txt");
 
-            directoryCopier.Execute();
+            await directoryCopier.Execute();
 
             Assert.IsTrue(fs.FileExists("C:\\SFM\\file1.txt"));
             Assert.IsTrue(fs.FileExists("C:\\SFM\\file2.txt"));
@@ -52,10 +55,12 @@ namespace PonySFM_Desktop.Test
 
         [TestMethod]
         [TestCategory("DirectoryCopier")]
-        public void FiresEventCorrectly()
+        public async Task FiresEventCorrectly()
         {
             var fs = new MockFileSystem();
             var directoryCopier = new DirectoryCopier(fs, "C:\\fakeDir", "C:\\SFM", true);
+            List<Tuple<string, string>> copiedFiles = new List<Tuple<string,string>>();
+            List<int> progressHistory = new List<int>();
 
             fs.CreateFile("C:\\fakeDir\\file1.txt");
             fs.CreateFile("C:\\SFM\\file1.txt");
@@ -66,16 +71,30 @@ namespace PonySFM_Desktop.Test
                 eventArgs = e;
             };
 
-            directoryCopier.Execute();
+            directoryCopier.OnFileCopy += delegate (object sender, DirectoryCopierCopyEventArgs e)
+            {
+                copiedFiles.Add(new Tuple<string, string>(e.File1, e.File2));
+            };
+
+            directoryCopier.OnProgress += delegate (object sender, DirectoryProgressEventArgs e)
+            {
+                progressHistory.Add(e.Progress);
+            };
+
+            await directoryCopier.Execute();
 
             Assert.AreNotEqual(null, eventArgs);
             Assert.AreEqual(eventArgs.File1, "C:\\fakeDir\\file1.txt");
             Assert.AreEqual(eventArgs.File2, "C:\\SFM\\file1.txt");
+
+            Assert.IsTrue(copiedFiles.Contains(new Tuple<string, string>("C:\\fakeDir\\file1.txt", "C:\\SFM\\file1.txt")));
+
+            Assert.IsTrue(progressHistory.Contains(100));
         }
 
         [TestMethod]
         [TestCategory("DirectoryCopier")]
-        public void FiresEventCorrectlyWithOverwrite()
+        public async Task FiresEventCorrectlyWithOverwrite()
         {
             var fs = new MockFileSystem();
             var directoryCopier = new DirectoryCopier(fs, "C:\\fakeDir", "C:\\SFM", true);
@@ -93,7 +112,7 @@ namespace PonySFM_Desktop.Test
                 e.ShouldCopy = true;
             };
 
-            directoryCopier.Execute();
+            await directoryCopier.Execute();
 
             Assert.AreNotEqual(null, eventArgs);
 

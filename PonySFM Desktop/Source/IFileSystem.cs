@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace PonySFM_Desktop
@@ -9,6 +10,7 @@ namespace PonySFM_Desktop
         List<IFile> GetDirectories(string dir);
 
         void CopyFile(string src, string dest);
+        Task CopyFileAsync(string src, string dest);
 
         bool FileExists(string path);
         bool DirectoryExists(string path);

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace PonySFM_Desktop
@@ -314,6 +316,13 @@ namespace PonySFM_Desktop
             var file = files.Find(f => f.Path == filepath && f.IsDirectory());
             if (file != null)
                 files.Remove(file);
+        }
+
+        public Task CopyFileAsync(string src, string dest)
+        {
+            return Task.Factory.StartNew(() => {
+                CopyFile(src, dest);
+            });
         }
     }
 }

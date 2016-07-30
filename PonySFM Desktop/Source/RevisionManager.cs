@@ -30,12 +30,12 @@ namespace PonySFM_Desktop
             _dirParser.CreateDirectories();
         }
 
-        public void InstallRevision(Revision revision, string topDir)
+        public async void InstallRevision(Revision revision, string topDir)
         {
             /* Copy files and blahblah */
             var directoryCopier = new DirectoryCopier(_fs, topDir, _dirParser.InstallationPath, true);
             /* TODO: delegate */
-            directoryCopier.Execute();
+            await directoryCopier.Execute();
 
             revision.ChangeTopDirectory(topDir, _dirParser.InstallationPath);
             _db.AddToDB(revision);
