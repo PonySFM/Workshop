@@ -9,7 +9,7 @@
       Title="SetupDirectory">
 
     <Grid Background="White">
-        <StackPanel Width="250" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label FontSize="20" HorizontalAlignment="Center">SFM Directory</Label>
             <Label>Please select the Source Filmmaker directory.</Label>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Orientation="Horizontal">
