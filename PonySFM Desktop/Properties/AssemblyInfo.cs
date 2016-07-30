@@ -8,11 +8,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PonySFM Desktop")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("The PonySFM Mod Manager.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("PonySFM Desktop")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © PonySFM 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -53,3 +53,6 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: Guid("DD4066A3-069D-4EC1-BDB8-FA1CCE1C52C4")]
+[assembly: NeutralResourcesLanguage("en")]
+
