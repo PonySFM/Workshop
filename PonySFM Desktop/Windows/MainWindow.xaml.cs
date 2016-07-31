@@ -33,5 +33,15 @@ namespace PonySFM_Desktop
         {
             new AboutDialog().ShowDialog();
         }
+
+        private void MenuItemExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void MenuItemHelp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

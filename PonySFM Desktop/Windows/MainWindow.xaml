@@ -5,26 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PonySFM_Desktop"
         mc:Ignorable="d"
-        MinWidth="525"
+        MinWidth="600"
         MinHeight="350"
-        Title="PonySFM Desktop" Height="350" Width="525">
+        Title="PonySFM Desktop" Height="350" Width="600">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
         <DockPanel>
             <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_File" />
+                <MenuItem Header="_File">
+                    <MenuItem Name="MenuItemInstall" Header="_Install"/>
+                    <MenuItem Name="MenuItemVerify" Header="_Verify"/>
+                    <Separator />
+                    <MenuItem Name="MenuItemSFMDir" Header="_Change SFM Directory"/>
+                    <Separator />
+                    <MenuItem Name="MenuItemExit" Header="_Exit" Click="MenuItemExit_Click"/>
+                </MenuItem>
                 <MenuItem Header="_Help">
+                    <MenuItem Name="MenuItemHelp" Header="_Online Guide" Click="MenuItemHelp_Click"/>
                     <MenuItem Name="MenuItemAbout" Header="_About" Click="MenuItemAbout_Click"/>
                 </MenuItem>
             </Menu>
         </DockPanel>
 
         <DockPanel Margin="10">
-                <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,30,0,0" Height="30">
-                    <Button x:Name="btnInstall" Margin="0,0,10,0" Content="Install" />
-                    <Button x:Name="btnUninstall" Margin="0,0,10,0" Content="Uninstall"/>
-                    <Button x:Name="btnVerify" Margin="0,0,10,0" Content="Verify"/>
+            <StackPanel DockPanel.Dock="Top">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Image x:Name="LogoImage"  Height="50" Source="/PonySFM Desktop;component/Images/logo.png" VerticalAlignment="Top"/>
+                    <StackPanel>
+                        <Label FontSize="15">Welcome to the PonySFM Mod Manager!</Label>
+                        <Label FontSize="15">Find mods on ponysfm.com</Label>
+                    </StackPanel>
                 </StackPanel>
-                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" SelectionMode="Single" AutoGenerateColumns="False" Margin="0,10,-0.333,0">
+                </StackPanel>
+                <Label FontSize="22" DockPanel.Dock="Top">Installed Revisions</Label>
+                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" SelectionMode="Single" AutoGenerateColumns="False" Margin="0,10,-0.333,0" Background="White">
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn Binding="{Binding Checked}"></DataGridCheckBoxColumn>
                         
