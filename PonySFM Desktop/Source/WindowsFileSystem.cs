@@ -106,12 +106,17 @@ namespace PonySFM_Desktop
             return ret;
         }
 
-        public List<IFile> GetDirectories(string dir)
+        public List<IFile> GetDirectories(string dir, bool recursive = false)
         {
+            SearchOption opt;
+            if (recursive)
+                opt = SearchOption.AllDirectories;
+            else
+                opt = SearchOption.TopDirectoryOnly;
             DirectoryInfo dirInfo = new DirectoryInfo(dir);
             List<IFile> ret = new List<IFile>();
 
-            foreach (var file in dirInfo.GetDirectories())
+            foreach (var file in dirInfo.GetDirectories("*.*", opt))
             {
                 ret.Add(new WindowsFile(file.FullName));
             }

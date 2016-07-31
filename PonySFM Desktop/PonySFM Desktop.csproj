@@ -78,6 +78,7 @@
     <Compile Include="Source\IFile.cs" />
     <Compile Include="Source\IFileSystem.cs" />
     <Compile Include="Source\MockAPIConnector.cs" />
+    <Compile Include="Source\TempRevisionParser.cs" />
     <Compile Include="Windows\InstallationWindow.xaml.cs">
       <DependentUpon>InstallationWindow.xaml</DependentUpon>
     </Compile>
