@@ -12,25 +12,11 @@ namespace PonySFM_Desktop
     /* TODO: I have a feeling this class does way too much for just being a presenter */
     /* May encapsulate the whole installion-process and adapters to progress event in a way */
     /* that actually looks nice */
-    public class InstallationPresenter : IPresenter, INotifyPropertyChanged
+    public class InstallationPresenter : BasePresenter
     {
-        Control _view;
         int _progress;
         string _installationLog;
         Dictionary<string, int> _progresses = new Dictionary<string, int>();
-
-        public Control View
-        {
-            get
-            {
-                return _view;
-            }
-            set
-            {
-                _view = value;
-                _view.DataContext = this;
-            }
-        }
 
         public int MaxProgress { get { return _progresses.Count * 100;  } }
 
@@ -66,12 +52,6 @@ namespace PonySFM_Desktop
         IFileSystem _fs;
         RevisionManager _revisionMgr;
         string _currentProgressState;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void NotifyPropertyChange(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public InstallationPresenter(IAPIConnector api, IFileSystem fs, RevisionManager revisionMgr)
         {
