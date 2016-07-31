@@ -11,11 +11,39 @@ namespace PonySFM_Desktop
         private RevisionManager _revisionManager;
         private List<int> _uninstallList;
         private Dictionary<int, int> _uninstallProgress = new Dictionary<int, int>();
+        private int _progress;
+        private string _installationLog;
 
-        public string InstallationLog { get; private set; }
 
-        public int Progress { get { return _uninstallProgress.Sum(x => x.Value); } }
-        public int MaxProgress { get { return _uninstallProgress.Count * 100; } }
+        public int MaxProgress { get { return 100; } }
+
+        public int Progress
+        {
+            get
+            {
+                return _progress;
+            }
+
+            set
+            {
+                _progress = value;
+                NotifyPropertyChange("Change");
+            }
+        }
+
+        public string InstallationLog
+        {
+            get
+            {
+                return _installationLog;
+            }
+
+            set
+            {
+                _installationLog = value;
+                NotifyPropertyChange("InstallationLog");
+            }
+        }
 
         public DeinstallationPresenter(RevisionManager revisionManager, List<int> uninstallList)
         {
@@ -32,16 +60,24 @@ namespace PonySFM_Desktop
 
             foreach (var id in _uninstallList)
             {
-                Progress<int> progress = new Progress<int>(i => _uninstallProgress[id] = i);
+                Progress<int> progress = new Progress<int>(i => SetProgress(id, i));
 
                 LogInstallation(string.Format("Uninstalling revision {0}\n", id));
                 await _revisionManager.UninstallRevision(id, progress);
+
+                NotifyPropertyChange("Progress");
             }
         }
 
         private void LogInstallation(string msg)
         {
             InstallationLog += msg;
+        }
+
+        private void SetProgress(int id, int p)
+        {
+            _uninstallProgress[id] = p;
+            Progress = _uninstallProgress.Sum(x => x.Value);
         }
     }
 }

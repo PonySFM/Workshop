@@ -62,7 +62,7 @@ namespace PonySFM_Desktop
         {
             var revision = _db.Revisions.Find(r => r.ID == id);
             if (revision == null)
-                throw new ArgumentException("Cannot find that revision!");
+                return;
 
             int totalCount = revision.Files.Count;
             int i = 0;
@@ -78,7 +78,7 @@ namespace PonySFM_Desktop
 
                     if (_fs.FileExists(file.Path))
                         _fs.DeleteFile(file.Path);
-                    else
+                    else if(_fs.DirectoryExists(file.Path))
                         _fs.DeleteDirectory(file.Path);
 
                     progress?.Report(i / totalCount * 100);
