@@ -75,7 +75,7 @@ namespace PonySFM_Desktop.Test
             await revisionManager.InstallRevision(revision, "C:\\tmp", null);
             Assert.IsTrue(revisionManager.VerifyInstalled(revision));
 
-            revisionManager.UninstallRevision(revision.ID);
+            await revisionManager.UninstallRevision(revision.ID, null);
 
             Assert.IsFalse(revisionManager.VerifyInstalled(revision));
 

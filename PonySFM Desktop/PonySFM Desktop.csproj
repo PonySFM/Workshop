@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Source\DeinstallationPresenter.cs" />
     <Compile Include="Source\BasePresenter.cs" />
     <Compile Include="Source\MainWindowPresenter.cs" />
     <Compile Include="Source\MockZIPFile.cs" />

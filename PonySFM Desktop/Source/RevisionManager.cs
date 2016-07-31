@@ -58,24 +58,34 @@ namespace PonySFM_Desktop
             _db.WriteDBDisk();
         }
 
-        public void UninstallRevision(int id)
+        public async Task UninstallRevision(int id, IProgress<int> progress)
         {
             var revision = _db.Revisions.Find(r => r.ID == id);
             if (revision == null)
                 throw new ArgumentException("Cannot find that revision!");
 
-            _db.RemoveRevision(id);
+            int totalCount = revision.Files.Count;
+            int i = 0;
 
-            /* FIXME: totally guranteed to be sorted by directory! */
-            foreach (var file in revision.Files)
+            await Task.Factory.StartNew(() =>
             {
-                if (_fs.FileExists(file.Path))
-                    _fs.DeleteFile(file.Path);
-                else
-                    _fs.DeleteDirectory(file.Path);
-            }
+                _db.RemoveRevision(id);
 
-            _db.WriteDBDisk();
+                /* FIXME: totally guranteed to be sorted by directory! */
+                foreach (var file in revision.Files)
+                {
+                    i++;
+
+                    if (_fs.FileExists(file.Path))
+                        _fs.DeleteFile(file.Path);
+                    else
+                        _fs.DeleteDirectory(file.Path);
+
+                    progress?.Report(i / totalCount * 100);
+                }
+
+                _db.WriteDBDisk();
+            });
         }
 
         public bool VerifyInstalled(Revision revision)
