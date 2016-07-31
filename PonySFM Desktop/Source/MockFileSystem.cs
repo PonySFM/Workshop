@@ -189,7 +189,7 @@ namespace PonySFM_Desktop
             return ret;
         }
 
-        public List<IFile> GetDirectories(string dir)
+        public List<IFile> GetDirectories(string dir, bool recursive = false)
         {
             List<IFile> ret = new List<IFile>();
 
@@ -198,7 +198,10 @@ namespace PonySFM_Desktop
 
             foreach (var file in files)
             {
-                if (file.IsDirectory() && file.Path.StartsWith(dir) && !file.Path.Trim(dir.ToCharArray()).Contains("\\"))
+                bool cond = file.IsDirectory() && file.Path.StartsWith(dir);
+                if (!recursive)
+                    cond = cond && !file.Path.Trim(dir.ToCharArray()).Contains("\\");
+                if (cond)
                 {
                     ret.Add(file);
                 }

@@ -7,6 +7,7 @@ namespace PonySFM_Desktop
     public interface IFileSystem
     {
         List<IFile> GetFiles(string dir);
+        List<IFile> GetDirectories(string dir, bool recursive = false);
 
         void CopyFile(string src, string dest);
         Task CopyFileAsync(string src, string dest);
