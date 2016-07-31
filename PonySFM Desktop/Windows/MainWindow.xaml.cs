@@ -20,34 +20,13 @@ namespace PonySFM_Desktop
     /// </summary>
     public partial class MainWindow : Window
     {
-        static MainWindow singleton;
+        MainWindowPresenter _presenter;
 
-        private MainWindow()
+        public MainWindow(RevisionDatabase db)
         {
+            _presenter = new MainWindowPresenter(db);
+            _presenter.View = this;
             InitializeComponent();
-
-            _installedRevisions.Add(new Revision(2, null));
-            dataGrid.DataContext = this;
-        }
-
-        public List<Revision> _installedRevisions = new List<Revision>();
-
-        public List<Revision> InstalledRevisions
-        {
-            get
-            {
-                return _installedRevisions;
-            }
-        }
-
-        public static MainWindow Instance
-        {
-            get
-            {
-                if (singleton == null)
-                    singleton = new MainWindow();
-                return singleton;
-            }
         }
 
         private void MenuItemAbout_Click(object sender, RoutedEventArgs e)

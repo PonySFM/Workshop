@@ -12,6 +12,14 @@ namespace PonySFM_Desktop
         RevisionDatabase _db;
         SFMDirectoryParser _dirParser;
 
+        public RevisionDatabase Database
+        {
+            get
+            {
+                return _db;
+            }
+        }
+
         public RevisionManager(ConfigFile configFile, IFileSystem fs)
         {
             _configFile = configFile;

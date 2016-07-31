@@ -68,6 +68,8 @@ namespace PonySFM_Desktop
             ConfigHandler config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
             RevisionManager revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
 
+            new MainWindow(revMgr.Database).ShowDialog();
+            return;
             /*
             if(e.Args.Length == 1)
             {
@@ -80,8 +82,10 @@ namespace PonySFM_Desktop
             */
 
 
+            /*
             new InstallationWindow(515, revMgr).ShowDialog();
             return;
+            */
 
             /*
             if(!SFM.CheckConfigExists())
