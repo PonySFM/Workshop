@@ -104,8 +104,6 @@ namespace PonySFM_Desktop
             var zip = _fs.OpenZIP(zipTmp);
             await zip.Extract(tempDir, progress);
 
-            /* TODO: need to parse which folders to copy from extracted files */
-            /* They have to be similar to the SFM structure ( models/ and materials/ eg ) */
             var parser = new TempRevisionParser(tempDir, _fs);
             var modDir = parser.FindModFolder();
 
