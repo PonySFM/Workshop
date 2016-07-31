@@ -158,5 +158,12 @@ namespace PonySFM_Desktop
         {
             return new ZIPFile(filepath);
         }
+
+        public string GetTempPath()
+        {
+            string path = Path.GetTempFileName();
+            File.Delete(path);
+            return path;
+        }
     }
 }

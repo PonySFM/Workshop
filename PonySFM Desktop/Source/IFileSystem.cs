@@ -27,5 +27,7 @@ namespace PonySFM_Desktop
         void DeleteDirectory(string filepath);
 
         IZIPFile OpenZIP(string filepath);
+
+        string GetTempPath();
     }
 }

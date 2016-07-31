@@ -86,9 +86,8 @@ namespace PonySFM_Desktop
 
         public async Task ExecuteInstallation(int id)
         {
-            /* TODO: need a method that generates temp file names WITHOUT creating them */
-            var zipTmp = Path.Combine(Path.GetTempPath(), "tmpzip-" + id);
-            var tempDir = Path.Combine(Path.GetTempPath(), "tmp-" + id);
+            var zipTmp = _fs.GetTempPath();
+            var tempDir = _fs.GetTempPath();
 
             var progress = new Progress<int>(i => SetProgress(_currentProgressState, i));
 

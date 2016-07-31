@@ -34,6 +34,12 @@ namespace PonySFM_Desktop
     public class MockFileSystem : IFileSystem
     {
         private List<MockFile> files = new List<MockFile>();
+        private Random _random;
+
+        public MockFileSystem()
+        {
+            _random = new Random();
+        }
 
         /* TODO: should overwrite be default behaviour? */
         public void CopyFile(string src, string dest)
@@ -289,6 +295,11 @@ namespace PonySFM_Desktop
         public IZIPFile OpenZIP(string filepath)
         {
             return new MockZIPFile(filepath, this);
+        }
+
+        public string GetTempPath()
+        {
+            return "C:\\TEMP" + _random.Next();
         }
     }
 }
