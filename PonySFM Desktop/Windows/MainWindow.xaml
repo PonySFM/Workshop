@@ -37,12 +37,19 @@
                     </StackPanel>
                 </StackPanel>
                 </StackPanel>
-                <Label FontSize="22" DockPanel.Dock="Top">Installed Revisions</Label>
-                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" SelectionMode="Single" AutoGenerateColumns="False" Margin="0,10,-0.333,0" Background="White">
+
+                <StackPanel DockPanel.Dock="Top" Margin="30,0,30,0">
+                <Label FontSize="20" DockPanel.Dock="Top">Installed Revisions</Label>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="25" Margin="10">
+                    <Button x:Name="UninstallButton">Uninstall</Button>
+                    <Button x:Name="VerifyButton" Margin="10,0,0,0">Verify Files</Button>
+                </StackPanel>
+                </StackPanel>
+                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="False" SelectionMode="Single" AutoGenerateColumns="False" Background="White">
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn Binding="{Binding Checked}"></DataGridCheckBoxColumn>
                         
-                        <DataGridTemplateColumn Header="ID" Width="SizeToCells" IsReadOnly="True">
+                        <DataGridTemplateColumn Header="ID" Width="50" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Label Content="{Binding ID}"></Label>
