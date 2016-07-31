@@ -32,7 +32,7 @@ namespace PonySFM_Desktop
             }
         }
 
-        public int MaxProgress { get { return 300;  } }
+        public int MaxProgress { get { return _progresses.Count * 100;  } }
 
         public int Progress
         {
