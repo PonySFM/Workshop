@@ -62,15 +62,14 @@ namespace PonySFM_Desktop
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+#if !DEBUG
             if (!UriProtocolExists())
                 InstallUriProtocol();
+#endif
 
             ConfigHandler config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
             RevisionManager revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
 
-            new MainWindow(revMgr.Database).ShowDialog();
-            return;
-            /*
             if(e.Args.Length == 1)
             {
                 string uri = e.Args[0];
@@ -79,31 +78,18 @@ namespace PonySFM_Desktop
                 new InstallationWindow(Convert.ToInt32(uri), revMgr).ShowDialog();
                 return;
             }
-            */
 
-
-            /*
-            new InstallationWindow(515, revMgr).ShowDialog();
-            return;
-            */
-
-            /*
-            if(!SFM.CheckConfigExists())
+            if(config.Exists())
+            {
+                new MainWindow(revMgr.Database).Show();
+                return;
+            }
+            else
             {
                 var w = SetupWindow.Instance;
                 w.SetPage(new SetupGreeting());
                 w.Show();
             }
-            else
-            {
-                var w = global::PonySFM_Desktop.MainWindow.Instance;
-                w.Show();
-            }
-            */
-
-            var w = SetupWindow.Instance;
-            w.SetPage(new SetupGreeting());
-            w.Show();
         }
     }
 }
