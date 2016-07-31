@@ -75,7 +75,20 @@ namespace PonySFM_Desktop
                 string uri = e.Args[0];
                 uri = uri.TrimStart("ponysfm://".ToCharArray());
                 uri = uri.TrimEnd('/');
-                new InstallationWindow(Convert.ToInt32(uri), revMgr).ShowDialog();
+                int id = Convert.ToInt32(uri);
+
+                if(revMgr.IsInstalled(id))
+                {
+                    var msg = MessageBox.Show("This revision is already installed. Do you want to uninstall?", "PonySFM", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if(msg == MessageBoxResult.Yes)
+                    {
+                        var list = new List<int>() { id };
+                        new DeinstallationWindow(revMgr, list).ShowDialog();
+                    }
+                }
+                else
+                    new InstallationWindow(id, revMgr).ShowDialog();
+
                 return;
             }
 

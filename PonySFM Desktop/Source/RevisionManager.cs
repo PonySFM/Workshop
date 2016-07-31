@@ -101,5 +101,10 @@ namespace PonySFM_Desktop
 
             return true;
         }
+
+        public bool IsInstalled(int id)
+        {
+            return _db.Revisions.Find(x => x.ID == id) != null;
+        }
     }
 }
