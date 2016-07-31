@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PonySFM_Desktop"
         mc:Ignorable="d"
+        MinWidth="525"
+        MinHeight="350"
         Title="PonySFM Desktop" Height="350" Width="525">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <DockPanel>
@@ -16,23 +18,23 @@
             </Menu>
         </DockPanel>
 
-        <StackPanel Height="Auto">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,30,0,0" Height="30">
-                <Button x:Name="btnInstall" Margin="0,0,10,0" Content="Install" />
-                <Button x:Name="btnUninstall" Margin="0,0,10,0" Content="Uninstall"/>
-                <Button x:Name="btnVerify" Margin="0,0,10,0" Content="Verify"/>
-            </StackPanel>
-            <DataGrid Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" AutoGenerateColumns="False" Height="250" Margin="0,10,-0.333,0">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="ID" Width="SizeToCells" IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding ID}"></Label>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+        <DockPanel Margin="10">
+                <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,30,0,0" Height="30">
+                    <Button x:Name="btnInstall" Margin="0,0,10,0" Content="Install" />
+                    <Button x:Name="btnUninstall" Margin="0,0,10,0" Content="Uninstall"/>
+                    <Button x:Name="btnVerify" Margin="0,0,10,0" Content="Verify"/>
+                </StackPanel>
+                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" AutoGenerateColumns="False" Margin="0,10,-0.333,0">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="ID" Width="SizeToCells" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding ID}"></Label>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+        </DockPanel>
     </Grid>
 </Window>
