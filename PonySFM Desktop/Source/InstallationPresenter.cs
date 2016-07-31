@@ -106,11 +106,16 @@ namespace PonySFM_Desktop
 
             /* TODO: need to parse which folders to copy from extracted files */
             /* They have to be similar to the SFM structure ( models/ and materials/ eg ) */
+            var parser = new TempRevisionParser(tempDir, WindowsFileSystem.Instance);
+            var modDir = parser.FindModFolder();
+
+            if (string.IsNullOrEmpty(modDir))
+                throw new NotImplementedException();
 
             _currentProgressState = "installation";
             LogInstallation("Installing files to SFM...\n");
-            var tmpRev = Revision.CreateTemporaryRevisionFromFolder(id, tempDir, _fs);
-            await _revisionMgr.InstallRevision(tmpRev, tempDir, progress);
+            var tmpRev = Revision.CreateTemporaryRevisionFromFolder(id, modDir, _fs);
+            await _revisionMgr.InstallRevision(tmpRev, modDir, progress);
 
             /* If we don't do this the directory deletion crashes because the handle created in zip.Extract is not released properly? */
             System.GC.Collect(); 
