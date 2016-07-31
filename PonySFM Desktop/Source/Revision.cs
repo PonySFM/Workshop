@@ -67,7 +67,7 @@ namespace PonySFM_Desktop
 
             foreach(XmlElement file in elem.ChildNodes)
             {
-                files.Add(new RevisionFileEntry(elem.GetAttribute("Location"), elem.GetAttribute("SHA512")));
+                files.Add(new RevisionFileEntry(file.GetAttribute("Location"), file.GetAttribute("SHA512")));
             }
 
             return new Revision(id, files);
