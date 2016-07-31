@@ -47,5 +47,42 @@ namespace PonySFM_Desktop.Test
             await revisionManager.InstallRevision(revision, "C:\\tmp", null);
             Assert.IsTrue(revisionManager.VerifyInstalled(revision));
         }
+
+        [TestMethod]
+        [TestCategory("RevisionManager")]
+        public async Task UninstallsRevisionCorrectly()
+        {
+            var configFile = new ConfigFile(dir);
+            var fs = new MockFileSystem();
+            var revisionManager = new RevisionManager(configFile, fs);
+
+            fs.CreateDirectory("C:\\SFM");
+            fs.CreateDirectory("C:\\SFM\\ponysfm");
+
+            fs.CreateDirectory("C:\\tmp");
+            fs.CreateDirectory("C:\\tmp\\models");
+            fs.CreateFile("C:\\tmp\\models\\pony.vtf");
+
+            fs.CreateDirectory("C:\\tmp\\materials");
+            fs.CreateFile("C:\\tmp\\materials\\pony.vmt");
+
+            var files = new List<RevisionFileEntry>();
+            files.Add(RevisionFileEntry.FromFile("C:\\tmp\\models\\pony.vtf", fs));
+            files.Add(RevisionFileEntry.FromFile("C:\\tmp\\materials\\pony.vmt", fs));
+
+            var revision = new Revision(1, files);
+
+            await revisionManager.InstallRevision(revision, "C:\\tmp", null);
+            Assert.IsTrue(revisionManager.VerifyInstalled(revision));
+
+            revisionManager.UninstallRevision(revision.ID);
+
+            Assert.IsFalse(revisionManager.VerifyInstalled(revision));
+
+            foreach (var file in revision.Files)
+            {
+                Assert.IsFalse(fs.FileExists(file.Path));
+            }
+        }
     }
 }
