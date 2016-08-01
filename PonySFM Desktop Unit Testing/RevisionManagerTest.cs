@@ -45,7 +45,7 @@ namespace PonySFM_Desktop.Test
             var revision = new Revision(1, files);
 
             await revisionManager.InstallRevision(revision, "C:\\tmp", null);
-            Assert.IsTrue(revisionManager.VerifyInstalled(revision));
+            Assert.IsTrue(revisionManager.VerifyInstalled(revision, null));
         }
 
         [TestMethod]

@@ -88,8 +88,9 @@ namespace PonySFM_Desktop
             });
         }
 
-        public bool VerifyInstalled(Revision revision)
+        public bool VerifyInstalled(Revision revision, IProgress<int> progress)
         {
+            int i = 0;
             foreach (var file in revision.Files)
             {
                 if (!_fs.FileExists(file.Path))
@@ -97,9 +98,21 @@ namespace PonySFM_Desktop
 
                 if (_fs.GetChecksum(file.Path) != file.Sha512)
                     return false;
+
+                progress?.Report(i / revision.Files.Count * 100);
+                i++;
             }
 
             return true;
+        }
+
+        public bool VerifyInstalled(int id, IProgress<int> progress)
+        {
+            var revision = _db.Revisions.Find(x => x.ID == id);
+            if (revision == null)
+                return false;
+
+            return VerifyInstalled(revision, progress);
         }
 
         public bool IsInstalled(int id)

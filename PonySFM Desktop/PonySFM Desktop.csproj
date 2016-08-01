@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="VerificationPresenter.cs" />
     <Compile Include="Windows\DeinstallationWindow.xaml.cs">
       <DependentUpon>DeinstallationWindow.xaml</DependentUpon>
     </Compile>
