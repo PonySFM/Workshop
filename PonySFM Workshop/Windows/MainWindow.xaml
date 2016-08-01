@@ -1,0 +1,63 @@
+﻿<Window x:Class="PonySFM_Workshop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PonySFM_Workshop"
+        mc:Ignorable="d"
+        MinWidth="600"
+        MinHeight="350"
+        Title="PonySFM Desktop" Height="350" Width="600">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Name="MenuItemInstall" Header="_Install"/>
+                    <MenuItem Name="MenuItemVerify" Header="_Verify"/>
+                    <Separator />
+                    <MenuItem Name="MenuItemSFMDir" Header="_Change SFM Directory"/>
+                    <Separator />
+                    <MenuItem Name="MenuItemExit" Header="_Exit" Click="MenuItemExit_Click"/>
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Name="MenuItemHelp" Header="_Online Guide" Click="MenuItemHelp_Click"/>
+                    <MenuItem Name="MenuItemAbout" Header="_About" Click="MenuItemAbout_Click"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+
+        <DockPanel Margin="10">
+            <StackPanel DockPanel.Dock="Top">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Image x:Name="LogoImage"  Height="50" Source="/PonySFM Desktop;component/Images/logo.png" VerticalAlignment="Top"/>
+                    <StackPanel>
+                        <Label FontSize="15">Welcome to the PonySFM Mod Manager!</Label>
+                        <Label FontSize="15">Find mods on ponysfm.com</Label>
+                    </StackPanel>
+                </StackPanel>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Top" Margin="30,0,30,0">
+                <Label FontSize="20" DockPanel.Dock="Top">Installed Revisions</Label>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="25" Margin="10">
+                    <Button x:Name="UninstallButton" Click="UninstallButton_Click">Uninstall</Button>
+                    <Button x:Name="VerifyButton" Margin="10,0,0,0" Click="VerifyButton_Click">Verify Files</Button>
+                </StackPanel>
+                </StackPanel>
+                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="False" SelectionMode="Single" AutoGenerateColumns="False" Background="White">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Binding="{Binding Checked}"></DataGridCheckBoxColumn>
+                        
+                        <DataGridTemplateColumn Header="ID" Width="50" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding ID}"></Label>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+        </DockPanel>
+    </Grid>
+</Window>

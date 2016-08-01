@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PonySFM Desktop", "PonySFM Desktop\PonySFM Desktop.csproj", "{0C0983AB-3EB7-4D61-B584-C2C457C15C70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PonySFM Workshop", "PonySFM Workshop\PonySFM Workshop.csproj", "{0C0983AB-3EB7-4D61-B584-C2C457C15C70}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostInstall", "PostInstall\PostInstall.csproj", "{0784127B-44F3-443E-9619-701F1A5ADE7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PonySFM Desktop Unit Testing", "PonySFM Desktop Unit Testing\PonySFM Desktop Unit Testing.csproj", "{734ADA66-D3C4-447E-B1E7-8C7588833F85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PonySFM Workshop UnitTest", "PonySFM Workshop Unit Test\PonySFM Workshop UnitTest.csproj", "{734ADA66-D3C4-447E-B1E7-8C7588833F85}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0C0983AB-3EB7-4D61-B584-C2C457C15C70} = {0C0983AB-3EB7-4D61-B584-C2C457C15C70}
 	EndProjectSection
