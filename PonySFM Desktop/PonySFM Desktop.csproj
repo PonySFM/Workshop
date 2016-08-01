@@ -39,6 +39,10 @@
       <HintPath>..\packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows" />
@@ -61,7 +65,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Source\ResourceAPIObject.cs" />
+    <Compile Include="Source\RevisionAPIObject.cs" />
     <Compile Include="Source\VerificationPresenter.cs" />
+    <Compile Include="Source\UserAPIObject.cs" />
     <Compile Include="Windows\VerificationWindow.xaml.cs">
       <DependentUpon>VerificationWindow.xaml</DependentUpon>
     </Compile>

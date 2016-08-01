@@ -34,6 +34,12 @@ namespace PonySFM_Desktop
             _fakeRevisions.Add(new Tuple<string, Revision>(dir, revision));
         }
 
+
+        public async Task DownloadRevisionAdditionalInformation(Revision revision)
+        {
+            // NOP
+        }
+
         public async Task DownloadRevisionZIP(int id, string filepath, IProgress<int> progress)
         {
             var rev = _fakeRevisions.Find(r => r.Item2.ID == id);

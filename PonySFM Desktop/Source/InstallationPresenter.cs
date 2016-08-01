@@ -104,6 +104,7 @@ namespace PonySFM_Desktop
             _currentProgressState = "installation";
             LogInstallation("Installing files to SFM...\n");
             var tmpRev = Revision.CreateTemporaryRevisionFromFolder(id, modDir, _fs);
+            await _api.DownloadRevisionAdditionalInformation(tmpRev);
             await _revisionMgr.InstallRevision(tmpRev, modDir, progress);
 
             /* If we don't do this the directory deletion crashes because the handle created in zip.Extract is not released properly? */

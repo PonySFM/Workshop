@@ -7,5 +7,6 @@ namespace PonySFM_Desktop
     {
         int FetchCurrentVersion();
         Task DownloadRevisionZIP(int id, string filepath, IProgress<int> progress);
+        Task DownloadRevisionAdditionalInformation(Revision revision);
     }
 }

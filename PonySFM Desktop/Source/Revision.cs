@@ -53,30 +53,50 @@ namespace PonySFM_Desktop
     {
         public int ID { get; set; }
         public List<RevisionFileEntry> Files { get; set; }
+        public Dictionary<string, string> AdditionalData { get; set; }
 
         public Revision(int id, List<RevisionFileEntry> files)
         {
             ID = id;
             Files = files;
+            AdditionalData = new Dictionary<string, string>();
         }
 
         public static Revision CreateFromXML(XmlElement elem)
         {
             List<RevisionFileEntry> files = new List<RevisionFileEntry>();
             int id = Convert.ToInt32(elem.GetAttribute("ID"));
+            Dictionary<string, string> additionalData = new Dictionary<string, string>();
+
+            foreach (XmlAttribute attr in elem.Attributes)
+            {
+                if (attr.Name == "ID")
+                    id = Convert.ToInt32(attr.Value);
+                else
+                    additionalData[attr.Name] = attr.Value;
+            }
 
             foreach(XmlElement file in elem.ChildNodes)
             {
                 files.Add(new RevisionFileEntry(file.GetAttribute("Location"), file.GetAttribute("SHA512")));
             }
 
-            return new Revision(id, files);
+            var rev = new Revision(id, files);
+            rev.AdditionalData = additionalData;
+
+            return rev;
         }
 
         public XmlElement ToXML(XmlDocument doc, IFileSystem fs)
         {
             var elem = doc.CreateElement("Revision");
             elem.SetAttribute("ID", ID.ToString());
+
+            foreach (var data in AdditionalData)
+            {
+                elem.SetAttribute(data.Key, data.Value);
+            }
+
             foreach (var file in Files)
             {
                 var fileElem = doc.CreateElement("File");

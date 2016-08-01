@@ -58,6 +58,8 @@ namespace PonySFM_Desktop.Test
             foreach (XmlElement elem in doc.FirstChild.ChildNodes)
             {
                 Assert.IsTrue(elem.HasAttribute("ID"));
+                Assert.IsTrue(elem.HasAttribute("Test"));
+                Assert.AreEqual("Cake", elem.GetAttribute("Test"));
                 Assert.IsTrue(elem.HasChildNodes);
 
                 foreach (XmlElement fileElem in elem.ChildNodes)
@@ -77,7 +79,10 @@ namespace PonySFM_Desktop.Test
                 files.Add(RevisionFileEntry.FromFile(stubfile, fs));
             }
 
-            return new Revision(id, files);
+            var rev = new Revision(id, files);
+            rev.AdditionalData["Test"] = "Cake";
+
+            return rev;
         }
     }
 }
