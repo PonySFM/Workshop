@@ -34,6 +34,22 @@ namespace PonySFM_Workshop
             }
         }
 
+        public string UserName
+        {
+            get
+            {
+                return _revision.AdditionalData["UserName"];
+            }
+        }
+
+        public string ResourceName
+        {
+            get
+            {
+                return _revision.AdditionalData["ResourceName"];
+            }
+        }
+
         public RevisionListItem(Revision revision)
         {
             _revision = revision;
