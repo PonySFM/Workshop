@@ -8,6 +8,7 @@ using System.Windows;
 using Microsoft.Win32;
 using System.Diagnostics;
 using PonySFM_Desktop.Source;
+using System.Threading;
 
 namespace PonySFM_Desktop
 {
@@ -60,50 +61,64 @@ namespace PonySFM_Desktop
             return cmdStr.ToLower().Contains(System.Reflection.Assembly.GetExecutingAssembly().Location.ToLower());
         }
 
+        static Mutex AppMutex;
+        static string MainMutexName = "{DD4066A3-069D-4EC1-BDB8-FA1CCE1C52C4}";
         private void Application_Startup(object sender, StartupEventArgs e)
         {
 #if !DEBUG
             if (!UriProtocolExists())
                 InstallUriProtocol();
 #endif
+            bool created;
+            // The string can be anything, but re-producing the same GUID would be quite a thing.
+            AppMutex = new Mutex(true, MainMutexName, out created);
 
-            ConfigHandler config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
-            if (config.Exists())
+            // If the mutex was created.
+            if (created)
             {
-                RevisionManager revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
-
-                if (e.Args.Length == 1)
+                ConfigHandler config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
+                if (config.Exists())
                 {
-                    string uri = e.Args[0];
-                    uri = uri.TrimStart("ponysfm://".ToCharArray());
-                    uri = uri.TrimEnd('/');
-                    int id = Convert.ToInt32(uri);
+                    RevisionManager revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
 
-                    if (revMgr.IsInstalled(id))
+                    if (e.Args.Length == 1)
                     {
-                        var msg = MessageBox.Show("This revision is already installed. Do you want to uninstall?", "PonySFM", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                        if (msg == MessageBoxResult.Yes)
+                        string uri = e.Args[0];
+                        uri = uri.TrimStart("ponysfm://".ToCharArray());
+                        uri = uri.TrimEnd('/');
+                        int id = Convert.ToInt32(uri);
+
+                        if (revMgr.IsInstalled(id))
                         {
-                            var list = new List<int>() { id };
-                            new DeinstallationWindow(revMgr, list).ShowDialog();
+                            var msg = MessageBox.Show("This revision is already installed. Do you want to uninstall?",
+                                "PonySFM", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                            if (msg == MessageBoxResult.Yes)
+                            {
+                                var list = new List<int>() { id };
+                                new DeinstallationWindow(revMgr, list).ShowDialog();
+                            }
                         }
-                    }
-                    else
-                    {
-                        List<int> ids = new List<int>() { id };
-                        new InstallationWindow(ids, revMgr).ShowDialog();
+                        else
+                        {
+                            List<int> ids = new List<int>() { id };
+                            new InstallationWindow(ids, revMgr).ShowDialog();
+                        }
+
+                        return;
                     }
 
-                    return;
+                    new MainWindow(revMgr).Show();
                 }
-
-                new MainWindow(revMgr).Show();
+                else
+                {
+                    var w = SetupWindow.Instance;
+                    w.SetPage(new SetupGreeting());
+                    w.Show();
+                }
             }
             else
             {
-                var w = SetupWindow.Instance;
-                w.SetPage(new SetupGreeting());
-                w.Show();
+                MessageBox.Show("App is already running!");
             }
         }
     }
