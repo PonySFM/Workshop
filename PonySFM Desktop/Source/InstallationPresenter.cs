@@ -52,16 +52,26 @@ namespace PonySFM_Desktop
         IFileSystem _fs;
         RevisionManager _revisionMgr;
         string _currentProgressState;
+        List<int> _ids;
 
-        public InstallationPresenter(IAPIConnector api, IFileSystem fs, RevisionManager revisionMgr)
+        public InstallationPresenter(IAPIConnector api, IFileSystem fs, RevisionManager revisionMgr, List<int> ids)
         {
             _api = api;
             _fs = fs;
             _revisionMgr = revisionMgr;
+            _ids = ids;
             _progress = 0;
             _progresses.Add("download", 0);
             _progresses.Add("extraction", 0);
             _progresses.Add("installation", 0);
+        }
+
+        public async Task Execute()
+        {
+            foreach (var id in _ids)
+            {
+                await ExecuteInstallation(id);
+            }
         }
 
         public async Task ExecuteInstallation(int id)
@@ -73,6 +83,8 @@ namespace PonySFM_Desktop
 
             if (!_fs.DirectoryExists(tempDir))
                 _fs.CreateDirectory(tempDir);
+
+            LogInstallation("Installing revision "+id+"\n");
 
             _currentProgressState = "download";
             LogInstallation("Downloading file...\n");

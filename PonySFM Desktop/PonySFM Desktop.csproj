@@ -61,7 +61,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="VerificationPresenter.cs" />
+    <Compile Include="Source\VerificationPresenter.cs" />
+    <Compile Include="Windows\VerificationWindow.xaml.cs">
+      <DependentUpon>VerificationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\DeinstallationWindow.xaml.cs">
       <DependentUpon>DeinstallationWindow.xaml</DependentUpon>
     </Compile>
@@ -109,6 +112,10 @@
     <Compile Include="Source\SFMDirectoryParser.cs" />
     <Compile Include="Source\WindowsFileSystem.cs" />
     <Compile Include="Source\ZIPFile.cs" />
+    <Page Include="Windows\VerificationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\DeinstallationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -49,5 +49,11 @@ namespace PonySFM_Desktop
             _presenter.OnUninstall();
             dataGrid.Items.Refresh();
         }
+
+        private void VerifyButton_Click(object sender, RoutedEventArgs e)
+        {
+            _presenter.OnVerify();
+            dataGrid.Items.Refresh();
+        }
     }
 }

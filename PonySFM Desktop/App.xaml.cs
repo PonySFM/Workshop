@@ -87,7 +87,10 @@ namespace PonySFM_Desktop
                     }
                 }
                 else
-                    new InstallationWindow(id, revMgr).ShowDialog();
+                {
+                    List<int> ids = new List<int>() { id };
+                    new InstallationWindow(ids, revMgr).ShowDialog();
+                }
 
                 return;
             }

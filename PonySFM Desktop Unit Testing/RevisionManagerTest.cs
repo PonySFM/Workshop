@@ -73,11 +73,11 @@ namespace PonySFM_Desktop.Test
             var revision = new Revision(1, files);
 
             await revisionManager.InstallRevision(revision, "C:\\tmp", null);
-            Assert.IsTrue(revisionManager.VerifyInstalled(revision));
+            Assert.IsTrue(revisionManager.VerifyInstalled(revision, null));
 
             await revisionManager.UninstallRevision(revision.ID, null);
 
-            Assert.IsFalse(revisionManager.VerifyInstalled(revision));
+            Assert.IsFalse(revisionManager.VerifyInstalled(revision, null));
 
             foreach (var file in revision.Files)
             {

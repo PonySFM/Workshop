@@ -20,19 +20,17 @@ namespace PonySFM_Desktop
     public partial class InstallationWindow : Window
     {
         InstallationPresenter _presenter;
-        int _id;
 
-        public InstallationWindow(int id, RevisionManager revisionMgr)
+        public InstallationWindow(List<int> ids, RevisionManager revisionMgr)
         {
-            _id = id;
-            _presenter = new InstallationPresenter(PonySFMAPIConnector.Instance, WindowsFileSystem.Instance, revisionMgr);
+            _presenter = new InstallationPresenter(PonySFMAPIConnector.Instance, WindowsFileSystem.Instance, revisionMgr, ids);
             _presenter.View = this;
             InitializeComponent();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            await _presenter.ExecuteInstallation(_id);
+            await _presenter.Execute();
         }
     }
 }

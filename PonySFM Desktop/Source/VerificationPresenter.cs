@@ -56,7 +56,7 @@ namespace PonySFM_Desktop
             _ids = ids;
         }
 
-        public async Task Execute()
+        public async Task<List<int>> Execute()
         {
             List<int> failedIDs = new List<int>();
             foreach (var id in _ids)
@@ -93,7 +93,7 @@ namespace PonySFM_Desktop
                 LogInstallation("Ok!\n");
             }
 
-            /* TODO: prompt for reinstallation */
+            return failedIDs;
         }
 
         private void LogInstallation(string msg)

@@ -79,6 +79,24 @@ namespace PonySFM_Desktop
             }
         }
 
+        public void OnVerify()
+        {
+            var toVerify = _items.Where(x => x.Checked);
+            List<int> ids = new List<int>();
+
+            foreach (var rev in toVerify)
+            {
+                ids.Add(rev.ID);
+            }
+
+            if(ids.Count > 0)
+            {
+                var w = new VerificationWindow(ids, _revisionManager);
+                w.ShowDialog();
+                PopulateListData();
+            }
+        }
+
         private void PopulateListData()
         {
             _items.Clear();

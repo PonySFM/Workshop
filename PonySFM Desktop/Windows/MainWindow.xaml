@@ -42,7 +42,7 @@
                 <Label FontSize="20" DockPanel.Dock="Top">Installed Revisions</Label>
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="25" Margin="10">
                     <Button x:Name="UninstallButton" Click="UninstallButton_Click">Uninstall</Button>
-                    <Button x:Name="VerifyButton" Margin="10,0,0,0">Verify Files</Button>
+                    <Button x:Name="VerifyButton" Margin="10,0,0,0" Click="VerifyButton_Click">Verify Files</Button>
                 </StackPanel>
                 </StackPanel>
                 <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="False" SelectionMode="Single" AutoGenerateColumns="False" Background="White">

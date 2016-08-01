@@ -17,7 +17,8 @@ namespace PonySFM_Desktop_Unit_Testing
             var fs = new MockFileSystem();
             var api = new MockAPIConnector(fs);
             var revisionMgr = new RevisionManager(new ConfigFile("C:\\SFM"), fs);
-            var installationPresenter = new InstallationPresenter(api, fs, revisionMgr);
+            var ids = new List<int>() { 1337 };
+            var installationPresenter = new InstallationPresenter(api, fs, revisionMgr, ids);
 
             /* Create fake revision to download */
             fs.CreateDirectory("C:\\tmp");
@@ -28,9 +29,9 @@ namespace PonySFM_Desktop_Unit_Testing
             var revision = Revision.CreateTemporaryRevisionFromFolder(1337, "C:\\tmp", fs);
             api.AddRevision("C:\\tmp", revision);
 
-            await installationPresenter.ExecuteInstallation(1337);
+            await installationPresenter.Execute();
 
-            Assert.IsTrue(revisionMgr.VerifyInstalled(revision));
+            Assert.IsTrue(revisionMgr.VerifyInstalled(revision, null));
         }
     }
 }
