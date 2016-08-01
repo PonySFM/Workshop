@@ -19,11 +19,13 @@ namespace PonySFM_Desktop
     /// </summary>
     public partial class VerificationWindow : Window
     {
+        RevisionManager _revisionManager;
         VerificationPresenter _presenter;
         public VerificationWindow(List<int> ids, RevisionManager revisionManager)
         {
             _presenter = new VerificationPresenter(revisionManager, ids);
             _presenter.View = this;
+            _revisionManager = revisionManager;
             InitializeComponent();
         }
 
@@ -32,7 +34,17 @@ namespace PonySFM_Desktop
             List<int> failedIDS = await _presenter.Execute();
             if (failedIDS.Count > 0)
             {
-                MessageBox.Show(string.Format("{0} revisions failed to validate. Reinstall them?", failedIDS.Count), "Validation failed", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation);
+                var answer = MessageBox.Show(string.Format("{0} revisions failed to validate. Reinstall them?", failedIDS.Count), "Validation failed", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation);
+                if(answer == MessageBoxResult.Yes)
+                {
+                    var deinstallationWindow = new DeinstallationWindow(_revisionManager, failedIDS);
+                    deinstallationWindow.ShowDialog();
+
+                    var installationWindow = new InstallationWindow(failedIDS, _revisionManager);
+                    installationWindow.ShowDialog();
+
+                    Close();
+                }
             }
         }
     }
