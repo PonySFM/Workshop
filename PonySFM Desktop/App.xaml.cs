@@ -68,37 +68,36 @@ namespace PonySFM_Desktop
 #endif
 
             ConfigHandler config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
-            RevisionManager revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
-
-            if(e.Args.Length == 1)
+            if (config.Exists())
             {
-                string uri = e.Args[0];
-                uri = uri.TrimStart("ponysfm://".ToCharArray());
-                uri = uri.TrimEnd('/');
-                int id = Convert.ToInt32(uri);
+                RevisionManager revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
 
-                if(revMgr.IsInstalled(id))
+                if (e.Args.Length == 1)
                 {
-                    var msg = MessageBox.Show("This revision is already installed. Do you want to uninstall?", "PonySFM", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if(msg == MessageBoxResult.Yes)
+                    string uri = e.Args[0];
+                    uri = uri.TrimStart("ponysfm://".ToCharArray());
+                    uri = uri.TrimEnd('/');
+                    int id = Convert.ToInt32(uri);
+
+                    if (revMgr.IsInstalled(id))
                     {
-                        var list = new List<int>() { id };
-                        new DeinstallationWindow(revMgr, list).ShowDialog();
+                        var msg = MessageBox.Show("This revision is already installed. Do you want to uninstall?", "PonySFM", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (msg == MessageBoxResult.Yes)
+                        {
+                            var list = new List<int>() { id };
+                            new DeinstallationWindow(revMgr, list).ShowDialog();
+                        }
                     }
-                }
-                else
-                {
-                    List<int> ids = new List<int>() { id };
-                    new InstallationWindow(ids, revMgr).ShowDialog();
+                    else
+                    {
+                        List<int> ids = new List<int>() { id };
+                        new InstallationWindow(ids, revMgr).ShowDialog();
+                    }
+
+                    return;
                 }
 
-                return;
-            }
-
-            if(config.Exists())
-            {
                 new MainWindow(revMgr).Show();
-                return;
             }
             else
             {
