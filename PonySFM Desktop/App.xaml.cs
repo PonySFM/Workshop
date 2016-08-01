@@ -94,7 +94,7 @@ namespace PonySFM_Desktop
 
             if(config.Exists())
             {
-                new MainWindow(revMgr.Database).Show();
+                new MainWindow(revMgr).Show();
                 return;
             }
             else

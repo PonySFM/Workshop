@@ -41,7 +41,7 @@
                 <StackPanel DockPanel.Dock="Top" Margin="30,0,30,0">
                 <Label FontSize="20" DockPanel.Dock="Top">Installed Revisions</Label>
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="25" Margin="10">
-                    <Button x:Name="UninstallButton">Uninstall</Button>
+                    <Button x:Name="UninstallButton" Click="UninstallButton_Click">Uninstall</Button>
                     <Button x:Name="VerifyButton" Margin="10,0,0,0">Verify Files</Button>
                 </StackPanel>
                 </StackPanel>

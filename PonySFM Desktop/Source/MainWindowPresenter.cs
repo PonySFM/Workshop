@@ -44,6 +44,7 @@ namespace PonySFM_Desktop
     {
         List<RevisionListItem> _items = new List<RevisionListItem>();
         RevisionDatabase _db;
+        RevisionManager _revisionManager;
 
         public List<RevisionListItem> InstalledRevisions
         {
@@ -53,18 +54,39 @@ namespace PonySFM_Desktop
             }
         }
 
-        public MainWindowPresenter(RevisionDatabase db)
+        public MainWindowPresenter(RevisionManager revisionManager)
         {
-            _db = db;
+            _revisionManager = revisionManager;
+            _db = _revisionManager.Database;
             PopulateListData();
+        }
+
+        public void OnUninstall()
+        {
+            var toUninstall = _items.Where(x => x.Checked);
+            List<int> ids = new List<int>();
+
+            foreach (var rev in toUninstall)
+            {
+                ids.Add(rev.ID);
+            }
+
+            if(ids.Count > 0)
+            {
+                var w = new DeinstallationWindow(_revisionManager, ids);
+                w.ShowDialog();
+                PopulateListData();
+            }
         }
 
         private void PopulateListData()
         {
+            _items.Clear();
             foreach (var revision in _db.Revisions)
             {
                 _items.Add(new RevisionListItem(revision));
             }
+            NotifyPropertyChange("InstalledRevisions");
         }
     }
 }

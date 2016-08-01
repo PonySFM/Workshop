@@ -22,9 +22,9 @@ namespace PonySFM_Desktop
     {
         MainWindowPresenter _presenter;
 
-        public MainWindow(RevisionDatabase db)
+        public MainWindow(RevisionManager revisionManager)
         {
-            _presenter = new MainWindowPresenter(db);
+            _presenter = new MainWindowPresenter(revisionManager);
             _presenter.View = this;
             InitializeComponent();
         }
@@ -42,6 +42,11 @@ namespace PonySFM_Desktop
         private void MenuItemHelp_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void UninstallButton_Click(object sender, RoutedEventArgs e)
+        {
+            _presenter.OnUninstall();
         }
     }
 }
