@@ -90,7 +90,9 @@ namespace PonySFM_Desktop
         public string GetChecksum(string filepath)
         {
             var stream = File.OpenRead(filepath);
-            return FileUtil.GetChecksum(stream);
+            string checksum = FileUtil.GetChecksum(stream);
+            stream.Close();
+            return checksum;
         }
 
         public List<IFile> GetFiles(string dir)
