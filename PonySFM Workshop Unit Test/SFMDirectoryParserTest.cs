@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PonySFM_Workshop;
 
 namespace PonySFM_Desktop.Test
 {

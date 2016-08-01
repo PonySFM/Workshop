@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PonySFM_Desktop;
+using PonySFM_Workshop;
 
 namespace PonySFM_Desktop_Unit_Testing
 {

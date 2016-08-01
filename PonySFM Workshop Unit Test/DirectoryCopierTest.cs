@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
+using PonySFM_Workshop;
 
 namespace PonySFM_Desktop.Test
 {

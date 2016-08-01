@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PonySFM_Desktop;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using PonySFM_Workshop;
 
 namespace PonySFM_Desktop_Unit_Testing
 {

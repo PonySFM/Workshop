@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Xml;
+using PonySFM_Workshop;
 
 namespace PonySFM_Desktop.Test
 {
