@@ -47,6 +47,7 @@ namespace PonySFM_Desktop
         private void UninstallButton_Click(object sender, RoutedEventArgs e)
         {
             _presenter.OnUninstall();
+            dataGrid.Items.Refresh();
         }
     }
 }
