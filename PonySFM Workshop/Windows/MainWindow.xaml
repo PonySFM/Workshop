@@ -30,7 +30,7 @@
         <DockPanel Margin="10">
             <StackPanel DockPanel.Dock="Top">
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <Image x:Name="LogoImage"  Height="50" Source="/PonySFM Desktop;component/Images/logo.png" VerticalAlignment="Top"/>
+                    <Image x:Name="LogoImage"  Height="50" Source="/PonySFM Workshop;component/Images/logo.png" VerticalAlignment="Top"/>
                     <StackPanel>
                         <Label FontSize="15">Welcome to the PonySFM Mod Manager!</Label>
                         <Label FontSize="15">Find mods on ponysfm.com</Label>
