@@ -20,17 +20,21 @@ namespace PonySFM_Desktop
     public partial class InstallationWindow : Window
     {
         InstallationPresenter _presenter;
+        bool _closeOnFinish;
 
-        public InstallationWindow(List<int> ids, RevisionManager revisionMgr)
+        public InstallationWindow(List<int> ids, RevisionManager revisionMgr, bool closeOnFinish = false)
         {
             _presenter = new InstallationPresenter(PonySFMAPIConnector.Instance, WindowsFileSystem.Instance, revisionMgr, ids);
             _presenter.View = this;
+            _closeOnFinish = closeOnFinish;
             InitializeComponent();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             await _presenter.Execute();
+            if (_closeOnFinish)
+                Close();
         }
     }
 }

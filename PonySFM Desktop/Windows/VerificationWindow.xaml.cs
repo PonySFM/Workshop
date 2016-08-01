@@ -37,10 +37,10 @@ namespace PonySFM_Desktop
                 var answer = MessageBox.Show(string.Format("{0} revisions failed to validate. Reinstall them?", failedIDS.Count), "Validation failed", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation);
                 if(answer == MessageBoxResult.Yes)
                 {
-                    var deinstallationWindow = new DeinstallationWindow(_revisionManager, failedIDS);
+                    var deinstallationWindow = new DeinstallationWindow(_revisionManager, failedIDS, true);
                     deinstallationWindow.ShowDialog();
 
-                    var installationWindow = new InstallationWindow(failedIDS, _revisionManager);
+                    var installationWindow = new InstallationWindow(failedIDS, _revisionManager, true);
                     installationWindow.ShowDialog();
 
                     Close();
