@@ -134,8 +134,10 @@ namespace PonySFM_Workshop
     {
         public bool ShouldCopy { get; set; }
 
+        //TODO: DirectoryCopierFileExistsEventArgs
         public DirectoryCopierFileExistsEventArgs(string file1, string file2) : base(file1, file2)
         {
+
         }
     }
 }

@@ -14,11 +14,24 @@ namespace PonySFM_Workshop
     /* that actually looks nice */
     public class InstallationPresenter : BasePresenter
     {
-        int _progress;
-        string _installationLog;
-        Dictionary<string, int> _progresses = new Dictionary<string, int>();
+        /// <summary>
+        /// Private enumeration representing the progress state.
+        /// </summary>
+        enum ProgressState { Download, Extraction, Installation }
 
-        public int MaxProgress { get { return _progresses.Count * 100;  } }
+        int _progress;
+        StringBuilder _installationLog = new StringBuilder();
+        Dictionary<ProgressState, int> _progresses = new Dictionary<ProgressState, int>();
+
+        IAPIConnector _api;
+        IFileSystem _fs;
+        RevisionManager _revisionMgr;
+        ProgressState _currentProgressState;
+        List<int> _ids;
+
+        public int MaxProgress => _progresses.Count * 100;
+
+        public string Status { get; private set; }
 
         public int Progress
         {
@@ -37,22 +50,9 @@ namespace PonySFM_Workshop
         {
             get
             {
-                return _installationLog;
-            }
-            set
-            {
-                _installationLog = value;
-                NotifyPropertyChange("InstallationLog");
+                return _installationLog.ToString();
             }
         }
-
-        public string Status { get; private set; }
-
-        IAPIConnector _api;
-        IFileSystem _fs;
-        RevisionManager _revisionMgr;
-        string _currentProgressState;
-        List<int> _ids;
 
         public InstallationPresenter(IAPIConnector api, IFileSystem fs, RevisionManager revisionMgr, List<int> ids)
         {
@@ -61,9 +61,9 @@ namespace PonySFM_Workshop
             _revisionMgr = revisionMgr;
             _ids = ids;
             _progress = 0;
-            _progresses.Add("download", 0);
-            _progresses.Add("extraction", 0);
-            _progresses.Add("installation", 0);
+            _progresses.Add(ProgressState.Download, 0);
+            _progresses.Add(ProgressState.Extraction, 0);
+            _progresses.Add(ProgressState.Installation, 0);
         }
 
         public async Task Execute()
@@ -84,13 +84,13 @@ namespace PonySFM_Workshop
             if (!_fs.DirectoryExists(tempDir))
                 _fs.CreateDirectory(tempDir);
 
-            LogInstallation("Installing revision "+id+"\n");
+            LogInstallation("Installing revision " + id + "\n");
 
-            _currentProgressState = "download";
+            _currentProgressState = ProgressState.Download;
             LogInstallation("Downloading file...\n");
             await _api.DownloadRevisionZIP(id, zipTmp, progress);
 
-            _currentProgressState = "extraction";
+            _currentProgressState = ProgressState.Extraction;
             LogInstallation("Extracting zip file...\n");
             var zip = _fs.OpenZIP(zipTmp);
             await zip.Extract(tempDir, progress);
@@ -98,18 +98,18 @@ namespace PonySFM_Workshop
             var parser = new TempRevisionParser(tempDir, _fs);
             var modDir = parser.FindModFolder();
 
-            if (string.IsNullOrEmpty(modDir))
+            if (string.IsNullOrWhiteSpace(modDir))
                 throw new NotImplementedException();
 
-            _currentProgressState = "installation";
+            _currentProgressState = ProgressState.Installation;
             LogInstallation("Installing files to SFM...\n");
-            var tmpRev = Revision.CreateTemporaryRevisionFromFolder(id, modDir, _fs);
+            Revision tmpRev = Revision.CreateTemporaryRevisionFromFolder(id, modDir, _fs);
             await _api.DownloadRevisionAdditionalInformation(tmpRev);
             await _revisionMgr.InstallRevision(tmpRev, modDir, progress);
 
             /* If we don't do this the directory deletion crashes because the handle created in zip.Extract is not released properly? */
-            System.GC.Collect(); 
-            System.GC.WaitForPendingFinalizers();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
 
             LogInstallation("Cleaning up...\n");
             if (zip is MockZIPFile)
@@ -122,10 +122,16 @@ namespace PonySFM_Workshop
 
         private void LogInstallation(string msg)
         {
-            InstallationLog += msg;
+            _installationLog.Append(msg);
+            NotifyPropertyChange("InstallationLog");
         }
 
-        private void SetProgress(string name, int p)
+        private void LogLineInstallation(string msg)
+        {
+            LogInstallation(msg + '\n');
+        }
+
+        private void SetProgress(ProgressState name, int p)
         {
             _progresses[name] = p;
             Progress = _progresses.Sum(x => x.Value);

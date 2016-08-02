@@ -12,13 +12,7 @@ namespace PonySFM_Workshop
         RevisionDatabase _db;
         SFMDirectoryParser _dirParser;
 
-        public RevisionDatabase Database
-        {
-            get
-            {
-                return _db;
-            }
-        }
+        public RevisionDatabase Database => _db;
 
         public RevisionManager(ConfigFile configFile, IFileSystem fs)
         {
@@ -45,10 +39,8 @@ namespace PonySFM_Workshop
             var directoryCopier = new DirectoryCopier(_fs, topDir, _dirParser.InstallationPath, true);
 
             if (progress != null)
-                directoryCopier.OnProgress += delegate (object sender, DirectoryProgressEventArgs e)
-                {
+                directoryCopier.OnProgress += (s, e) =>
                     progress.Report(e.Progress);
-                };
 
             await directoryCopier.Execute();
 
@@ -60,7 +52,8 @@ namespace PonySFM_Workshop
 
         public async Task UninstallRevision(int id, IProgress<int> progress)
         {
-            var revision = _db.Revisions.Find(r => r.ID == id);
+            Revision revision = _db.Revisions.Find(r => r.ID == id);
+
             if (revision == null)
                 return;
 
@@ -108,7 +101,8 @@ namespace PonySFM_Workshop
 
         public bool VerifyInstalled(int id, IProgress<int> progress)
         {
-            var revision = _db.Revisions.Find(x => x.ID == id);
+            Revision revision = _db.Revisions.Find(x => x.ID == id);
+
             if (revision == null)
                 return false;
 
