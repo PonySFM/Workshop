@@ -33,14 +33,19 @@ namespace PonySFM_Workshop
             _dirParser.CreateDirectories();
         }
 
-        public async Task InstallRevision(Revision revision, string topDir, IProgress<int> progress)
+        public async Task InstallRevision(Revision revision, string topDir, IProgress<int> progress, IProgress<DirectoryCopierFileExistsEventArgs> existsProgress = null)
         {
             /* Copy files and blahblah */
             var directoryCopier = new DirectoryCopier(_fs, topDir, _dirParser.InstallationPath, true);
 
             if (progress != null)
+            {
                 directoryCopier.OnProgress += (s, e) =>
                     progress.Report(e.Progress);
+
+                directoryCopier.OnFileExists += (s, e) =>
+                    existsProgress.Report(e);
+            }
 
             await directoryCopier.Execute();
 

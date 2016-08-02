@@ -36,5 +36,11 @@ namespace PonySFM_Workshop
             if (_closeOnFinish)
                 Close();
         }
+
+        public bool OnFileExists(string file1, string file2)
+        {
+            var msg = MessageBox.Show(string.Format("The file {0} already exists. Overwrite?", file2), "Installation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            return msg == MessageBoxResult.Yes;
+        }
     }
 }
