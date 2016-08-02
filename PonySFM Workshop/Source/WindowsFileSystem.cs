@@ -167,5 +167,15 @@ namespace PonySFM_Workshop
             File.Delete(path);
             return path;
         }
+
+        public byte[] ReadFile(string filepath)
+        {
+            return File.ReadAllBytes(filepath);
+        }
+
+        public void WriteFile(string filepath, byte[] data)
+        {
+            File.WriteAllBytes(filepath, data);
+        }
     }
 }
