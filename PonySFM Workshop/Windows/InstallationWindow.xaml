@@ -15,7 +15,7 @@
                 <Label FontSize="20">Installing Revision</Label>
             </Grid>
             <ProgressBar DockPanel.Dock="Bottom" Maximum="{Binding MaxProgress}" Value="{Binding Progress, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Height="20"></ProgressBar>
-            <TextBox DockPanel.Dock="Top" x:Name="installationLog" Text="{Binding InstallationLog, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="Auto" Height="Auto"></TextBox>
+            <TextBox DockPanel.Dock="Top" x:Name="installationLog" Text="{Binding InstallationLog, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="Auto" Height="Auto"></TextBox>
         </DockPanel>
     </Grid>
 </Window>
