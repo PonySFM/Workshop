@@ -110,7 +110,7 @@ namespace PonySFM_Desktop.Test
             directoryCopier.OnFileExists += delegate (object sender, DirectoryCopierFileExistsEventArgs e)
             {
                 eventArgs = e;
-                e.ShouldCopy = true;
+                e.FileCopyMode = DirectoryCopierFileCopyMode.Copy;
             };
 
             await directoryCopier.Execute();
@@ -122,6 +122,39 @@ namespace PonySFM_Desktop.Test
 
             Assert.AreEqual(eventArgs.File2, "C:\\SFM\\file1.txt");
             Assert.AreEqual(fs.ReadFile("C:\\SFM\\file1.txt"), d1);
+        }
+
+        [TestMethod]
+        [TestCategory("DirectoryCopier")]
+        public async Task CopyAllShouldSkipEvents()
+        {
+            var fs = new MockFileSystem();
+            var directoryCopier = new DirectoryCopier(fs, "C:\\fakeDir", "C:\\SFM", true);
+
+            var d1 = Encoding.UTF8.GetBytes("Hello");
+            var d2 = Encoding.UTF8.GetBytes("Konnichiwa");
+
+            fs.CreateFile("C:\\fakeDir\\file1.txt", d1);
+            fs.CreateFile("C:\\fakeDir\\file2.txt", d2);
+
+            fs.CreateFile("C:\\SFM\\file1.txt");
+            fs.CreateFile("C:\\SFM\\file2.txt");
+
+            int timesEventCalled = 0;
+
+            directoryCopier.OnFileExists += delegate (object sender, DirectoryCopierFileExistsEventArgs e)
+            {
+                e.FileCopyMode = DirectoryCopierFileCopyMode.CopyAll;
+                timesEventCalled++;
+            };
+
+            await directoryCopier.Execute();
+
+            /* Setting FileCopyMode to CopyAll should disable the event */
+            Assert.AreEqual(1, timesEventCalled);
+
+            Assert.AreEqual(fs.ReadFile("C:\\SFM\\file1.txt"), d1);
+            Assert.AreEqual(fs.ReadFile("C:\\SFM\\file2.txt"), d2);
         }
     }
 }

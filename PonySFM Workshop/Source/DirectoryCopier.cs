@@ -12,6 +12,7 @@ namespace PonySFM_Workshop
         bool _copySubDirs;
         int _progress;
         int _totalFiles;
+        bool _copyAll;
 
         public delegate void FileExistsHandler(object sender, DirectoryCopierFileExistsEventArgs e);
         public event FileExistsHandler OnFileExists;
@@ -30,6 +31,7 @@ namespace PonySFM_Workshop
             _copySubDirs = copySubDirs;
             _progress = 0;
             _totalFiles = 0;
+            _copyAll = false;
         }
 
         public async Task Execute()
@@ -54,8 +56,24 @@ namespace PonySFM_Workshop
                 if (!_fs.FileExists(newPath))
                     await _fs.CopyFileAsync(file.Path, newPath);
                 else
-                    if (FireFileExistsEvent(file.Path, newPath))
-                        await _fs.CopyFileAsync(file.Path, newPath);
+                {
+                    if (!_copyAll)
+                    {
+                        var mode = FireFileExistsEvent(file.Path, newPath);
+                        switch (mode)
+                        {
+                            case DirectoryCopierFileCopyMode.DoNotCopy:
+                                continue;
+                            case DirectoryCopierFileCopyMode.CopyAll:
+                                _copyAll = true;
+                                break;
+                            case DirectoryCopierFileCopyMode.Copy:
+                                break;
+                        }
+                    }
+
+                    await _fs.CopyFileAsync(file.Path, newPath);
+                }
 
                 _progress++;
                 FireProgressEvent((int)(_progress / (double)_totalFiles * 100.0));
@@ -88,11 +106,11 @@ namespace PonySFM_Workshop
             return ret;
         }
 
-        private bool FireFileExistsEvent(string file1, string file2)
+        private DirectoryCopierFileCopyMode FireFileExistsEvent(string file1, string file2)
         {
             var eventArgs = new DirectoryCopierFileExistsEventArgs(file1, file2);
             OnFileExists?.Invoke(this, eventArgs);
-            return eventArgs.ShouldCopy;
+            return eventArgs.FileCopyMode;
         }
 
         private void FireFileCopyEvent(string file1, string file2)
@@ -130,14 +148,21 @@ namespace PonySFM_Workshop
         }
     }
 
+    public enum DirectoryCopierFileCopyMode
+    {
+        DoNotCopy,
+        Copy,
+        CopyAll
+    }
+
     public class DirectoryCopierFileExistsEventArgs : DirectoryCopierCopyEventArgs
     {
-        public bool ShouldCopy { get; set; }
+        public DirectoryCopierFileCopyMode FileCopyMode { get; set; }
 
-        //TODO: DirectoryCopierFileExistsEventArgs
         public DirectoryCopierFileExistsEventArgs(string file1, string file2) : base(file1, file2)
         {
-
+            /* This default value will only be used if no one registers to the OnFileCopy event */
+            FileCopyMode = DirectoryCopierFileCopyMode.Copy;
         }
     }
 }
