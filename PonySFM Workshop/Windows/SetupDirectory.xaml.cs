@@ -61,6 +61,8 @@ namespace PonySFM_Workshop
                     return;
 
             _config.Write(new ConfigFile(dir));
+
+            SetupWindow.Instance.GoToMainWindow();
         }
 
         private void DirectoryPathBox_TextChanged(object sender, TextChangedEventArgs e)

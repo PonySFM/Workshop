@@ -23,6 +23,7 @@ namespace PonySFM_Workshop
     public partial class SetupWindow : MetroWindow
     {
         private static SetupWindow singleton;
+        private bool isFinished = false;
 
         public static SetupWindow Instance
         {
@@ -66,7 +67,22 @@ namespace PonySFM_Workshop
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            e.Cancel = MessageBox.Show("Do you really want to cancel the setup?", "PonySFM Setup", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No;
+            if (!isFinished)
+                e.Cancel = MessageBox.Show("Do you really want to cancel the setup?", "PonySFM Setup", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No;
+            else
+                e.Cancel = false;
+        }
+
+        public void GoToMainWindow()
+        {
+            isFinished = true;
+
+            /* TODO: we really shouldn't have to redeclare this here */
+            ConfigHandler config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
+            RevisionManager revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
+
+            new MainWindow(revMgr).Show();
+            Close();
         }
     }
 }
