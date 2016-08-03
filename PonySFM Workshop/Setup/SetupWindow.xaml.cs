@@ -13,17 +13,11 @@ namespace PonySFM_Workshop
     {
         private static SetupWindow singleton;
         private bool isFinished = false;
-        
-        public static SetupWindow Instance
-        {
-            get
-            {
-                if (singleton == null)
-                    singleton = new SetupWindow();
 
-                return singleton;
-            }
-        }
+        public static SetupWindow Instance =>
+            singleton == null ?
+                singleton = new SetupWindow() :
+                singleton;
 
         private List<Page> pages = new List<Page>();
         private int pageIndex = 0;

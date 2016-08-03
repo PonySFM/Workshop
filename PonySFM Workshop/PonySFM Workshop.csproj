@@ -81,20 +81,20 @@
     <Compile Include="Source\ControlBox.cs" />
     <Compile Include="Source\ResourceAPIObject.cs" />
     <Compile Include="Source\RevisionAPIObject.cs" />
-    <Compile Include="Source\VerificationPresenter.cs" />
+    <Compile Include="Verification\VerificationPresenter.cs" />
     <Compile Include="Source\UserAPIObject.cs" />
-    <Compile Include="Windows\VerificationWindow.xaml.cs">
+    <Compile Include="Verification\VerificationWindow.xaml.cs">
       <DependentUpon>VerificationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\DeinstallationWindow.xaml.cs">
+    <Compile Include="Deinstallation\DeinstallationWindow.xaml.cs">
       <DependentUpon>DeinstallationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Source\DeinstallationPresenter.cs" />
-    <Compile Include="Source\BasePresenter.cs" />
-    <Compile Include="Source\MainWindowPresenter.cs" />
+    <Compile Include="Deinstallation\DeinstallationPresenter.cs" />
+    <Compile Include="Base\BasePresenter.cs" />
+    <Compile Include="Main\MainWindowPresenter.cs" />
     <Compile Include="Source\MockZIPFile.cs" />
     <Compile Include="Source\IZIPFile.cs" />
-    <Compile Include="Source\InstallationPresenter.cs" />
+    <Compile Include="Installation\InstallationPresenter.cs" />
     <Compile Include="Source\IPresenter.cs" />
     <Compile Include="Source\Config.cs" />
     <Compile Include="Source\ConfigFile.cs" />
@@ -110,7 +110,7 @@
     <Compile Include="Source\IFileSystem.cs" />
     <Compile Include="Source\MockAPIConnector.cs" />
     <Compile Include="Source\TempRevisionParser.cs" />
-    <Compile Include="Windows\InstallationWindow.xaml.cs">
+    <Compile Include="Installation\InstallationWindow.xaml.cs">
       <DependentUpon>InstallationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Source\Logger.cs" />
@@ -120,59 +120,59 @@
     <Compile Include="Source\Revision.cs" />
     <Compile Include="Source\RevisionDatabase.cs" />
     <Compile Include="Source\RevisionManager.cs" />
-    <Compile Include="Windows\SetupDirectory.xaml.cs">
+    <Compile Include="Setup\Directory\SetupDirectory.xaml.cs">
       <DependentUpon>SetupDirectory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\SetupGreeting.xaml.cs">
+    <Compile Include="Setup\Greeting\SetupGreeting.xaml.cs">
       <DependentUpon>SetupGreeting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\SetupWindow.xaml.cs">
+    <Compile Include="Setup\SetupWindow.xaml.cs">
       <DependentUpon>SetupWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Source\SFM.cs" />
     <Compile Include="Source\SFMDirectoryParser.cs" />
     <Compile Include="Source\WindowsFileSystem.cs" />
     <Compile Include="Source\ZIPFile.cs" />
-    <Page Include="Windows\VerificationWindow.xaml">
+    <Page Include="Verification\VerificationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\DeinstallationWindow.xaml">
+    <Page Include="Deinstallation\DeinstallationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\AboutDialog.xaml">
+    <Page Include="About\AboutDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\InstallationWindow.xaml">
+    <Page Include="Installation\InstallationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\MainWindow.xaml">
+    <Page Include="Main\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Windows\AboutDialog.xaml.cs">
+    <Compile Include="About\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Windows\MainWindow.xaml.cs">
+    <Compile Include="Main\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Windows\SetupDirectory.xaml">
+    <Page Include="Setup\Directory\SetupDirectory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\SetupGreeting.xaml">
+    <Page Include="Setup\Greeting\SetupGreeting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\SetupWindow.xaml">
+    <Page Include="Setup\SetupWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
