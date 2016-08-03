@@ -1,4 +1,5 @@
-﻿<Window x:Class="PonySFM_Workshop.MainWindow"
+﻿<Controls:MetroWindow x:Class="PonySFM_Workshop.MainWindow"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,6 +8,9 @@
         mc:Ignorable="d"
         MinWidth="600"
         MinHeight="350"
+        GlowBrush="{StaticResource AccentColorBrush}"
+        Style="{DynamicResource CleanWindowStyleKey}"
+        ResizeMode="CanResizeWithGrip"
         Title="PonySFM Desktop" Height="350" Width="600">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
@@ -45,7 +49,7 @@
                     <Button x:Name="VerifyButton" Margin="10,0,0,0" Click="VerifyButton_Click">Verify Files</Button>
                 </StackPanel>
                 </StackPanel>
-                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="False" SelectionMode="Single" AutoGenerateColumns="False" Background="White">
+                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="False" SelectionMode="Single" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn Binding="{Binding Checked}"></DataGridCheckBoxColumn>
                         <DataGridTemplateColumn Header="ID" Width="50" IsReadOnly="True">
@@ -73,4 +77,4 @@
                 </DataGrid>
         </DockPanel>
     </Grid>
-</Window>
+</Controls:MetroWindow>
