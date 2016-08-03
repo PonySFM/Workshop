@@ -8,6 +8,8 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         GlowBrush="{StaticResource AccentColorBrush}"
+        Style="{DynamicResource CleanWindowStyleKey}"
+        WindowStartupLocation="CenterScreen"
         Title="PonySFM Setup" Height="460.845" Width="600" Closing="Window_Closing">
     <Grid>
         <StackPanel Height="Auto">
