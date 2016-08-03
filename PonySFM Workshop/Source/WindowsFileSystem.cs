@@ -152,7 +152,7 @@ namespace PonySFM_Workshop
         public Task CopyFileAsync(string src, string dest)
         {
             return Task.Factory.StartNew(() => {
-                File.Copy(src, dest);
+                File.Copy(src, dest, true);
             });
         }
 

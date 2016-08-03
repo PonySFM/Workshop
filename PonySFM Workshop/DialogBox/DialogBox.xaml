@@ -8,11 +8,11 @@
         mc:Ignorable="d"
         Title="DialogBox" Height="226" Width="343" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" ResizeMode="NoResize" AutomationProperties.IsRequiredForForm="True" AutomationProperties.Name="DialogBox" TitleCaps="False" Controls:ControlsHelper.ContentCharacterCasing="Lower">
     <Grid>
-        <Button x:Name="YesButton" Content="Yes" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="YesAllButton" Content="Yes to all" HorizontalAlignment="Left" Margin="90,160,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="NoButton" Content="No" HorizontalAlignment="Left" Margin="170,160,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="250,160,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label x:Name="label" Content="Are you sure?" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"
+        <Button x:Name="YesButton" Content="Yes" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" Width="75" Click="YesButton_Click"/>
+        <Button x:Name="YesAllButton" Content="Yes to all" HorizontalAlignment="Left" Margin="90,160,0,0" VerticalAlignment="Top" Width="75" Click="YesAllButton_Click"/>
+        <Button x:Name="NoButton" Content="No" HorizontalAlignment="Left" Margin="170,160,0,0" VerticalAlignment="Top" Width="75" Click="NoButton_Click"/>
+        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="250,160,0,0" VerticalAlignment="Top" Width="75" Click="CancelButton_Click"/>
+        <Label x:Name="label" Content="{Binding Text}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
     </Grid>
 </Controls:MetroWindow>

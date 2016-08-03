@@ -38,14 +38,11 @@ namespace PonySFM_Workshop
             /* Copy files and blahblah */
             var directoryCopier = new DirectoryCopier(_fs, topDir, _dirParser.InstallationPath, true);
 
-            if (progress != null)
-            {
-                directoryCopier.OnProgress += (s, e) =>
-                    progress.Report(e.Progress);
+            directoryCopier.OnProgress += (s, e) =>
+                progress?.Report(e.Progress);
 
-                directoryCopier.OnFileExists += (s, e) =>
-                    existsProgress.Report(e);
-            }
+            directoryCopier.OnFileExists += (s, e) =>
+                existsProgress?.Report(e);
 
             await directoryCopier.Execute();
 

@@ -17,13 +17,13 @@ namespace PonySFM_Workshop
 {
     public enum DialogBoxResult
     {
-        Yes, YesAll, Ok, Cancel
+        Yes, YesAll, Ok, No, Cancel
     }
 
     [Flags]
     public enum EnableButtons
     {
-        Yes, YesAll, Ok, Cancel
+        Yes, YesAll, Ok, No, Cancel
     }
 
     /// <summary>
@@ -31,11 +31,40 @@ namespace PonySFM_Workshop
     /// </summary>
     public partial class DialogBox : MetroWindow
     {
-        public DialogBox()
+        public DialogBox(string text)
         {
+            Text = text;
+            Result = DialogBoxResult.Cancel;
             InitializeComponent();
         }
 
         public DialogBoxResult Result { get; private set; }
+        public string Text { get; private set; }
+
+        private void YesButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetDialogResult(DialogBoxResult.Yes);
+        }
+
+        private void YesAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetDialogResult(DialogBoxResult.YesAll);
+        }
+
+        private void NoButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetDialogResult(DialogBoxResult.No);
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetDialogResult(DialogBoxResult.Cancel);
+        }
+
+        private void SetDialogResult(DialogBoxResult result)
+        {
+            Result = result;
+            Close();
+        }
     }
 }

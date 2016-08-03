@@ -82,9 +82,9 @@ namespace PonySFM_Workshop
             var progress = new Progress<int>(i => SetProgress(_currentProgressState, i));
             var existsProgress = new Progress<DirectoryCopierFileExistsEventArgs>(e =>
             {
-                if(View is InstallationWindow)
+                if (View is InstallationWindow)
                 {
-                    (View as InstallationWindow).OnFileExists(e.File1, e.File2);
+                    e.FileCopyMode = (View as InstallationWindow).OnFileExists(e.File1, e.File2);
                 }
             });
 

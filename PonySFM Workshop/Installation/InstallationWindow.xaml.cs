@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace PonySFM_Workshop
 {
@@ -37,10 +38,38 @@ namespace PonySFM_Workshop
                 Close();
         }
 
-        public bool OnFileExists(string file1, string file2)
+        public DirectoryCopierFileCopyMode OnFileExists(string file1, string file2)
         {
-            var msg = MessageBox.Show(string.Format("The file {0} already exists. Overwrite?", file2), "Installation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            return msg == MessageBoxResult.Yes;
+            var ret = DirectoryCopierFileCopyMode.DoNotCopy;
+            bool b = false;
+            /* FIXME: This should block. It doesn't block. Why doesn't it block? */
+            ret = Dispatcher.Invoke(() =>
+            {
+                var window = new DialogBox(string.Format("The file {0} already exists. Overwrite?", file2));
+                window.ShowDialog();
+                var result = window.Result;
+                switch (result)
+                {
+                    case DialogBoxResult.Ok:
+                        ret = DirectoryCopierFileCopyMode.Copy;
+                        break;
+                    case DialogBoxResult.No:
+                        ret = DirectoryCopierFileCopyMode.DoNotCopy;
+                        break;
+                    case DialogBoxResult.YesAll:
+                        ret = DirectoryCopierFileCopyMode.CopyAll;
+                        break;
+                    case DialogBoxResult.Cancel:
+                        ret = DirectoryCopierFileCopyMode.DoNotCopy;
+                        break;
+                }
+
+                b = true;
+                return ret;
+            });
+
+            while (!b) Thread.Sleep(100);
+            return ret;
         }
     }
 }
