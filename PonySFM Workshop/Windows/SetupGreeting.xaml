@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="500"
       Title="SetupGreeting">
-    <Grid Background="White">
+    <Grid>
         <StackPanel HorizontalAlignment="Center" Margin="0,50,0,0">
             <Label FontSize="20" HorizontalAlignment="Center" Content="PonySFM Mod Manager Setup"/>
             <Label HorizontalAlignment="Center" FontSize="13" Content="Welcome to the PonySFM Mod Manager!"/>

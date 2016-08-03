@@ -45,7 +45,7 @@
                     <Button x:Name="VerifyButton" Margin="10,0,0,0" Click="VerifyButton_Click">Verify Files</Button>
                 </StackPanel>
                 </StackPanel>
-                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="False" SelectionMode="Single" AutoGenerateColumns="False" Background="White">
+                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="False" SelectionMode="Single" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn Binding="{Binding Checked}"></DataGridCheckBoxColumn>
                         <DataGridTemplateColumn Header="ID" Width="50" IsReadOnly="True">
