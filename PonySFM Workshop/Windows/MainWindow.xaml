@@ -9,6 +9,8 @@
         MinWidth="600"
         MinHeight="350"
         GlowBrush="{StaticResource AccentColorBrush}"
+        Style="{DynamicResource CleanWindowStyleKey}"
+        ResizeMode="CanResizeWithGrip"
         Title="PonySFM Desktop" Height="350" Width="600">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
