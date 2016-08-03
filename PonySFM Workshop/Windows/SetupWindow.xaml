@@ -1,4 +1,5 @@
-﻿<Window x:Class="PonySFM_Workshop.SetupWindow"
+﻿<Controls:MetroWindow x:Class="PonySFM_Workshop.SetupWindow"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,4 +14,4 @@
             <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="306"/>
         </StackPanel>
     </Grid>
-</Window>
+</Controls:MetroWindow>

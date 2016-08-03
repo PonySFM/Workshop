@@ -1,4 +1,5 @@
-﻿using PonySFM_Workshop.Source;
+﻿using MahApps.Metro.Controls;
+using PonySFM_Workshop.Source;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -19,7 +20,7 @@ namespace PonySFM_Workshop
     /// <summary>
     /// Interaction logic for SetupWindow.xaml
     /// </summary>
-    public partial class SetupWindow : Window
+    public partial class SetupWindow : MetroWindow
     {
         private static SetupWindow singleton;
 
