@@ -15,13 +15,7 @@ using System.Windows.Shapes;
 
 namespace PonySFM_Workshop
 {
-    public enum DialogBoxResult
-    {
-        Yes, YesAll, Ok, Cancel
-    }
-
-    [Flags]
-    public enum EnableButtons
+    public enum DialogResult
     {
         Yes, YesAll, Ok, Cancel
     }
@@ -29,13 +23,28 @@ namespace PonySFM_Workshop
     /// <summary>
     /// Interaction logic for DialogBox.xaml
     /// </summary>
-    public partial class DialogBox : MetroWindow
+    public partial class DialogWindow : MetroWindow
     {
-        public DialogBox()
+        public DialogWindow(string entry = "Are you sure?")
         {
             InitializeComponent();
+
+            DialogLabel.Content = entry;
         }
 
-        public DialogBoxResult Result { get; private set; }
+        public DialogResult Result { get; private set; }
+    }
+
+    public static class DialogSystem
+    {
+        public static DialogResult Show()
+        {
+            return new DialogWindow().Result;
+        }
+
+        public static DialogResult Show(string entry)
+        {
+            return new DialogWindow(entry).Result;
+        }
     }
 }
