@@ -29,5 +29,7 @@ namespace PonySFM_Workshop
         IZIPFile OpenZIP(string filepath);
 
         string GetTempPath();
+
+        byte[] ReadFile(string filepath);
     }
 }
