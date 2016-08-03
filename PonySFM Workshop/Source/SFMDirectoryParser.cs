@@ -52,7 +52,7 @@
         {
             _path = filepath;
             _fs = fs;
-            GameinfoPath = System.IO.Path.Combine(_path, "usermod", "gameinfo");
+            GameinfoPath = System.IO.Path.Combine(_path, "usermod", "gameinfo.txt");
             InstallationPath = System.IO.Path.Combine(_path, "ponysfm");
         }
 
