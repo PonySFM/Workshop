@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace PonySFM_Workshop
 {
+    public enum GameinfoHandlerError
+    {
+        AlreadyAdded,
+        FileInvalid,
+        Success
+    }
+
     public class GameinfoHandler
     {
         string _filepath;
@@ -19,11 +26,20 @@ namespace PonySFM_Workshop
             _fs = fs;
         }
 
-        public void Execute()
+        public void CreateBackup()
+        {
+            _fs.CopyFile(_filepath, _filepath + ".bak");
+        }
+
+        public void RestoreBackup()
+        {
+            _fs.CopyFile(_filepath + ".bak", _filepath);
+        }
+
+        public GameinfoHandlerError Execute()
         {
             List<string> txtLines = new List<string>();
             var data = Encoding.UTF8.GetString(_fs.ReadFile(_filepath));
-
 
             //Fill a List<string> with the lines from the txt file.
             foreach (string str in data.Split('\n'))
@@ -33,7 +49,7 @@ namespace PonySFM_Workshop
 
             if(txtLines.Any(s => s.Contains("ponysfm") && s.Contains("Game")))
             {
-                return;
+                return GameinfoHandlerError.AlreadyAdded;
             }
 
             bool lineInserted = false;
@@ -49,16 +65,7 @@ namespace PonySFM_Workshop
             }
 
             if(!lineInserted)
-            {
-                /*
-                Console.WriteLine("Failed to add custom gameinfo.txt entry!");
-                Console.WriteLine("How to do it manually:");
-                Console.WriteLine("1. Open the gameinfo.txt in the usermod directory");
-                Console.WriteLine("2. Search for the line that says 'SearchPaths'");
-                Console.WriteLine("3. Add an entry with the foldername 'ponysfm'");
-                */
-                return;
-            }
+                return GameinfoHandlerError.FileInvalid;
 
             StringBuilder builder = new StringBuilder();
 
@@ -68,8 +75,11 @@ namespace PonySFM_Workshop
                 builder.Append(str + Environment.NewLine);
             }
 
+            /* Only at this point do we actually touch the file */
             _fs.DeleteFile(_filepath);
             _fs.CreateFile(_filepath, Encoding.UTF8.GetBytes(builder.ToString()));
+
+            return GameinfoHandlerError.Success;
         }
     }
 }

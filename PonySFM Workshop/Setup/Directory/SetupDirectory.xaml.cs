@@ -62,6 +62,13 @@ namespace PonySFM_Workshop
 
             _config.Write(new ConfigFile(dir));
 
+            var gameinfoHandler = new GameinfoHandler(parser.GameinfoPath, WindowsFileSystem.Instance);
+            var ret = gameinfoHandler.Execute();
+
+            /* TODO: maybe display a bit more useful error message including troubleshooting issues */
+            if (ret == GameinfoHandlerError.FileInvalid)
+                MessageBox.Show("Failed to add entry to gameinfo.txt", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
             SetupWindow.Instance.GoToMainWindow();
         }
 
