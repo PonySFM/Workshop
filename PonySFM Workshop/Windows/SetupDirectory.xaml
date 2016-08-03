@@ -9,11 +9,11 @@
       Title="SetupDirectory">
 
     <Grid>
-        <StackPanel HorizontalAlignment="Center" Margin="0,50,0,0">
+        <StackPanel HorizontalAlignment="Center" Margin="125,50,125,148">
             <Label FontSize="20" HorizontalAlignment="Center">SFM Directory</Label>
             <Label>Please select the Source Filmmaker directory.</Label>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Orientation="Horizontal">
-                <TextBox Name="DirectoryPathBox" Width="200" TextChanged="DirectoryPathBox_TextChanged"></TextBox>
+                <TextBox Name="DirectoryPathBox" Width="200" TextChanged="DirectoryPathBox_TextChanged" BorderThickness="1,1,1,2"></TextBox>
                 <Button Name="BtnBrowse" Width="50" Click="BtnBrowse_Click">...</Button>
             </StackPanel>
         </StackPanel>
