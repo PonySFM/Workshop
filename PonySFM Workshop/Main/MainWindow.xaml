@@ -75,6 +75,11 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu x:Name="DataGridContextMenu">
+                        <MenuItem x:Name="MenuViewOnSite" Header="View on site" Click="MenuViewOnSite_Click"></MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 </DataGrid>
         </DockPanel>
     </Grid>

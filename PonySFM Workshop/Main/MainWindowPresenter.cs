@@ -17,7 +17,7 @@ namespace PonySFM_Workshop
         {
             get
             {
-                return _revision.ID;
+                return Revision.ID;
             }
         }
 
@@ -38,7 +38,7 @@ namespace PonySFM_Workshop
         {
             get
             {
-                return _revision.AdditionalData["UserName"];
+                return Revision.AdditionalData["UserName"];
             }
         }
 
@@ -46,13 +46,26 @@ namespace PonySFM_Workshop
         {
             get
             {
-                return _revision.AdditionalData["ResourceName"];
+                return Revision.AdditionalData["ResourceName"];
+            }
+        }
+
+        public Revision Revision
+        {
+            get
+            {
+                return _revision;
+            }
+
+            set
+            {
+                _revision = value;
             }
         }
 
         public RevisionListItem(Revision revision)
         {
-            _revision = revision;
+            Revision = revision;
         }
     }
 

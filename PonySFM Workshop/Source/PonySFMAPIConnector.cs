@@ -7,7 +7,7 @@ namespace PonySFM_Workshop
 {
     public class PonySFMAPIConnector : IAPIConnector
     {
-        string _baseUrl = "https://ponysfm.com/";
+        string _baseUrl = "https://ponysfm.com";
         static PonySFMAPIConnector singleton;
 
         public static PonySFMAPIConnector Instance
@@ -57,6 +57,11 @@ namespace PonySFM_Workshop
 
             await webClient.DownloadFileTaskAsync(new Uri(string.Format("{0}/rev/{1}/internal_download_redirect", _baseUrl, id)),
                 filepath);
+        }
+
+        public string GetRevisionURL(Revision revision)
+        {
+            return string.Format("{0}/rev/{1}", _baseUrl, revision.ID);
         }
 
         public int FetchCurrentVersion()

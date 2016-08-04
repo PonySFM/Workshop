@@ -66,5 +66,15 @@ namespace PonySFM_Workshop
         {
             Process.Start(_configFile.SFMDirectoryPath);
         }
+
+        private void MenuViewOnSite_Click(object sender, RoutedEventArgs e)
+        {
+            var item = dataGrid.CurrentItem;
+            if (item == null)
+                return;
+
+            var url = PonySFMAPIConnector.Instance.GetRevisionURL((item as RevisionListItem).Revision);
+            Process.Start(url);
+        }
     }
 }
