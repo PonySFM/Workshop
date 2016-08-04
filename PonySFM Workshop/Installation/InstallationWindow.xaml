@@ -8,6 +8,7 @@
         ResizeMode="CanResize"
         MinWidth="500"
         MinHeight="300"
+        Closing="Window_Closing"
         Title="Installation" Height="300" Width="500" Loaded="Window_Loaded">
     <Grid>
         <DockPanel HorizontalAlignment="Stretch" Margin="10">

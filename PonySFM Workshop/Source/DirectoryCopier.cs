@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace PonySFM_Workshop
 {
@@ -13,6 +14,7 @@ namespace PonySFM_Workshop
         int _progress;
         int _totalFiles;
         bool _copyAll;
+        CancellationToken _cancel;
 
         public delegate void FileExistsHandler(object sender, DirectoryCopierFileExistsEventArgs e);
         public event FileExistsHandler OnFileExists;
@@ -34,14 +36,17 @@ namespace PonySFM_Workshop
             _copyAll = false;
         }
 
-        public async Task Execute()
+        public async Task Execute(CancellationToken cancel = default(CancellationToken))
         {
+            _cancel = cancel;
             _totalFiles = CountFiles(_source, _copySubDirs);
             await CopyDirectory(_source, _dest, _copySubDirs);
         }
 
         private async Task CopyDirectory(string source, string dest, bool copySubDirs)
         {
+            _cancel.ThrowIfCancellationRequested();
+
             List<IFile> sourceFiles = _fs.GetFiles(source);
 
             if (!_fs.DirectoryExists(dest))
@@ -71,6 +76,8 @@ namespace PonySFM_Workshop
                                 break;
                             case DirectoryCopierFileCopyMode.Copy:
                                 break;
+                            case DirectoryCopierFileCopyMode.Cancel:
+                                throw new System.OperationCanceledException();
                         }
                     }
 
@@ -154,7 +161,8 @@ namespace PonySFM_Workshop
     {
         DoNotCopy,
         Copy,
-        CopyAll
+        CopyAll,
+        Cancel
     }
 
     public class DirectoryCopierFileExistsEventArgs : DirectoryCopierCopyEventArgs

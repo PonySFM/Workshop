@@ -68,7 +68,7 @@ namespace PonySFM_Workshop
                         ret = DirectoryCopierFileCopyMode.CopyAll;
                         break;
                     case PonySFM_Workshop.DialogResult.Cancel:
-                        ret = DirectoryCopierFileCopyMode.DoNotCopy;
+                        ret = DirectoryCopierFileCopyMode.Cancel;
                         break;
                 }
 
@@ -78,6 +78,13 @@ namespace PonySFM_Workshop
 
             while (!b) Thread.Sleep(100);
             return ret;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            /* TODO: prompt? */
+            _presenter.CancellationSource.Cancel();
+            e.Cancel = false;
         }
     }
 }

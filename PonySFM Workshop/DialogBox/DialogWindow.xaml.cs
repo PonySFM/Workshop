@@ -28,7 +28,7 @@ namespace PonySFM_Workshop
         public DialogWindow(string entry = "Are you sure?")
         {
             InitializeComponent();
-
+            Result = PonySFM_Workshop.DialogResult.Cancel;
             DialogLabel.Text = entry;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PonySFM_Workshop
@@ -36,7 +37,7 @@ namespace PonySFM_Workshop
             _dirParser.CreateDirectories();
         }
 
-        public async Task InstallRevision(Revision revision, string topDir, IProgress<int> progress)
+        public async Task InstallRevision(Revision revision, string topDir, IProgress<int> progress, CancellationToken cancel = default(CancellationToken))
         {
             /* Copy files and blahblah */
             var directoryCopier = new DirectoryCopier(_fs, topDir, _dirParser.InstallationPath, true);
@@ -47,12 +48,20 @@ namespace PonySFM_Workshop
             directoryCopier.OnFileExists += (s, e) =>
                 OnFileExists(s, e);
 
-            await directoryCopier.Execute();
-
-            revision.ChangeTopDirectory(topDir, _dirParser.InstallationPath);
-            _db.AddToDB(revision);
-
-            _db.WriteDBDisk();
+            try
+            {
+                await directoryCopier.Execute(cancel);
+            }
+            catch(OperationCanceledException)
+            {
+                // NOP
+            }
+            finally
+            {
+                revision.ChangeTopDirectory(topDir, _dirParser.InstallationPath);
+                _db.AddToDB(revision);
+                _db.WriteDBDisk();
+            }
         }
 
         public async Task UninstallRevision(int id, IProgress<int> progress)

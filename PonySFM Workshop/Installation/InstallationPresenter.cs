@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -22,6 +23,7 @@ namespace PonySFM_Workshop
         int _progress;
         StringBuilder _installationLog = new StringBuilder();
         Dictionary<ProgressState, int> _progresses = new Dictionary<ProgressState, int>();
+        CancellationTokenSource _cancellationSource = new CancellationTokenSource();
 
         IAPIConnector _api;
         IFileSystem _fs;
@@ -54,6 +56,19 @@ namespace PonySFM_Workshop
             get
             {
                 return _installationLog.ToString();
+            }
+        }
+
+        public CancellationTokenSource CancellationSource
+        {
+            get
+            {
+                return _cancellationSource;
+            }
+
+            set
+            {
+                _cancellationSource = value;
             }
         }
 
@@ -119,7 +134,7 @@ namespace PonySFM_Workshop
             LogInstallation("Installing files to SFM...\n");
             Revision tmpRev = Revision.CreateTemporaryRevisionFromFolder(id, modDir, _fs);
             await _api.DownloadRevisionAdditionalInformation(tmpRev);
-            await _revisionMgr.InstallRevision(tmpRev, modDir, progress);
+            await _revisionMgr.InstallRevision(tmpRev, modDir, progress, _cancellationSource.Token);
 
             /* If we don't do this the directory deletion crashes because the handle created in zip.Extract is not released properly? */
             GC.Collect();
