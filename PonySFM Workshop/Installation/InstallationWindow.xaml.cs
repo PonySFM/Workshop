@@ -45,21 +45,21 @@ namespace PonySFM_Workshop
             /* FIXME: This should block. It doesn't block. Why doesn't it block? */
             ret = Dispatcher.Invoke(() =>
             {
-                var window = new DialogBox(string.Format("The file {0} already exists. Overwrite?", file2));
+                var window = new DialogWindow(string.Format("The file {0} already exists. Overwrite?", file2));
                 window.ShowDialog();
                 var result = window.Result;
                 switch (result)
                 {
-                    case DialogBoxResult.Ok:
+                    case PonySFM_Workshop.DialogResult.Ok:
                         ret = DirectoryCopierFileCopyMode.Copy;
                         break;
-                    case DialogBoxResult.No:
+                    case PonySFM_Workshop.DialogResult.No:
                         ret = DirectoryCopierFileCopyMode.DoNotCopy;
                         break;
-                    case DialogBoxResult.YesAll:
+                    case PonySFM_Workshop.DialogResult.YesAll:
                         ret = DirectoryCopierFileCopyMode.CopyAll;
                         break;
-                    case DialogBoxResult.Cancel:
+                    case PonySFM_Workshop.DialogResult.Cancel:
                         ret = DirectoryCopierFileCopyMode.DoNotCopy;
                         break;
                 }
