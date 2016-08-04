@@ -13,7 +13,6 @@ namespace PonySFM_Workshop
         int _progress;
         int _totalFiles;
         bool _copyAll;
-        bool _halt;
 
         public delegate void FileExistsHandler(object sender, DirectoryCopierFileExistsEventArgs e);
         public event FileExistsHandler OnFileExists;
@@ -56,15 +55,12 @@ namespace PonySFM_Workshop
 
                 if (!_fs.FileExists(newPath))
                 {
-                    while (_halt) ;
-
                     await _fs.CopyFileAsync(file.Path, newPath);
                 }
                 else
                 {
                     if (!_copyAll)
                     {
-                        _halt = true;
                         var mode = FireFileExistsEvent(file.Path, newPath);
                         switch (mode)
                         {
@@ -76,11 +72,7 @@ namespace PonySFM_Workshop
                             case DirectoryCopierFileCopyMode.Copy:
                                 break;
                         }
-
-                        _halt = false;
                     }
-
-                    while (_halt) ;
 
                     await _fs.CopyFileAsync(file.Path, newPath);
                 }
@@ -95,9 +87,6 @@ namespace PonySFM_Workshop
                 foreach (var dir in dirs)
                 {
                     string newDirPath = Path.Combine(dest, dir.Name);
-
-                    while (_halt) ;
-
                     await CopyDirectory(dir.Path, newDirPath, true);
                 }
             }
