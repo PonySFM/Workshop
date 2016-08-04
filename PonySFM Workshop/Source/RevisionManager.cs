@@ -36,7 +36,7 @@ namespace PonySFM_Workshop
             _dirParser.CreateDirectories();
         }
 
-        public async Task InstallRevision(Revision revision, string topDir, IProgress<int> progress, IProgress<DirectoryCopierFileExistsEventArgs> existsProgress = null)
+        public async Task InstallRevision(Revision revision, string topDir, IProgress<int> progress)
         {
             /* Copy files and blahblah */
             var directoryCopier = new DirectoryCopier(_fs, topDir, _dirParser.InstallationPath, true);
