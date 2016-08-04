@@ -16,6 +16,8 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
+                    <MenuItem Name="MenuItemOpenSFMDir" Header="_Open SFM Directory" Click="MenuItemOpenSFMDir_Click"/>
+                    <Separator />
                     <MenuItem Name="MenuItemInstall" Header="_Install"/>
                     <MenuItem Name="MenuItemVerify" Header="_Verify"/>
                     <Separator />

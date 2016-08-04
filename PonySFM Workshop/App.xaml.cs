@@ -104,7 +104,7 @@ namespace PonySFM_Workshop
                         return;
                     }
 
-                    new MainWindow(revMgr).Show();
+                    new MainWindow(config.Read(), revMgr).Show();
                 }
                 else
                 {

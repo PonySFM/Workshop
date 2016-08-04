@@ -1,6 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,10 +22,14 @@ namespace PonySFM_Workshop
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        ConfigFile _configFile;
         MainWindowPresenter _presenter;
+        SFMDirectoryParser _sfmDirParser;
 
-        public MainWindow(RevisionManager revisionManager)
+        public MainWindow(ConfigFile configFile, RevisionManager revisionManager)
         {
+            _configFile = configFile;
+            _sfmDirParser = new SFMDirectoryParser(_configFile.SFMDirectoryPath, WindowsFileSystem.Instance);
             _presenter = new MainWindowPresenter(revisionManager);
             _presenter.View = this;
             InitializeComponent();
@@ -55,6 +60,11 @@ namespace PonySFM_Workshop
         {
             _presenter.OnVerify();
             dataGrid.Items.Refresh();
+        }
+
+        private void MenuItemOpenSFMDir_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(_configFile.SFMDirectoryPath);
         }
     }
 }

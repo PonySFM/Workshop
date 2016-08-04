@@ -64,7 +64,7 @@ namespace PonySFM_Workshop
             ConfigHandler config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
             RevisionManager revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
 
-            new MainWindow(revMgr).Show();
+            new MainWindow(config.Read(), revMgr).Show();
             Close();
         }
     }
