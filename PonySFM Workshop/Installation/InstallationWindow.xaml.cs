@@ -28,6 +28,9 @@ namespace PonySFM_Workshop
             _presenter = new InstallationPresenter(PonySFMAPIConnector.Instance, WindowsFileSystem.Instance, revisionMgr, ids);
             _presenter.View = this;
             _closeOnFinish = closeOnFinish;
+
+            _presenter.OnFileExists += OnFileExistsTriggered;
+
             InitializeComponent();
         }
 
@@ -36,6 +39,11 @@ namespace PonySFM_Workshop
             await _presenter.Execute();
             if (_closeOnFinish)
                 Close();
+        }
+
+        public void OnFileExistsTriggered(object sender, DirectoryCopierFileExistsEventArgs e)
+        {
+            e.FileCopyMode = OnFileExists(e.File1, e.File2);
         }
 
         public DirectoryCopierFileCopyMode OnFileExists(string file1, string file2)

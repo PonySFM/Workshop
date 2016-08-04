@@ -29,6 +29,9 @@ namespace PonySFM_Workshop
         ProgressState _currentProgressState;
         List<int> _ids;
 
+        public delegate void FileExistsHandler(object sender, DirectoryCopierFileExistsEventArgs e);
+        public event FileExistsHandler OnFileExists;
+
         public int MaxProgress => _progresses.Count * 100;
 
         public string Status { get; private set; }
@@ -80,6 +83,7 @@ namespace PonySFM_Workshop
             var tempDir = _fs.GetTempPath();
 
             var progress = new Progress<int>(i => SetProgress(_currentProgressState, i));
+            /*
             var existsProgress = new Progress<DirectoryCopierFileExistsEventArgs>(e =>
             {
                 if (View is InstallationWindow)
@@ -87,6 +91,9 @@ namespace PonySFM_Workshop
                     e.FileCopyMode = (View as InstallationWindow).OnFileExists(e.File1, e.File2);
                 }
             });
+            */
+
+            _revisionMgr.OnFileExists += (s,e) => OnFileExists(s, e);
 
             if (!_fs.DirectoryExists(tempDir))
                 _fs.CreateDirectory(tempDir);
@@ -112,7 +119,7 @@ namespace PonySFM_Workshop
             LogInstallation("Installing files to SFM...\n");
             Revision tmpRev = Revision.CreateTemporaryRevisionFromFolder(id, modDir, _fs);
             await _api.DownloadRevisionAdditionalInformation(tmpRev);
-            await _revisionMgr.InstallRevision(tmpRev, modDir, progress, existsProgress);
+            await _revisionMgr.InstallRevision(tmpRev, modDir, progress, null);
 
             /* If we don't do this the directory deletion crashes because the handle created in zip.Extract is not released properly? */
             GC.Collect();

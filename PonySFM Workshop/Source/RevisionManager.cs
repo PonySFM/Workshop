@@ -12,6 +12,9 @@ namespace PonySFM_Workshop
         RevisionDatabase _db;
         SFMDirectoryParser _dirParser;
 
+        public delegate void FileExistsHandler(object sender, DirectoryCopierFileExistsEventArgs e);
+        public event FileExistsHandler OnFileExists;
+
         public RevisionDatabase Database => _db;
 
         public RevisionManager(ConfigFile configFile, IFileSystem fs)
@@ -42,7 +45,7 @@ namespace PonySFM_Workshop
                 progress?.Report(e.Progress);
 
             directoryCopier.OnFileExists += (s, e) =>
-                existsProgress?.Report(e);
+                OnFileExists(s, e);
 
             await directoryCopier.Execute();
 
