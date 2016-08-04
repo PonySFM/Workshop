@@ -12,7 +12,6 @@
         <Button x:Name="YesAllButton" Content="Yes to all" HorizontalAlignment="Left" Margin="90,160,0,0" VerticalAlignment="Top" Width="75" Click="YesAllButton_Click"/>
         <Button x:Name="NoButton" Content="No" HorizontalAlignment="Left" Margin="170,160,0,0" VerticalAlignment="Top" Width="75" Click="NoButton_Click"/>
         <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="250,160,0,0" VerticalAlignment="Top" Width="75" Click="CancelButton_Click"/>
-        <Label x:Name="DialogLabel" Content="Are you sure?" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"
-            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBlock x:Name="DialogLabel" TextWrapping="WrapWithOverflow" Text="Are you sure?" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>
 </Controls:MetroWindow>

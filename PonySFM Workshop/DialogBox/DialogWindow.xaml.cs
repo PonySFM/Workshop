@@ -29,7 +29,7 @@ namespace PonySFM_Workshop
         {
             InitializeComponent();
 
-            DialogLabel.Content = entry;
+            DialogLabel.Text = entry;
         }
 
         public DialogResult Result { get; private set; }
