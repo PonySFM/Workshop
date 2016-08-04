@@ -119,7 +119,7 @@ namespace PonySFM_Workshop
             LogInstallation("Installing files to SFM...\n");
             Revision tmpRev = Revision.CreateTemporaryRevisionFromFolder(id, modDir, _fs);
             await _api.DownloadRevisionAdditionalInformation(tmpRev);
-            await _revisionMgr.InstallRevision(tmpRev, modDir, progress, null);
+            await _revisionMgr.InstallRevision(tmpRev, modDir, progress);
 
             /* If we don't do this the directory deletion crashes because the handle created in zip.Extract is not released properly? */
             GC.Collect();
