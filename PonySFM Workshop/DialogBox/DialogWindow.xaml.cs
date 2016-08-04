@@ -15,13 +15,7 @@ using System.Windows.Shapes;
 
 namespace PonySFM_Workshop
 {
-    public enum DialogBoxResult
-    {
-        Yes, YesAll, Ok, No, Cancel
-    }
-
-    [Flags]
-    public enum EnableButtons
+    public enum DialogResult
     {
         Yes, YesAll, Ok, No, Cancel
     }
@@ -29,42 +23,54 @@ namespace PonySFM_Workshop
     /// <summary>
     /// Interaction logic for DialogBox.xaml
     /// </summary>
-    public partial class DialogBox : MetroWindow
+    public partial class DialogWindow : MetroWindow
     {
-        public DialogBox(string text)
+        public DialogWindow(string entry = "Are you sure?")
         {
-            Text = text;
-            Result = DialogBoxResult.Cancel;
             InitializeComponent();
+
+            DialogLabel.Content = entry;
         }
 
-        public DialogBoxResult Result { get; private set; }
-        public string Text { get; private set; }
+        public DialogResult Result { get; private set; }
 
         private void YesButton_Click(object sender, RoutedEventArgs e)
         {
-            SetDialogResult(DialogBoxResult.Yes);
+            SetDialogResult(PonySFM_Workshop.DialogResult.Yes);
         }
 
         private void YesAllButton_Click(object sender, RoutedEventArgs e)
         {
-            SetDialogResult(DialogBoxResult.YesAll);
+            SetDialogResult(PonySFM_Workshop.DialogResult.YesAll);
         }
 
         private void NoButton_Click(object sender, RoutedEventArgs e)
         {
-            SetDialogResult(DialogBoxResult.No);
+            SetDialogResult(PonySFM_Workshop.DialogResult.No);
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            SetDialogResult(DialogBoxResult.Cancel);
+            SetDialogResult(PonySFM_Workshop.DialogResult.Cancel);
         }
 
-        private void SetDialogResult(DialogBoxResult result)
+        private void SetDialogResult(DialogResult result)
         {
             Result = result;
             Close();
+        }
+    }
+
+    public static class DialogSystem
+    {
+        public static DialogResult Show()
+        {
+            return new DialogWindow().Result;
+        }
+
+        public static DialogResult Show(string entry)
+        {
+            return new DialogWindow(entry).Result;
         }
     }
 }
