@@ -27,6 +27,10 @@ namespace PonySFM_Workshop
         public async Task DownloadRevisionAdditionalInformation(Revision revision)
         {
             int id = revision.ID;
+            var settings = new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
 
             var webClient = new CookedWebClient();
             webClient.Headers.Add("user-agent", "PSFM_ModManager-" + ModManager.Version);
@@ -35,14 +39,20 @@ namespace PonySFM_Workshop
             var revisionAPIObject = JsonConvert.DeserializeObject<RevisionAPIObject>(ret);
 
             ret = await webClient.DownloadStringTaskAsync(new Uri(string.Format("{0}/api/resource.json?id={1}", _baseUrl, revisionAPIObject.resource_id)));
-            var resourceAPIObject = JsonConvert.DeserializeObject<ResourceAPIObject>(ret);
+            var resourceAPIObject = JsonConvert.DeserializeObject<ResourceAPIObject>(ret, settings);
 
             revision.AdditionalData["ResourceName"] = resourceAPIObject.name;
 
-            ret = await webClient.DownloadStringTaskAsync(new Uri(string.Format("{0}/api/user.json?id={1}", _baseUrl, resourceAPIObject.user_id)));
-            var userAPIObject = JsonConvert.DeserializeObject<UserAPIObject>(ret);
-
-            revision.AdditionalData["UserName"] = userAPIObject.name;
+            if(resourceAPIObject.user_id != 0)
+            {
+                ret = await webClient.DownloadStringTaskAsync(new Uri(string.Format("{0}/api/user.json?id={1}", _baseUrl, resourceAPIObject.user_id)));
+                var userAPIObject = JsonConvert.DeserializeObject<UserAPIObject>(ret);
+                revision.AdditionalData["UserName"] = userAPIObject.name;
+            }
+            else
+            {
+                revision.AdditionalData["UserName"] = "None";
+            }
         }
 
         public async Task DownloadRevisionZIP(int id, string filepath, IProgress<int> progress)

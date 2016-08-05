@@ -127,27 +127,26 @@ namespace PonySFM_Workshop
             }
         }
 
-        private async void FixMissingInfo()
+        private void FixMissingInfo()
         {
             foreach (var revision in _db.Revisions)
             {
                 if (revision.MissingAdditionalData())
                 {
-                    await PonySFMAPIConnector.Instance.DownloadRevisionAdditionalInformation(revision);
+                    Task.Run(async () => { await PonySFMAPIConnector.Instance.DownloadRevisionAdditionalInformation(revision); } ).Wait();
                 }
             }
-
             _revisionManager.Database.WriteDBDisk();
+            NotifyPropertyChange("InstalledRevisions");
         }
 
-        private async void PopulateListData()
+        private void PopulateListData()
         {
             _items.Clear();
             foreach (var revision in _db.Revisions)
             {
                 _items.Add(new RevisionListItem(revision));
             }
-            _revisionManager.Database.WriteDBDisk();
             NotifyPropertyChange("InstalledRevisions");
         }
     }
