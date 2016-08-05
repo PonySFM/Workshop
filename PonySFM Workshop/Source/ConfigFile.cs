@@ -15,13 +15,13 @@ namespace PonySFM_Workshop
 
         public static ConfigFile FromXML(XmlElement elem)
         {
-            return new ConfigFile(elem.GetAttribute("SFMDirectoryPath"));
+            return new ConfigFile(elem.InnerText);
         }
 
         public XmlElement ToXML(XmlDocument doc)
         {
-            XmlElement elem = doc.CreateElement("Config");
-            elem.SetAttribute("SFMDirectoryPath", SFMDirectoryPath);
+            XmlElement elem = doc.CreateElement("SFMDirectoryPath");
+            elem.InnerText = SFMDirectoryPath;
             return elem;
         }
 
