@@ -131,6 +131,19 @@ namespace PonySFM_Workshop
             }
         }
 
+        public string GetAdditionalData(string key)
+        {
+            if (AdditionalData.ContainsKey(key))
+                return AdditionalData[key];
+            else
+                return "N/A";
+        }
+
+        public bool MissingAdditionalData()
+        {
+            return !AdditionalData.ContainsKey("UserName") || !AdditionalData.ContainsKey("ResourceName");
+        }
+
         public static Revision CreateTemporaryRevisionFromFolder(int id, string dir, IFileSystem fs)
         {
             List<RevisionFileEntry> fileEntries = new List<RevisionFileEntry>();

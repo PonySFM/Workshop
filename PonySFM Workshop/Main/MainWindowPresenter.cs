@@ -38,7 +38,7 @@ namespace PonySFM_Workshop
         {
             get
             {
-                return Revision.AdditionalData["UserName"];
+                return Revision.GetAdditionalData("UserName");
             }
         }
 
@@ -46,7 +46,7 @@ namespace PonySFM_Workshop
         {
             get
             {
-                return Revision.AdditionalData["ResourceName"];
+                return Revision.GetAdditionalData("ResourceName");
             }
         }
 
@@ -87,6 +87,7 @@ namespace PonySFM_Workshop
         {
             _revisionManager = revisionManager;
             _db = _revisionManager.Database;
+            FixMissingInfo();
             PopulateListData();
         }
 
@@ -126,13 +127,27 @@ namespace PonySFM_Workshop
             }
         }
 
-        private void PopulateListData()
+        private async void FixMissingInfo()
+        {
+            foreach (var revision in _db.Revisions)
+            {
+                if (revision.MissingAdditionalData())
+                {
+                    await PonySFMAPIConnector.Instance.DownloadRevisionAdditionalInformation(revision);
+                }
+            }
+
+            _revisionManager.Database.WriteDBDisk();
+        }
+
+        private async void PopulateListData()
         {
             _items.Clear();
             foreach (var revision in _db.Revisions)
             {
                 _items.Add(new RevisionListItem(revision));
             }
+            _revisionManager.Database.WriteDBDisk();
             NotifyPropertyChange("InstalledRevisions");
         }
     }
