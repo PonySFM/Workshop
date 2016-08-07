@@ -76,5 +76,11 @@ namespace PonySFM_Workshop
             var url = PonySFMAPIConnector.Instance.GetRevisionURL((item as RevisionListItem).Revision);
             Process.Start(url);
         }
+
+        private void MenuItemOpenSFM_Click(object sender, RoutedEventArgs e)
+        {
+            var path = System.IO.Path.Combine(_sfmDirParser.Path, "sfm.exe");
+            Process.Start(path);
+        }
     }
 }

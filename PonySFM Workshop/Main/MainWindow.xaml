@@ -16,6 +16,7 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
+                    <MenuItem Name="MenuItemOpenSFM" Header="_Open SFM" Click="MenuItemOpenSFM_Click"/>
                     <MenuItem Name="MenuItemOpenSFMDir" Header="_Open SFM Directory" Click="MenuItemOpenSFMDir_Click"/>
                     <Separator />
                     <MenuItem Name="MenuItemInstall" Header="_Install"/>
@@ -50,7 +51,7 @@
                     <Button x:Name="VerifyButton" Margin="10,0,0,0" Click="VerifyButton_Click">Verify Files</Button>
                 </StackPanel>
                 </StackPanel>
-                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="False" SelectionMode="Single" AutoGenerateColumns="False">
+                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="False" SelectionMode="Single" AutoGenerateColumns="False" Background="#FF323232">
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn Binding="{Binding Checked}"></DataGridCheckBoxColumn>
                         <DataGridTemplateColumn Header="ID" Width="50" IsReadOnly="True">
