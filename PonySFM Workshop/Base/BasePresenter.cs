@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace PonySFM_Workshop
 {
     public class BasePresenter : IPresenter, INotifyPropertyChanged
     {
-        protected Control _view;
+        protected FrameworkElement _view;
 
-        public Control View
+        public FrameworkElement View
         {
             get
             {

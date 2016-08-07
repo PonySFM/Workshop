@@ -80,6 +80,9 @@
     <Compile Include="DialogBox\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Source\GameinfoHandler.cs" />
     <Compile Include="Source\ControlBox.cs" />
     <Compile Include="Source\ResourceAPIObject.cs" />
@@ -137,6 +140,10 @@
     <Compile Include="Source\WindowsFileSystem.cs" />
     <Compile Include="Source\ZIPFile.cs" />
     <Page Include="DialogBox\DialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

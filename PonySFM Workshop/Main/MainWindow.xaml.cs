@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using PonySFM_Workshop.Source;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,17 +23,41 @@ namespace PonySFM_Workshop
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        ConfigFile _configFile;
-        MainWindowPresenter _presenter;
-        SFMDirectoryParser _sfmDirParser;
+        private static MainWindow singleton;
+        private SFMDirectoryParser _sfmDirParser;
+        private ConfigFile _configFile;
 
-        public MainWindow(ConfigFile configFile, RevisionManager revisionManager)
+        public static MainWindow Instance =>
+            singleton == null ?
+                singleton = new MainWindow() :
+                singleton;
+
+        private Dictionary<string, Page> _pages = new Dictionary<string, Page>();
+
+        private MainWindow()
         {
-            _configFile = configFile;
-            _sfmDirParser = new SFMDirectoryParser(_configFile.SFMDirectoryPath, WindowsFileSystem.Instance);
-            _presenter = new MainWindowPresenter(revisionManager);
-            _presenter.View = this;
             InitializeComponent();
+        }
+
+        public void InitialisePages()
+        {
+            var config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
+            var configFile = config.Read();
+            var revMgr = new RevisionManager(configFile, WindowsFileSystem.Instance);
+            var sfmDirParser = new SFMDirectoryParser(configFile.SFMDirectoryPath, WindowsFileSystem.Instance);
+
+            _sfmDirParser = sfmDirParser;
+            _configFile = configFile;
+
+            var mainPage = new MainPage(Instance, configFile, revMgr);
+            _pages["MainPage"] = mainPage;
+
+            Instance.SetPage(mainPage);
+        }
+
+        public void SetPage(Page page)
+        {
+            ContentFrame.Navigate(page);
         }
 
         private void MenuItemAbout_Click(object sender, RoutedEventArgs e)
@@ -50,31 +75,9 @@ namespace PonySFM_Workshop
 
         }
 
-        private void UninstallButton_Click(object sender, RoutedEventArgs e)
-        {
-            _presenter.OnUninstall();
-            dataGrid.Items.Refresh();
-        }
-
-        private void VerifyButton_Click(object sender, RoutedEventArgs e)
-        {
-            _presenter.OnVerify();
-            dataGrid.Items.Refresh();
-        }
-
         private void MenuItemOpenSFMDir_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(_configFile.SFMDirectoryPath);
-        }
-
-        private void MenuViewOnSite_Click(object sender, RoutedEventArgs e)
-        {
-            var item = dataGrid.CurrentItem;
-            if (item == null)
-                return;
-
-            var url = PonySFMAPIConnector.Instance.GetRevisionURL((item as RevisionListItem).Revision);
-            Process.Start(url);
         }
 
         private void MenuItemOpenSFM_Click(object sender, RoutedEventArgs e)

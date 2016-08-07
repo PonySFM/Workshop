@@ -31,57 +31,7 @@
                     <MenuItem Name="MenuItemAbout" Header="_About" Click="MenuItemAbout_Click"/>
                 </MenuItem>
             </Menu>
-        </DockPanel>
-
-        <DockPanel Margin="10">
-            <StackPanel DockPanel.Dock="Top">
-                <StackPanel Orientation="Horizontal" Margin="10">
-                    <Image x:Name="LogoImage"  Height="50" Source="/PonySFM Workshop;component/Images/logo.png" VerticalAlignment="Top"/>
-                    <StackPanel>
-                        <Label FontSize="15">Welcome to the PonySFM Mod Manager!</Label>
-                        <Label FontSize="15">Find mods on ponysfm.com</Label>
-                    </StackPanel>
-                </StackPanel>
-                </StackPanel>
-
-                <StackPanel DockPanel.Dock="Top" Margin="30,0,30,0">
-                <Label FontSize="20" DockPanel.Dock="Top">Installed Revisions</Label>
-                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="25" Margin="10">
-                    <Button x:Name="UninstallButton" Click="UninstallButton_Click">Uninstall</Button>
-                    <Button x:Name="VerifyButton" Margin="10,0,0,0" Click="VerifyButton_Click">Verify Files</Button>
-                </StackPanel>
-                </StackPanel>
-                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="False" SelectionMode="Single" AutoGenerateColumns="False" Background="#FF323232">
-                    <DataGrid.Columns>
-                        <DataGridCheckBoxColumn Binding="{Binding Checked}"></DataGridCheckBoxColumn>
-                        <DataGridTemplateColumn Header="ID" Width="50" IsReadOnly="True">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Label Content="{Binding ID}"></Label>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Name" Width="250" IsReadOnly="True">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Label Content="{Binding ResourceName}"></Label>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Creator" Width="100" IsReadOnly="True">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Label Content="{Binding UserName}"></Label>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                <DataGrid.ContextMenu>
-                    <ContextMenu x:Name="DataGridContextMenu">
-                        <MenuItem x:Name="MenuViewOnSite" Header="View on site" Click="MenuViewOnSite_Click"></MenuItem>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-                </DataGrid>
+            <Frame x:Name="ContentFrame" DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </DockPanel>
     </Grid>
 </Controls:MetroWindow>

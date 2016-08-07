@@ -59,12 +59,7 @@ namespace PonySFM_Workshop
         public void GoToMainWindow()
         {
             isFinished = true;
-
-            /* TODO: we really shouldn't have to redeclare this here */
-            ConfigHandler config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
-            RevisionManager revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
-
-            new MainWindow(config.Read(), revMgr).Show();
+            MainWindow.Instance.Show();
             Close();
         }
     }

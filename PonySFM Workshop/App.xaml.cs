@@ -70,6 +70,8 @@ namespace PonySFM_Workshop
             // The string can be anything, but re-producing the same GUID would be quite a thing.
             AppMutex = new Mutex(true, MainMutexName, out created);
 
+            PonySFM_Workshop.MainWindow.Instance.InitialisePages();
+
             // If the mutex was created.
             if (created)
             {
@@ -103,8 +105,7 @@ namespace PonySFM_Workshop
 
                         return;
                     }
-
-                    new MainWindow(config.Read(), revMgr).Show();
+                    PonySFM_Workshop.MainWindow.Instance.Show();
                 }
                 else
                 {
