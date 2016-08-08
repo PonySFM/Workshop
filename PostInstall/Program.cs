@@ -31,7 +31,7 @@ namespace PostInstall
 
         static void Main(string[] args)
         {
-            RegisterURLProtocol("ponysfm", Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "PonySFM Desktop.exe"), "PonySFM Installer Client");
+            RegisterURLProtocol("ponysfm", Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "PonySFM Workshop.exe"), "PonySFM Installer Client");
         }
     }
 }
