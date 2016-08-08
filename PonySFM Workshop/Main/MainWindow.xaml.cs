@@ -49,15 +49,15 @@ namespace PonySFM_Workshop
             _sfmDirParser = sfmDirParser;
             _configFile = configFile;
 
-            var mainPage = new MainPage(Instance, configFile, revMgr);
-            _pages["MainPage"] = mainPage;
+            _pages["MainPage"] = new MainPage(Instance, configFile, revMgr);
+            _pages["SettingsPage"] = new SettingsPage(config);
 
-            Instance.SetPage(mainPage);
+            Instance.SetPage("MainPage");
         }
 
-        public void SetPage(Page page)
+        public void SetPage(string page)
         {
-            ContentFrame.Navigate(page);
+            ContentFrame.Navigate(_pages[page]);
         }
 
         private void MenuItemAbout_Click(object sender, RoutedEventArgs e)
@@ -84,6 +84,11 @@ namespace PonySFM_Workshop
         {
             var path = System.IO.Path.Combine(_sfmDirParser.Path, "sfm.exe");
             Process.Start(path);
+        }
+
+        private void MenuItemSettings_Click(object sender, RoutedEventArgs e)
+        {
+            SetPage("SettingsPage");
         }
     }
 }

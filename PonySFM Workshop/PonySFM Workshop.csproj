@@ -83,6 +83,10 @@
     <Compile Include="Main\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Main\SettingsPresenter.cs" />
     <Compile Include="Source\GameinfoHandler.cs" />
     <Compile Include="Source\ControlBox.cs" />
     <Compile Include="Source\ResourceAPIObject.cs" />
@@ -154,6 +158,10 @@
     <Page Include="Resources\IconsNonShared.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Main\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Verification\VerificationWindow.xaml">
       <SubType>Designer</SubType>

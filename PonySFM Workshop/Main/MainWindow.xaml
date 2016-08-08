@@ -22,7 +22,7 @@
                     <MenuItem Name="MenuItemInstall" Header="_Install"/>
                     <MenuItem Name="MenuItemVerify" Header="_Verify"/>
                     <Separator />
-                    <MenuItem Name="MenuItemSFMDir" Header="_Change SFM Directory"/>
+                    <MenuItem Name="MenuItemSettings" Header="_Settings" Click="MenuItemSettings_Click"/>
                     <Separator />
                     <MenuItem Name="MenuItemExit" Header="_Exit" Click="MenuItemExit_Click"/>
                 </MenuItem>
