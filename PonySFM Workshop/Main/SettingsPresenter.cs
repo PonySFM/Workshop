@@ -25,10 +25,33 @@ namespace PonySFM_Workshop
             }
         }
 
+        public string SaveError { get; private set; }
+
         public SettingsPresenter(ConfigHandler config)
         {
             _config = config;
-            _file = config.Read();
+            Reset();
+        }
+
+        public void Reset()
+        {
+            _file = _config.Read();
+        }
+
+        public bool Save()
+        {
+            var parser = new SFMDirectoryParser(SFMDirectory, WindowsFileSystem.Instance);
+            var error = parser.Validate();
+
+            if(error == SFMDirectoryParserError.NotExists)
+            {
+                SaveError = "SFM Directory does not exist.";
+                return false;
+            }
+
+            _config.Write(_file);
+
+            return true;
         }
     }
 }

@@ -18,7 +18,6 @@
                                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_chevron_left}" />
                                 </Rectangle.Fill>
                             </Rectangle>
-
                         </Button>
                         <Label FontSize="30">Settings</Label>
                     </StackPanel>
@@ -34,5 +33,22 @@
                 </StackPanel>
             </StackPanel>
         </DockPanel>
+        <StackPanel Orientation="Horizontal" Height="Auto" VerticalAlignment="Bottom" Margin="25,0,0,10">
+            <Button x:Name="SaveBtn" Width="40" Height="40" Style="{DynamicResource MetroCircleButtonStyle}" VerticalAlignment="Center" Click="SaveBtn_Click">
+                <Rectangle Width="10" Height="10">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_check}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+
+            <Button x:Name="CancelBtn" Width="40" Height="40" Style="{DynamicResource MetroCircleButtonStyle}" VerticalAlignment="Center" Click="CancelBtn_Click">
+                <Rectangle Width="10" Height="10">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_close}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>
