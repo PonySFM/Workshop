@@ -94,6 +94,10 @@ namespace PonySFM_Workshop
                                 var list = new List<int>() { id };
                                 new DeinstallationWindow(revMgr, list).ShowDialog();
                             }
+                            else
+                            {
+                                Shutdown();
+                            }
                         }
                         else
                         {
@@ -117,6 +121,7 @@ namespace PonySFM_Workshop
             else
             {
                 MessageBox.Show("App is already running!");
+                Shutdown();
             }
         }
     }
