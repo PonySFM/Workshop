@@ -12,6 +12,12 @@
         Style="{DynamicResource CleanWindowStyleKey}"
         ResizeMode="CanResizeWithGrip"
         Title="PonySFM Desktop" Height="350" Width="600">
+        <Controls:MetroWindow.RightWindowCommands>
+            <Controls:WindowCommands>
+                <Button Click="MenuItemOpenPonySFM_Click">PonySFM.com</Button>
+                <Button Click="MenuItemOpenSFM_Click">Open SFM</Button>
+            </Controls:WindowCommands>
+        </Controls:MetroWindow.RightWindowCommands>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <DockPanel>
             <Menu DockPanel.Dock="Top">
