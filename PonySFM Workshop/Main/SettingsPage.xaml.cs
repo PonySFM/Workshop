@@ -39,7 +39,7 @@ namespace PonySFM_Workshop
         {
             var newPath = SFM.ShowDirectoryDialog(DirectoryTextBox.Text);
             if (!string.IsNullOrEmpty(newPath))
-                DirectoryTextBox.Text = newPath;
+                _presenter.SFMDirectory = newPath;
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)

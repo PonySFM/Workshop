@@ -36,6 +36,7 @@ namespace PonySFM_Workshop
         public void Reset()
         {
             _file = _config.Read();
+            NotifyPropertyChange("SFMDirectory");
         }
 
         public bool Save()
@@ -46,8 +47,16 @@ namespace PonySFM_Workshop
             if(error == SFMDirectoryParserError.NotExists)
             {
                 SaveError = "SFM Directory does not exist.";
+                Reset();
                 return false;
             }
+            else if(error == SFMDirectoryParserError.NotLikely)
+            {
+                SaveError = "SFM Directory is not valid.";
+                Reset();
+                return false;
+            }
+
 
             _config.Write(_file);
 
