@@ -106,7 +106,6 @@ namespace PonySFM_Workshop
         {
             _uninstallProgress[id] = progress;
             Progress = _uninstallProgress.Sum(x => x.Value);
-            Console.WriteLine(Progress);
         }
     }
 }
