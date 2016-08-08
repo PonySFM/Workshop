@@ -36,6 +36,7 @@
                     <MenuItem Name="MenuItemAbout" Header="_About" Click="MenuItemAbout_Click"/>
                 </MenuItem>
             </Menu>
+            <Separator/>
             <Frame x:Name="ContentFrame" DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </DockPanel>
     </Grid>

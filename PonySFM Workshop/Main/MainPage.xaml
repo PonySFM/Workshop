@@ -8,25 +8,28 @@
       d:DesignHeight="350" d:DesignWidth="600"
       Title="MainPage">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <DockPanel Margin="10">
-            <StackPanel DockPanel.Dock="Top">
-                <StackPanel Orientation="Horizontal" Margin="10">
-                    <Image x:Name="LogoImage"  Height="50" Source="/PonySFM Workshop;component/Images/logo.png" VerticalAlignment="Top"/>
-                    <StackPanel>
-                        <Label FontSize="15">Welcome to the PonySFM Mod Manager!</Label>
-                        <Label FontSize="15">Find mods on ponysfm.com</Label>
-                    </StackPanel>
+        <DockPanel>
+            <StackPanel Width="280" Margin="10">
+                <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
+                    <Image Height="30" Source="/PonySFM Workshop;component/Images/icon-small.png" VerticalAlignment="Center"/>
+                    <Label FontSize="20">PonySFM Workshop</Label>
                 </StackPanel>
+                <StackPanel Margin="10" Width="250">
+                    <TextBlock Foreground="White" TextWrapping="Wrap">Welcome to the PonySFM Workshop! Here you can manage mods downloaded from ponysfm.com.</TextBlock>
                 </StackPanel>
-
-                <StackPanel DockPanel.Dock="Top" Margin="30,0,30,0">
-                <Label FontSize="20" DockPanel.Dock="Top">Installed Revisions</Label>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Right" Width="Auto" Background="#FF1A1A1A">
+                <Label FontSize="20" DockPanel.Dock="Top" Margin="10">Installed Mods</Label>
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="25" Margin="10">
                     <Button x:Name="UninstallButton" Click="UninstallButton_Click">Uninstall</Button>
                     <Button x:Name="VerifyButton" Margin="10,0,0,0" Click="VerifyButton_Click">Verify Files</Button>
                 </StackPanel>
-                </StackPanel>
-                <DataGrid DockPanel.Dock="Bottom" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="False" SelectionMode="Single" AutoGenerateColumns="False">
+                <DataGrid DockPanel.Dock="Right" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="False" SelectionMode="Single" AutoGenerateColumns="False" Background="#FF1A1A1A" RowBackground="#FF1A1A1A">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#FF1A1A1A" />
+                        </Style>
+                    </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn Binding="{Binding Checked}"></DataGridCheckBoxColumn>
                         <DataGridTemplateColumn Header="ID" Width="50" IsReadOnly="True">
@@ -51,12 +54,13 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
-                <DataGrid.ContextMenu>
-                    <ContextMenu x:Name="DataGridContextMenu">
-                        <MenuItem x:Name="MenuViewOnSite" Header="View on site" Click="MenuViewOnSite_Click"></MenuItem>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu x:Name="DataGridContextMenu">
+                            <MenuItem x:Name="MenuViewOnSite" Header="View on site" Click="MenuViewOnSite_Click"></MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                 </DataGrid>
+            </StackPanel>
         </DockPanel>
     </Grid>
 </Page>
