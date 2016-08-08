@@ -16,11 +16,10 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
+                    <MenuItem Name="MenuItemOpenPonySFM" Header="_Visit PonySFM.com" Click="MenuItemOpenPonySFM_Click"/>
+                    <Separator />
                     <MenuItem Name="MenuItemOpenSFM" Header="_Open SFM" Click="MenuItemOpenSFM_Click"/>
                     <MenuItem Name="MenuItemOpenSFMDir" Header="_Open SFM Directory" Click="MenuItemOpenSFMDir_Click"/>
-                    <Separator />
-                    <MenuItem Name="MenuItemInstall" Header="_Install"/>
-                    <MenuItem Name="MenuItemVerify" Header="_Verify"/>
                     <Separator />
                     <MenuItem Name="MenuItemSettings" Header="_Settings" Click="MenuItemSettings_Click"/>
                     <Separator />

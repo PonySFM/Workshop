@@ -90,5 +90,10 @@ namespace PonySFM_Workshop
         {
             SetPage("SettingsPage");
         }
+
+        private void MenuItemOpenPonySFM_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(ModManager.PonySFMURL);
+        }
     }
 }
