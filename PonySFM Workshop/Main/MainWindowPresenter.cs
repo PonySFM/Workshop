@@ -50,6 +50,14 @@ namespace PonySFM_Workshop
             }
         }
 
+        public string InstallationTime
+        {
+            get
+            {
+                return Revision.GetAdditionalData("InstallationTime");
+            }
+        }
+
         public Revision Revision
         {
             get
