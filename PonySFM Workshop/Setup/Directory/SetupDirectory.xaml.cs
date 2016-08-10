@@ -60,7 +60,7 @@ namespace PonySFM_Workshop
                     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.No)
                     return;
 
-            _config.Write(new ConfigFile(dir));
+            _config.Write(new ConfigFile(parser.Path));
 
             var gameinfoHandler = new GameinfoHandler(parser.GameinfoPath, WindowsFileSystem.Instance);
             var ret = gameinfoHandler.Execute();

@@ -19,6 +19,24 @@ namespace PonySFM_Desktop.Test
 
         [TestMethod]
         [TestCategory("SFMDirectoryParser")]
+        public void ShouldUseGameDirIfItExists()
+        {
+            string baseDir = "C:\\SFM\\";
+            var fs = new MockFileSystem();
+            fs.CreateDirectory(baseDir);
+            fs.CreateDirectory(baseDir + "game");
+            var parser = new SFMDirectoryParser(baseDir, fs);
+            Assert.AreEqual("C:\\SFM\\game", parser.Path);
+
+            /* But not in this case */
+            fs.CreateDirectory("C:\\SFM2");
+            fs.CreateDirectory("C:\\SFM2\\gaben");
+            var otherParser = new SFMDirectoryParser("C:\\SFM2", fs);
+            Assert.AreEqual("C:\\SFM2", otherParser.Path);
+        }
+
+        [TestMethod]
+        [TestCategory("SFMDirectoryParser")]
         public void IdentifyNotLikelyDirectory()
         {
             string baseDir = "C:\\AwesomeStuff\\";

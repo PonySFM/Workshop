@@ -57,6 +57,7 @@ namespace PonySFM_Workshop
                 return false;
             }
 
+            _file.SFMDirectoryPath = parser.Path;
 
             _config.Write(_file);
 
