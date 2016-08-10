@@ -62,6 +62,7 @@ namespace PonySFM_Workshop
         static string MainMutexName = "{DD4066A3-069D-4EC1-BDB8-FA1CCE1C52C4}";
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            Logger.Open();
             ModManager.CreateFolders();
 
 #if !DEBUG
