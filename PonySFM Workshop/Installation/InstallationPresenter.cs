@@ -128,7 +128,18 @@ namespace PonySFM_Workshop
             var modDir = parser.FindModFolder();
 
             if (string.IsNullOrWhiteSpace(modDir))
-                throw new NotImplementedException();
+            {
+                LogInstallation("This mod cannot be installed because it does not have the appropriate file-structure.");
+
+                if (zip is MockZIPFile)
+                    _fs.DeleteDirectory(zipTmp);
+                else
+                    _fs.DeleteFile(zipTmp);
+
+                _fs.DeleteDirectory(tempDir);
+
+                return;
+            }
 
             _currentProgressState = ProgressState.Installation;
             LogInstallation("Installing files to SFM...\n");
