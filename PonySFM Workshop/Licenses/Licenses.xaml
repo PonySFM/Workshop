@@ -18,6 +18,6 @@
             </Button>
             <Label FontSize="30">Legal mentions</Label>
         </StackPanel>
-        <TextBox x:Name="textBlock" Margin="10,60,10,10" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AllowDrop="False" IsReadOnly="True" IsReadOnlyCaretVisible="True" VerticalScrollBarVisibility="Auto"/>
+        <TextBox x:Name="LegalMentionTextBox" Margin="10,60,10,10" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AllowDrop="False" IsReadOnly="True" IsReadOnlyCaretVisible="True" VerticalScrollBarVisibility="Auto"/>
     </Grid>
 </Page>
