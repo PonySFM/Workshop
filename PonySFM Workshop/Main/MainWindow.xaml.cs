@@ -65,7 +65,7 @@ namespace PonySFM_Workshop
 
         private void MenuItemAbout_Click(object sender, RoutedEventArgs e)
         {
-            new AboutDialog().ShowDialog();
+            SetPage("AboutPage");
         }
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
