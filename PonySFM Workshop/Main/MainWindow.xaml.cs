@@ -51,8 +51,9 @@ namespace PonySFM_Workshop
 
             _pages["MainPage"] = new MainPage(Instance, configFile, revMgr);
             _pages["SettingsPage"] = new SettingsPage(config);
+            _pages["LicensesPage"] = new LicensesPage();
 
-            Instance.SetPage("MainPage");
+            Instance.SetPage("LicensesPage");
         }
 
         public void SetPage(string page)

@@ -1,15 +1,14 @@
-﻿using PonySFM_Workshop.Source;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace PonySFM_Workshop.License
+namespace PonySFM_Workshop
 {
     /// <summary>
     /// Interaction logic for Licenses.xaml
     /// </summary>
-    public partial class Licenses : Page
+    public partial class LicensesPage : Page
     {
-        public Licenses()
+        public LicensesPage()
         {
             InitializeComponent();
             LegalMentionTextBox.Text =
