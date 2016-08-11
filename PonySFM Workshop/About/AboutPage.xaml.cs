@@ -29,6 +29,7 @@ namespace PonySFM_Workshop
         void Hyperlink_RequestPage(object sender, RequestNavigateEventArgs e)
         {
             MainWindow.Instance.SetPage("LicensesPage");
+            e.Handled = true;
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
