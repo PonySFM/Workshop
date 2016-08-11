@@ -24,9 +24,8 @@ namespace PonySFM_Workshop
             _fs = fs;
             _path = configFile.SFMDirectoryPath;
             _dirParser = new SFMDirectoryParser(_path, fs);
-            _db = new RevisionDatabase(Path.Combine(_dirParser.InstallationPath, "ponysfm.xml"), _fs);
-
             CreateDataFolder();
+            _db = new RevisionDatabase(Path.Combine(_dirParser.InstallationPath, "ponysfm.xml"), _fs);
         }
 
         public void CreateDataFolder()
