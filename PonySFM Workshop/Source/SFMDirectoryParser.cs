@@ -53,15 +53,15 @@
             _path = filepath;
             _fs = fs;
 
-            if (!_fs.DirectoryExists(_path))
-                return;
-
-            foreach (var dir in fs.GetDirectories(_path))
+            if (_fs.DirectoryExists(_path))
             {
-                if (dir.Name.ToLower() == "game")
+                foreach (var dir in fs.GetDirectories(_path))
                 {
-                    _path = dir.Path;
-                    break;
+                    if (dir.Name.ToLower() == "game")
+                    {
+                        _path = dir.Path;
+                        break;
+                    }
                 }
             }
 
