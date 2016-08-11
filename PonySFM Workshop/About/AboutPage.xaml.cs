@@ -10,7 +10,7 @@ namespace PonySFM_Workshop
     /// </summary>
     public partial class AboutPage : Page
     {
-        string ProjectNameAndVersion =>
+        public string ProjectNameAndVersion =>
             System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + " v" +
             System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
@@ -22,7 +22,7 @@ namespace PonySFM_Workshop
         void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             e.Handled =
-                Process.Start(e.Uri.AbsoluteUri).ExitCode > 0;
+                Process.Start(e.Uri.AbsoluteUri).ExitCode == 0;
         }
 
         void Hyperlink_RequestPage(object sender, RequestNavigateEventArgs e)
