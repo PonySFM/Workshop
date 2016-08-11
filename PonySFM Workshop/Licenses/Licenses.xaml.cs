@@ -9,12 +9,8 @@ namespace PonySFM_Workshop.License
     /// </summary>
     public partial class Licenses : Page
     {
-        SettingsPresenter _presenter;
-        
-        public Licenses(ConfigHandler config)
+        public Licenses()
         {
-            _presenter = new SettingsPresenter(config);
-            _presenter.View = this;
             InitializeComponent();
             LegalMentionTextBox.Text =
 @"PonySFM Workshop
@@ -116,7 +112,8 @@ zlib is provided under the zlib license:
     1.	The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required. 
     2.	Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software. 
     3.	This notice may not be removed or altered from any source distribution.
-      Jean-loup Gailly      jloup @gzip.org   Mark Adler madler@alumni.caltech.edu
+      Jean-loup Gailly      jloup @gzip.org
+  Mark Adler madler@alumni.caltech.edu
 
 --------------------------------------------------------------
 
@@ -191,7 +188,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            _presenter.Reset();
             GoBack();
         }
 
