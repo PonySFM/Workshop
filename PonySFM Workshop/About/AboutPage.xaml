@@ -7,8 +7,12 @@
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="500"
       Title="AboutPage">
+    <Page.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Page.Resources>
     <Grid>
-        
         <StackPanel>
         <Grid Height="50" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="25,0,0,0">

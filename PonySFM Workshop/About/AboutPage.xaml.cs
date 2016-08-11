@@ -17,6 +17,7 @@ namespace PonySFM_Workshop
         public AboutPage()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
         void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -27,7 +28,7 @@ namespace PonySFM_Workshop
 
         void Hyperlink_RequestPage(object sender, RequestNavigateEventArgs e)
         {
-            MainWindow.Instance.SetPage(e.Uri.ToString());
+            MainWindow.Instance.SetPage("LicensesPage");
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
