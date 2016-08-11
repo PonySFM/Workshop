@@ -17,7 +17,7 @@
                 <Image Height="30" Source="/PonySFM Workshop;component/Images/icon-small.png" VerticalAlignment="Center"/>
                 <Label FontSize="20">PonySFM Workshop</Label>
             </StackPanel>
-            <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="306"/>
+            <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="344"/>
         </StackPanel>
     </Grid>
 </Controls:MetroWindow>

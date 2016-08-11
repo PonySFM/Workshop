@@ -10,14 +10,13 @@ namespace PonySFM_Workshop
     /// </summary>
     public partial class AboutPage : Page
     {
-        string ProjectVersion =>
+        string ProjectNameAndVersion =>
+            System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + " v" +
             System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public AboutPage()
         {
             InitializeComponent();
-
-            ProjectNameTextBlock.Text += ProjectVersion;
         }
 
         void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -31,7 +30,7 @@ namespace PonySFM_Workshop
             MainWindow.Instance.SetPage(e.Uri.ToString());
         }
 
-        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             GoBack();
         }

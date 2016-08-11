@@ -25,9 +25,7 @@
 
             <Image Source="/PonySFM Workshop;component/Images/logo.png"></Image>
 
-            <TextBlock Name="ProjectNameTextBlock" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="14">
-                PonySFM Workshop v
-            </TextBlock>
+            <TextBlock Name="ProjectNameTextBlock" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="14" Text="{Binding ProjectNameAndVersion}"/>
 
             <TextBlock HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="14">
                 Copyrights © 
