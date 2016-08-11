@@ -1,20 +1,9 @@
 ﻿using MahApps.Metro.Controls;
 using PonySFM_Workshop.Source;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PonySFM_Workshop
 {
@@ -54,8 +43,7 @@ namespace PonySFM_Workshop
             _pages["LicensesPage"] = new LicensesPage();
             _pages["AboutPage"] = new AboutPage();
 
-            //Instance.SetPage("MainPage");
-            Instance.SetPage("AboutPage");
+            Instance.SetPage("MainPage");
         }
 
         public void SetPage(string page)

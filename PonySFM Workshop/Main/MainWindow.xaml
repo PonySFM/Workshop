@@ -6,12 +6,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PonySFM_Workshop"
         mc:Ignorable="d"
-        MinWidth="600"
-        MinHeight="350"
+        MinWidth="600" Width="700"
+        MinHeight="350" Height="500"
         GlowBrush="{StaticResource AccentColorBrush}"
         Style="{DynamicResource CleanWindowStyleKey}"
         ResizeMode="CanResizeWithGrip"
-        Title="PonySFM Desktop" Height="350" Width="600">
+        Title="PonySFM Desktop">
         <Controls:MetroWindow.RightWindowCommands>
             <Controls:WindowCommands>
                 <Button Click="MenuItemOpenPonySFM_Click">PonySFM.com</Button>
