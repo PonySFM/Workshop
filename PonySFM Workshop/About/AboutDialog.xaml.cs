@@ -28,8 +28,8 @@ namespace PonySFM_Workshop
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
-            e.Handled = true;
+            e.Handled =
+                Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri)).ExitCode > 0;
         }
     }
 }
