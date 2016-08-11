@@ -59,6 +59,7 @@ namespace PonySFM_Workshop
         public void GoToMainWindow()
         {
             isFinished = true;
+            MainWindow.Instance.InitialisePages();
             MainWindow.Instance.Show();
             Close();
         }

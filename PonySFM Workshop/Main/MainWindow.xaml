@@ -12,17 +12,22 @@
         Style="{DynamicResource CleanWindowStyleKey}"
         ResizeMode="CanResizeWithGrip"
         Title="PonySFM Desktop" Height="350" Width="600">
+        <Controls:MetroWindow.RightWindowCommands>
+            <Controls:WindowCommands>
+                <Button Click="MenuItemOpenPonySFM_Click">PonySFM.com</Button>
+                <Button Click="MenuItemOpenSFM_Click">Open SFM</Button>
+            </Controls:WindowCommands>
+        </Controls:MetroWindow.RightWindowCommands>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
+                    <MenuItem Name="MenuItemOpenPonySFM" Header="_Visit PonySFM.com" Click="MenuItemOpenPonySFM_Click"/>
+                    <Separator />
                     <MenuItem Name="MenuItemOpenSFM" Header="_Open SFM" Click="MenuItemOpenSFM_Click"/>
                     <MenuItem Name="MenuItemOpenSFMDir" Header="_Open SFM Directory" Click="MenuItemOpenSFMDir_Click"/>
                     <Separator />
-                    <MenuItem Name="MenuItemInstall" Header="_Install"/>
-                    <MenuItem Name="MenuItemVerify" Header="_Verify"/>
-                    <Separator />
-                    <MenuItem Name="MenuItemSFMDir" Header="_Change SFM Directory"/>
+                    <MenuItem Name="MenuItemSettings" Header="_Settings" Click="MenuItemSettings_Click"/>
                     <Separator />
                     <MenuItem Name="MenuItemExit" Header="_Exit" Click="MenuItemExit_Click"/>
                 </MenuItem>
@@ -31,6 +36,7 @@
                     <MenuItem Name="MenuItemAbout" Header="_About" Click="MenuItemAbout_Click"/>
                 </MenuItem>
             </Menu>
+            <Separator/>
             <Frame x:Name="ContentFrame" DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </DockPanel>
     </Grid>

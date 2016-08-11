@@ -62,6 +62,9 @@ namespace PonySFM_Workshop
         static string MainMutexName = "{DD4066A3-069D-4EC1-BDB8-FA1CCE1C52C4}";
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            Logger.Open();
+            ModManager.CreateFolders();
+
 #if !DEBUG
             if (!UriProtocolExists())
                 InstallUriProtocol();
@@ -69,8 +72,6 @@ namespace PonySFM_Workshop
             bool created;
             // The string can be anything, but re-producing the same GUID would be quite a thing.
             AppMutex = new Mutex(true, MainMutexName, out created);
-
-            PonySFM_Workshop.MainWindow.Instance.InitialisePages();
 
             // If the mutex was created.
             if (created)
@@ -96,6 +97,10 @@ namespace PonySFM_Workshop
                                 var list = new List<int>() { id };
                                 new DeinstallationWindow(revMgr, list).ShowDialog();
                             }
+                            else
+                            {
+                                Shutdown();
+                            }
                         }
                         else
                         {
@@ -105,6 +110,8 @@ namespace PonySFM_Workshop
 
                         return;
                     }
+
+                    PonySFM_Workshop.MainWindow.Instance.InitialisePages();
                     PonySFM_Workshop.MainWindow.Instance.Show();
                 }
                 else
@@ -117,6 +124,7 @@ namespace PonySFM_Workshop
             else
             {
                 MessageBox.Show("App is already running!");
+                Shutdown();
             }
         }
     }

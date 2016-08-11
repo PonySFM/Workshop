@@ -52,6 +52,19 @@
         {
             _path = filepath;
             _fs = fs;
+
+            if (!_fs.DirectoryExists(_path))
+                return;
+
+            foreach (var dir in fs.GetDirectories(_path))
+            {
+                if (dir.Name.ToLower() == "game")
+                {
+                    _path = dir.Path;
+                    break;
+                }
+            }
+
             GameinfoPath = System.IO.Path.Combine(_path, "usermod", "gameinfo.txt");
             InstallationPath = System.IO.Path.Combine(_path, "ponysfm");
         }

@@ -1,5 +1,6 @@
 ﻿using PonySFM_Workshop.Source;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,11 @@ namespace PonySFM_Workshop
         public static string PonySFMURL = "https://ponysfm.com";
         public static string ConfigLocation = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\PonySFM";
         public static string ConfigFileLocation = ConfigLocation + "\\config.xml";
+
+        public static void CreateFolders()
+        {
+            if(!Directory.Exists(ConfigLocation))
+                Directory.CreateDirectory(ConfigLocation);
+        }
     }
 }

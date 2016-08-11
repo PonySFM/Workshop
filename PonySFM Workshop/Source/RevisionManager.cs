@@ -59,6 +59,7 @@ namespace PonySFM_Workshop
             finally
             {
                 revision.ChangeTopDirectory(topDir, _dirParser.InstallationPath);
+                revision.AdditionalData["InstallationTime"] = DateTime.Now.ToString();
                 _db.AddToDB(revision);
                 _db.WriteDBDisk();
             }
@@ -106,7 +107,8 @@ namespace PonySFM_Workshop
                 if (_fs.GetChecksum(file.Path) != file.Sha512)
                     return false;
 
-                progress?.Report(i / revision.Files.Count * 100);
+                double p = i / (double)revision.Files.Count * 100;
+                progress?.Report((int)p);
                 i++;
             }
 

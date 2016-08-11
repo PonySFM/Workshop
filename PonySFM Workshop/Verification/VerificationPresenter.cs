@@ -26,7 +26,7 @@ namespace PonySFM_Workshop
         {
             get
             {
-                return _progress;
+               return _progress;
             }
 
             set
@@ -54,6 +54,10 @@ namespace PonySFM_Workshop
         {
             _revisionManager = revisionManager;
             _ids = ids;
+            foreach (var id in _ids)
+            {
+                _uninstallProgress[id] = 0;
+            }
         }
 
         public async Task<List<int>> Execute()
@@ -61,12 +65,7 @@ namespace PonySFM_Workshop
             List<int> failedIDs = new List<int>();
             foreach (var id in _ids)
             {
-                _uninstallProgress[id] = 0;
-            }
-
-            foreach (var id in _ids)
-            {
-                Progress<int> progress = new Progress<int>(i => _uninstallProgress[id] = i);
+                Progress<int> progress = new Progress<int>(i => SetProgress(id, i));
                 bool v = false;
                 LogInstallation("Verifying revision " + id + "\n");
                 await Task.Factory.StartNew(() =>
@@ -93,12 +92,20 @@ namespace PonySFM_Workshop
                 LogInstallation("Ok!\n");
             }
 
+            Progress =  _uninstallProgress.Count * 100;
+
             return failedIDs;
         }
 
         private void LogInstallation(string msg)
         {
             InstallationLog += msg;
+        }
+
+        private void SetProgress(int id, int progress)
+        {
+            _uninstallProgress[id] = progress;
+            Progress = _uninstallProgress.Sum(x => x.Value);
         }
     }
 }
