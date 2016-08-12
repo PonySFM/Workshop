@@ -27,7 +27,10 @@
                 </StackPanel>
             </Grid>
 
-            <Image Source="/PonySFM Workshop;component/Images/logo.png"></Image>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,25,0,0">
+                <Image Height="50" Source="/PonySFM Workshop;component/Images/icon-small.png" VerticalAlignment="Center"/>
+                <Label FontSize="30">PonySFM Workshop</Label>
+            </StackPanel>
 
             <TextBlock Name="ProjectNameTextBlock" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="14" Text="{Binding ProjectNameAndVersion}"/>
 
