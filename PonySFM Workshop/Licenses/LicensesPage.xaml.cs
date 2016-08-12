@@ -192,7 +192,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
         private void GoBack()
         {
-            MainWindow.Instance.SetPage("MainPage");
+            MainWindow.Instance.SetPage("AboutPage");
         }
     }
 }
