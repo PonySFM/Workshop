@@ -22,8 +22,8 @@ namespace PonySFM_Workshop
 
         void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            e.Handled =
-                Process.Start(e.Uri.AbsoluteUri).ExitCode == 0;
+            Process.Start(e.Uri.AbsoluteUri);
+            e.Handled = true;
         }
 
         void Hyperlink_RequestPage(object sender, RequestNavigateEventArgs e)
