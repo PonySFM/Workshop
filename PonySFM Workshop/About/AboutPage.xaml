@@ -23,7 +23,7 @@
                             </Rectangle.Fill>
                         </Rectangle>
                     </Button>
-                    <Label FontSize="30">Settings</Label>
+                    <Label FontSize="30">About</Label>
                 </StackPanel>
             </Grid>
 
