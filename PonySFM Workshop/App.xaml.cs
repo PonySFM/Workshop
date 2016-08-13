@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Windows;
 using Microsoft.Win32;
 using System.Diagnostics;
-using PonySFM_Workshop.Source;
 using System.Threading;
-using System.Runtime.InteropServices;
+using CoreLib;
+using CoreLib.Impl;
 
 namespace PonySFM_Workshop
 {

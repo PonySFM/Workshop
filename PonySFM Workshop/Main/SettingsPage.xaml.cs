@@ -1,6 +1,6 @@
-﻿using PonySFM_Workshop.Source;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using CoreLib;
 
 namespace PonySFM_Workshop
 {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using CoreLib;
 
 namespace PonySFM_Workshop
 {

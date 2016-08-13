@@ -7,6 +7,7 @@ using System.Windows;
 using Ionic.Zip;
 using WinForms = System.Windows.Forms;
 using System.Net;
+using CoreLib;
 
 namespace PonySFM_Workshop
 {

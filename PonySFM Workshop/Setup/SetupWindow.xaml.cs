@@ -1,8 +1,9 @@
 ﻿using MahApps.Metro.Controls;
-using PonySFM_Workshop.Source;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using CoreLib;
+using CoreLib.Impl;
 
 namespace PonySFM_Workshop
 {

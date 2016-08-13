@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Windows.Controls;
+using CoreLib;
+using CoreLib.Impl;
 
 namespace PonySFM_Workshop
 {

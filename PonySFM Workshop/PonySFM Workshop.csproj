@@ -79,12 +79,15 @@
     <Compile Include="About\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ControlBox.cs" />
     <Compile Include="DialogBox\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IPresenter.cs" />
     <Compile Include="Licenses\LicensesPage.xaml.cs">
       <DependentUpon>LicensesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="Main\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -92,12 +95,9 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main\SettingsPresenter.cs" />
-    <Compile Include="Source\GameinfoHandler.cs" />
-    <Compile Include="Source\ControlBox.cs" />
-    <Compile Include="Source\ResourceAPIObject.cs" />
-    <Compile Include="Source\RevisionAPIObject.cs" />
+    <Compile Include="ModManager.cs" />
+    <Compile Include="SFM.cs" />
     <Compile Include="Verification\VerificationPresenter.cs" />
-    <Compile Include="Source\UserAPIObject.cs" />
     <Compile Include="Verification\VerificationWindow.xaml.cs">
       <DependentUpon>VerificationWindow.xaml</DependentUpon>
     </Compile>
@@ -107,34 +107,10 @@
     <Compile Include="Deinstallation\DeinstallationPresenter.cs" />
     <Compile Include="Base\BasePresenter.cs" />
     <Compile Include="Main\MainWindowPresenter.cs" />
-    <Compile Include="Source\MockZIPFile.cs" />
-    <Compile Include="Source\IZIPFile.cs" />
     <Compile Include="Installation\InstallationPresenter.cs" />
-    <Compile Include="Source\IPresenter.cs" />
-    <Compile Include="Source\Config.cs" />
-    <Compile Include="Source\ConfigFile.cs" />
-    <Compile Include="Source\ConfigHandler.cs" />
-    <Compile Include="Source\ConfigParser.cs" />
-    <Compile Include="Controls\CookedWebClient.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Source\DirectoryCopier.cs" />
-    <Compile Include="Source\FileUtil.cs" />
-    <Compile Include="Source\IAPIConnector.cs" />
-    <Compile Include="Source\IFile.cs" />
-    <Compile Include="Source\IFileSystem.cs" />
-    <Compile Include="Source\MockAPIConnector.cs" />
-    <Compile Include="Source\TempRevisionParser.cs" />
     <Compile Include="Installation\InstallationWindow.xaml.cs">
       <DependentUpon>InstallationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Source\Logger.cs" />
-    <Compile Include="Source\MockFileSystem.cs" />
-    <Compile Include="Source\ModManager.cs" />
-    <Compile Include="Source\PonySFMAPIConnector.cs" />
-    <Compile Include="Source\Revision.cs" />
-    <Compile Include="Source\RevisionDatabase.cs" />
-    <Compile Include="Source\RevisionManager.cs" />
     <Compile Include="Setup\Directory\SetupDirectory.xaml.cs">
       <DependentUpon>SetupDirectory.xaml</DependentUpon>
     </Compile>
@@ -144,10 +120,6 @@
     <Compile Include="Setup\SetupWindow.xaml.cs">
       <DependentUpon>SetupWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Source\SFM.cs" />
-    <Compile Include="Source\SFMDirectoryParser.cs" />
-    <Compile Include="Source\WindowsFileSystem.cs" />
-    <Compile Include="Source\ZIPFile.cs" />
     <Page Include="About\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -272,7 +244,12 @@
   <ItemGroup>
     <Resource Include="icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CoreLib\CoreLib.csproj">
+      <Project>{51bfdf63-a26e-4bcc-aaa3-b97cab61ee61}</Project>
+      <Name>CoreLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

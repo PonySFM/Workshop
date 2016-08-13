@@ -52,19 +52,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ConfigFileTest.cs" />
-    <Compile Include="ConfigParserTest.cs" />
     <Compile Include="DeinstallationPresenterTest.cs" />
-    <Compile Include="DirectoryCopierTest.cs" />
-    <Compile Include="GameinfoHandlerTest.cs" />
     <Compile Include="InstallationPresenterTest.cs" />
-    <Compile Include="MockFileSystemTest.cs" />
-    <Compile Include="RevisionDatabaseTest.cs" />
-    <Compile Include="RevisionManagerTest.cs" />
-    <Compile Include="RevisionTest.cs" />
-    <Compile Include="SFMDirectoryParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TempRevisionParserTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PonySFM Workshop\PonySFM Workshop.csproj">
