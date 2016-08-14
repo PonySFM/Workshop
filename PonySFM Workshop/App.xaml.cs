@@ -78,7 +78,18 @@ namespace PonySFM_Workshop
                         string line = reader.ReadLine();
                         if (string.IsNullOrEmpty(line))
                             break;
-                        Dispatcher.Invoke(() => MessageBox.Show(line));
+                        if(line == "BringToFront")
+                        {
+                            Dispatcher.Invoke(() => PonySFM_Workshop.MainWindow.Instance.Activate());
+                        }
+                        else
+                        {
+                            int id = Convert.ToInt32(line);
+                            if(id != 0)
+                            {
+                                Dispatcher.Invoke(() => StartInstallation(id));
+                            }
+                        }
                         server.Disconnect();
                     }
                 }
@@ -99,6 +110,33 @@ namespace PonySFM_Workshop
             }
         }
 
+        RevisionManager revMgr;
+
+        private bool StartInstallation(int id)
+        {
+            if (revMgr.IsInstalled(id))
+            {
+                var msg = MessageBox.Show("This revision is already installed. Do you want to uninstall?",
+                    "PonySFM", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (msg == MessageBoxResult.Yes)
+                {
+                    var list = new List<int>() { id };
+                    new DeinstallationWindow(revMgr, list).ShowDialog();
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                List<int> ids = new List<int>() { id };
+                new InstallationWindow(ids, revMgr).ShowDialog();
+            }
+
+            return true;
+        } 
+
         static Mutex AppMutex;
         static string MainMutexName = "{DD4066A3-069D-4EC1-BDB8-FA1CCE1C52C4}";
 
@@ -110,24 +148,20 @@ namespace PonySFM_Workshop
             if (!UriProtocolExists())
                 InstallUriProtocol();
 #endif
-            bool created;
+            bool mutexCreated;
             // The string can be anything, but re-producing the same GUID would be quite a thing.
-            AppMutex = new Mutex(true, MainMutexName, out created);
+            AppMutex = new Mutex(true, MainMutexName, out mutexCreated);
 
-            if (created)
+            if (mutexCreated)
             {
                 Logger.Open();
                 StartPipeThread();
             }
-            else
-            {
-                SendPipeString("lol");
-            } 
 
             ConfigHandler config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
             if (config.Exists())
             {
-                RevisionManager revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
+                revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
 
                 if (e.Args.Length == 1)
                 {
@@ -136,44 +170,26 @@ namespace PonySFM_Workshop
                     uri = uri.TrimEnd('/');
                     int id = Convert.ToInt32(uri);
 
-                    if (created)
+                    if (mutexCreated)
                     {
-                        if (revMgr.IsInstalled(id))
-                        {
-                            var msg = MessageBox.Show("This revision is already installed. Do you want to uninstall?",
-                                "PonySFM", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                            if (msg == MessageBoxResult.Yes)
-                            {
-                                var list = new List<int>() { id };
-                                new DeinstallationWindow(revMgr, list).ShowDialog();
-                            }
-                            else
-                            {
-                                Shutdown();
-                            }
-                        }
-                        else
-                        {
-                            List<int> ids = new List<int>() { id };
-                            new InstallationWindow(ids, revMgr).ShowDialog();
-                        }
+                        StartInstallation(id);
                     }
                     else
                     {
-                        // send stuff
+                        SendPipeString(id.ToString());
                     }
 
                     return;
                 }
 
-                if (created)
+                if (mutexCreated)
                 {
                     PonySFM_Workshop.MainWindow.Instance.InitialisePages();
                     PonySFM_Workshop.MainWindow.Instance.Show();
                 }
                 else
                 {
-                    //send stuff
+                    SendPipeString("BringToFront");
                 }
             }
             else
@@ -181,6 +197,12 @@ namespace PonySFM_Workshop
                 var w = SetupWindow.Instance;
                 w.SetPage(new SetupGreeting());
                 w.Show();
+            }
+
+            /* Immediately shut down if in client mode */
+            if(!mutexCreated)
+            {
+                Shutdown();
             }
         }
     }
