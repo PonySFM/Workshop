@@ -4,8 +4,11 @@ using System.Windows;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Threading;
+using System.IO.Pipes;
 using CoreLib;
 using CoreLib.Impl;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace PonySFM_Workshop
 {
@@ -33,7 +36,7 @@ namespace PonySFM_Workshop
             {
                 Process.Start(processStartInfo);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Logger.Log("Failed to call PostInstall.exe: " + e.Message);
                 return;
@@ -44,6 +47,7 @@ namespace PonySFM_Workshop
             }
         }
 
+        static string PipeName = "PSFM_WS";
         bool UriProtocolExists()
         {
             var regValue = Registry.GetValue(@"HKEY_CLASSES_ROOT\ponysfm", "URL protocol", null);
@@ -58,11 +62,48 @@ namespace PonySFM_Workshop
             return cmdStr.ToLower().Contains(System.Reflection.Assembly.GetExecutingAssembly().Location.ToLower());
         }
 
+        private void StartPipeThread()
+        {
+            Task.Run(() =>
+            {
+                var ps = new PipeSecurity();
+                var par = new PipeAccessRule("Everyone", PipeAccessRights.ReadWrite, System.Security.AccessControl.AccessControlType.Allow);
+                ps.AddAccessRule(par);
+                using (var server = new NamedPipeServerStream(PipeName, PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous, 512, 512, ps, HandleInheritability.None))
+                {
+                    while (true)
+                    {
+                        server.WaitForConnection();
+                        var reader = new StreamReader(server);
+                        string line = reader.ReadLine();
+                        if (string.IsNullOrEmpty(line))
+                            break;
+                        Dispatcher.Invoke(() => MessageBox.Show(line));
+                        server.Disconnect();
+                    }
+                }
+            });
+        }
+
+        static void SendPipeString(string str)
+        {
+            using (var client = new NamedPipeClientStream(".", PipeName))
+            {
+                client.Connect();
+                using (var writer = new StreamWriter(client))
+                {
+                    writer.WriteLine(str);
+                    writer.Flush();
+                    client.WaitForPipeDrain();
+                }
+            }
+        }
+
         static Mutex AppMutex;
         static string MainMutexName = "{DD4066A3-069D-4EC1-BDB8-FA1CCE1C52C4}";
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            Logger.Open();
             ModManager.CreateFolders();
 
 #if !DEBUG
@@ -73,21 +114,30 @@ namespace PonySFM_Workshop
             // The string can be anything, but re-producing the same GUID would be quite a thing.
             AppMutex = new Mutex(true, MainMutexName, out created);
 
-            // If the mutex was created.
             if (created)
             {
-                ConfigHandler config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
-                if (config.Exists())
+                Logger.Open();
+                StartPipeThread();
+            }
+            else
+            {
+                SendPipeString("lol");
+            } 
+
+            ConfigHandler config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
+            if (config.Exists())
+            {
+                RevisionManager revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
+
+                if (e.Args.Length == 1)
                 {
-                    RevisionManager revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
+                    string uri = e.Args[0];
+                    uri = uri.TrimStart("ponysfm://".ToCharArray());
+                    uri = uri.TrimEnd('/');
+                    int id = Convert.ToInt32(uri);
 
-                    if (e.Args.Length == 1)
+                    if (created)
                     {
-                        string uri = e.Args[0];
-                        uri = uri.TrimStart("ponysfm://".ToCharArray());
-                        uri = uri.TrimEnd('/');
-                        int id = Convert.ToInt32(uri);
-
                         if (revMgr.IsInstalled(id))
                         {
                             var msg = MessageBox.Show("This revision is already installed. Do you want to uninstall?",
@@ -107,25 +157,32 @@ namespace PonySFM_Workshop
                             List<int> ids = new List<int>() { id };
                             new InstallationWindow(ids, revMgr).ShowDialog();
                         }
-
-                        return;
+                    }
+                    else
+                    {
+                        // send stuff
                     }
 
+                    return;
+                }
+
+                if (created)
+                {
                     PonySFM_Workshop.MainWindow.Instance.InitialisePages();
                     PonySFM_Workshop.MainWindow.Instance.Show();
                 }
                 else
                 {
-                    var w = SetupWindow.Instance;
-                    w.SetPage(new SetupGreeting());
-                    w.Show();
+                    //send stuff
                 }
             }
             else
             {
-                MessageBox.Show("App is already running!");
-                Shutdown();
+                var w = SetupWindow.Instance;
+                w.SetPage(new SetupGreeting());
+                w.Show();
             }
         }
     }
 }
+
