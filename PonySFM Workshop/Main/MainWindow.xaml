@@ -12,8 +12,35 @@
         Style="{DynamicResource CleanWindowStyleKey}"
         ResizeMode="CanResizeWithGrip"
         Title="PonySFM Desktop" Closed="MetroWindow_Closed">
+    <Controls:MetroWindow.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MainMenuButton">
+            <BeginStoryboard Storyboard="{DynamicResource MenuBarOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuButton">
+            <BeginStoryboard Storyboard="{DynamicResource MenuBarClose}"/>
+        </EventTrigger>
+    </Controls:MetroWindow.Triggers>
     <Controls:MetroWindow.Resources>
-        <Storyboard x:Key="OnLoaded1"/>
+        <Storyboard x:Key="MenuBarOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="MenuBar">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="MenuBar">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuBarClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="MenuBar">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="MenuBar">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </Controls:MetroWindow.Resources>
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
@@ -22,38 +49,15 @@
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="Menu">
-                <VisualStateGroup.Transitions>
-                    <VisualTransition From="MenuOpen" GeneratedDuration="0">
-                        <VisualTransition.GeneratedEasingFunction>
-                            <QuinticEase EasingMode="EaseInOut"/>
-                        </VisualTransition.GeneratedEasingFunction>
-                        <Storyboard>
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="virtualizingStackPanel">
-                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="200"/>
-                            </DoubleAnimationUsingKeyFrames>
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="virtualizingStackPanel">
-                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
-                            </DoubleAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </VisualTransition>
-                </VisualStateGroup.Transitions>
-                <VisualState x:Name="MenuOpen"/>
-            </VisualStateGroup>
-            <VisualStateGroup x:Name="MenuClose"/>
-        </VisualStateManager.VisualStateGroups>
         <DockPanel>
-            <Button x:Name="button" Width="50" VerticalAlignment="Top" Height="50">
+            <Button x:Name="MainMenuButton" Width="50" VerticalAlignment="Top" Height="50" Click="MainMenuButton_Click">
                 <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White"
                       Margin="-3,-3,0,0"/>
             </Button>
             <Separator/>
             <Frame x:Name="ContentFrame" DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </DockPanel>
-        <VirtualizingStackPanel x:Name="virtualizingStackPanel" HorizontalAlignment="Left" Margin="-200,0,0,0" VerticalAlignment="Stretch" Width="200" RenderTransformOrigin="0.5,0.5" Background="#FF1E1E1E">
+        <VirtualizingStackPanel x:Name="MenuBar" HorizontalAlignment="Left" Margin="-200,0,0,0" VerticalAlignment="Stretch" Width="200" RenderTransformOrigin="0.5,0.5" Background="#FF1E1E1E">
             <VirtualizingStackPanel.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -62,7 +66,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </VirtualizingStackPanel.RenderTransform>
-            <Button x:Name="button1" Width="50" Height="50" HorizontalAlignment="Left">
+            <Button x:Name="MenuButton" Width="50" Height="50" HorizontalAlignment="Left">
                 <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White"
                       Margin="-3,-3,0,0"/>
             </Button>

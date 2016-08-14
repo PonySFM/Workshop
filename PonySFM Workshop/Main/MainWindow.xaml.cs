@@ -67,6 +67,7 @@ namespace PonySFM_Workshop
             Close();
         }
 
+        // Online Guide
         private void MenuItemHelp_Click(object sender, RoutedEventArgs e)
         {
 
@@ -95,7 +96,12 @@ namespace PonySFM_Workshop
 
         private void MetroWindow_Closed(object sender, System.EventArgs e)
         {
-            App.Current.Shutdown();
+            Application.Current.Shutdown();
+        }
+        
+        private void MainMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(MenuBar, "MenuBarStates", true);
         }
     }
 }
