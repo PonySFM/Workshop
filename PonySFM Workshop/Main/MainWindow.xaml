@@ -12,32 +12,50 @@
         Style="{DynamicResource CleanWindowStyleKey}"
         ResizeMode="CanResizeWithGrip"
         Title="PonySFM Desktop" Closed="MetroWindow_Closed">
-        <Controls:MetroWindow.RightWindowCommands>
-            <Controls:WindowCommands>
-                <Button Click="MenuItemOpenPonySFM_Click">PonySFM.com</Button>
-                <Button Click="MenuItemOpenSFM_Click">Open SFM</Button>
-            </Controls:WindowCommands>
-        </Controls:MetroWindow.RightWindowCommands>
+    <Controls:MetroWindow.Resources>
+        <Storyboard x:Key="OnLoaded1"/>
+    </Controls:MetroWindow.Resources>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Click="MenuItemOpenPonySFM_Click">PonySFM.com</Button>
+            <Button Click="MenuItemOpenSFM_Click">Open SFM</Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition GeneratedDuration="0" To="VisualState"/>
+                    <VisualTransition From="VisualState" GeneratedDuration="0"/>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="VisualState"/>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_File">
-                    <MenuItem Name="MenuItemOpenPonySFM" Header="_Visit PonySFM.com" Click="MenuItemOpenPonySFM_Click"/>
-                    <Separator />
-                    <MenuItem Name="MenuItemOpenSFM" Header="_Open SFM" Click="MenuItemOpenSFM_Click"/>
-                    <MenuItem Name="MenuItemOpenSFMDir" Header="_Open SFM Directory" Click="MenuItemOpenSFMDir_Click"/>
-                    <Separator />
-                    <MenuItem Name="MenuItemSettings" Header="_Settings" Click="MenuItemSettings_Click"/>
-                    <Separator />
-                    <MenuItem Name="MenuItemExit" Header="_Exit" Click="MenuItemExit_Click"/>
-                </MenuItem>
-                <MenuItem Header="_Help">
-                    <MenuItem Name="MenuItemHelp" Header="_Online Guide" Click="MenuItemHelp_Click"/>
-                    <MenuItem Name="MenuItemAbout" Header="_About" Click="MenuItemAbout_Click"/>
-                </MenuItem>
-            </Menu>
+            <Button x:Name="button" Width="50" VerticalAlignment="Top" Height="50">
+                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="Black"
+                      Margin="-3,-3,0,0"/>
+            </Button>
             <Separator/>
             <Frame x:Name="ContentFrame" DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </DockPanel>
+        <VirtualizingStackPanel HorizontalAlignment="Left" Margin="-200,0,0,0" VerticalAlignment="Stretch" Width="200">
+            <Button x:Name="button1" Width="50" Height="50" HorizontalAlignment="Left">
+                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="Black"
+                      Margin="-3,-3,0,0"/>
+            </Button>
+            <Label x:Name="MenuFileLabel" Content="File"/>
+            <Button x:Name="MenuItemOpenPonySFM" Content="Visit PonySFM.com" Click="MenuItemOpenPonySFM_Click"/>
+            <Separator/>
+            <Button x:Name="MenuItemOpenSFM" Content="Open SFM" Click="MenuItemOpenSFM_Click"/>
+            <Button x:Name="MenuItemOpenSFMDir" Content="Open SFM Directory"/>
+            <Separator/>
+            <Button x:Name="MenuItemSettings" Content="Settings" Click="MenuItemSettings_Click"/>
+            <Separator/>
+            <Button x:Name="MenuItemExit" Content="Exit" Click="MenuItemExit_Click"/>
+            <Label x:Name="MenuHelpLabel" Content="Help"/>
+            <Button x:Name="MenuItemHelp" Content="Online Guide" Click="MenuItemHelp_Click"/>
+            <Button x:Name="MenuItemAbout" Content="_About" Click="MenuItemAbout_Click"/>
+        </VirtualizingStackPanel>
     </Grid>
 </Controls:MetroWindow>
