@@ -173,13 +173,12 @@ namespace PonySFM_Workshop
                     if (mutexCreated)
                     {
                         StartInstallation(id);
+                        return;
                     }
                     else
                     {
                         SendPipeString(id.ToString());
                     }
-
-                    return;
                 }
 
                 if (mutexCreated)
