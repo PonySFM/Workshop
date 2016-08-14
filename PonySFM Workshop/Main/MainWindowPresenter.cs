@@ -7,7 +7,8 @@ using System.Collections.ObjectModel;
 
 namespace PonySFM_Workshop
 {
-    public class RevisionListItem
+    /* TODO: BasePresenter is false here because actually only want NotifyPropertyChange. Refactor? */
+    public class RevisionListItem : BasePresenter
     {
         Revision _revision;
         bool _checked;
@@ -30,6 +31,7 @@ namespace PonySFM_Workshop
             set
             {
                 _checked = value;
+                NotifyPropertyChange("Checked");
             }
         }
 
