@@ -55,6 +55,7 @@ namespace CoreLib
 
         public void RefreshData(XmlDocument doc)
         {
+            _revisions.Clear();
             foreach(XmlElement elem in doc.FirstChild.ChildNodes)
             {
                 _revisions.Add(Revision.CreateFromXML(elem));

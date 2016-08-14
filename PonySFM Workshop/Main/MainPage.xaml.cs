@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using CoreLib;
@@ -48,5 +49,9 @@ namespace PonySFM_Workshop
             Process.Start(url);
         }
 
+        public void RefreshListData()
+        {
+            _presenter.PopulateListData();
+        }
     }
 }

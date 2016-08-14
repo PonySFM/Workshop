@@ -84,6 +84,7 @@ namespace PonySFM_Workshop
                         }
                         else
                         {
+                            Dispatcher.Invoke(() => PonySFM_Workshop.MainWindow.Instance.Activate());
                             int id = Convert.ToInt32(line);
                             if(id != 0)
                             {
@@ -133,6 +134,8 @@ namespace PonySFM_Workshop
                 List<int> ids = new List<int>() { id };
                 new InstallationWindow(ids, revMgr).ShowDialog();
             }
+
+            PonySFM_Workshop.MainWindow.Instance.RefreshListData();
 
             return true;
         } 

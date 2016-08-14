@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoreLib;
 using CoreLib.Impl;
+using System.Collections.ObjectModel;
 
 namespace PonySFM_Workshop
 {
@@ -77,11 +78,11 @@ namespace PonySFM_Workshop
 
     public class MainWindowPresenter : BasePresenter
     {
-        List<RevisionListItem> _items = new List<RevisionListItem>();
+        ObservableCollection<RevisionListItem> _items = new ObservableCollection<RevisionListItem>();
         RevisionDatabase _db;
         RevisionManager _revisionManager;
 
-        public List<RevisionListItem> InstalledRevisions
+        public ObservableCollection<RevisionListItem> InstalledRevisions
         {
             get
             {
@@ -146,8 +147,10 @@ namespace PonySFM_Workshop
             NotifyPropertyChange("InstalledRevisions");
         }
 
-        private void PopulateListData()
+        public void PopulateListData()
         {
+            /* HACK: Have to force refresh here because the instances here and the one used in App.StartInstallation are actually different */
+            _db.RefreshDataDisk();
             _items.Clear();
             foreach (var revision in _db.Revisions)
             {

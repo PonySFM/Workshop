@@ -52,6 +52,11 @@ namespace PonySFM_Workshop
             ContentFrame.Navigate(_pages[page]);
         }
 
+        public void RefreshListData()
+        {
+            (_pages["MainPage"] as MainPage).RefreshListData();
+        }
+
         private void MenuItemAbout_Click(object sender, RoutedEventArgs e)
         {
             SetPage("AboutPage");
