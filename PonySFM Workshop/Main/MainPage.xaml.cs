@@ -53,5 +53,15 @@ namespace PonySFM_Workshop
         {
             _presenter.PopulateListData();
         }
+
+        private void dataGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var item = dataGrid.CurrentItem;
+            if (item == null)
+                return;
+
+            var entry = (item as RevisionListItem);
+            entry.Checked = !entry.Checked;
+        }
     }
 }

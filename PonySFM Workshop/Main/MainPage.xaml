@@ -24,7 +24,7 @@
                     <Button x:Name="UninstallButton" Click="UninstallButton_Click">Uninstall</Button>
                     <Button x:Name="VerifyButton" Margin="10,0,0,0" Click="VerifyButton_Click">Verify Files</Button>
                 </StackPanel>
-                <DataGrid DockPanel.Dock="Right" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="True" SelectionMode="Single" AutoGenerateColumns="False" Background="#FF1A1A1A" RowBackground="#FF1A1A1A">
+                <DataGrid DockPanel.Dock="Right" Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="True" SelectionMode="Single" AutoGenerateColumns="False" Background="#FF1A1A1A" RowBackground="#FF1A1A1A" MouseDoubleClick="dataGrid_MouseDoubleClick">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="#FF1A1A1A" />
