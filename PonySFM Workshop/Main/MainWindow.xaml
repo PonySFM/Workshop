@@ -23,39 +23,61 @@
     </Controls:MetroWindow.RightWindowCommands>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="VisualStateGroup">
+            <VisualStateGroup x:Name="Menu">
                 <VisualStateGroup.Transitions>
-                    <VisualTransition GeneratedDuration="0" To="VisualState"/>
-                    <VisualTransition From="VisualState" GeneratedDuration="0"/>
+                    <VisualTransition From="MenuOpen" GeneratedDuration="0">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <QuinticEase EasingMode="EaseInOut"/>
+                        </VisualTransition.GeneratedEasingFunction>
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="virtualizingStackPanel">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="200"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="virtualizingStackPanel">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualTransition>
                 </VisualStateGroup.Transitions>
-                <VisualState x:Name="VisualState"/>
+                <VisualState x:Name="MenuOpen"/>
             </VisualStateGroup>
+            <VisualStateGroup x:Name="MenuClose"/>
         </VisualStateManager.VisualStateGroups>
         <DockPanel>
             <Button x:Name="button" Width="50" VerticalAlignment="Top" Height="50">
-                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="Black"
+                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White"
                       Margin="-3,-3,0,0"/>
             </Button>
             <Separator/>
             <Frame x:Name="ContentFrame" DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </DockPanel>
-        <VirtualizingStackPanel HorizontalAlignment="Left" Margin="-200,0,0,0" VerticalAlignment="Stretch" Width="200">
+        <VirtualizingStackPanel x:Name="virtualizingStackPanel" HorizontalAlignment="Left" Margin="-200,0,0,0" VerticalAlignment="Stretch" Width="200" RenderTransformOrigin="0.5,0.5" Background="#FF1E1E1E">
+            <VirtualizingStackPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </VirtualizingStackPanel.RenderTransform>
             <Button x:Name="button1" Width="50" Height="50" HorizontalAlignment="Left">
-                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="Black"
+                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White"
                       Margin="-3,-3,0,0"/>
             </Button>
             <Label x:Name="MenuFileLabel" Content="File"/>
             <Button x:Name="MenuItemOpenPonySFM" Content="Visit PonySFM.com" Click="MenuItemOpenPonySFM_Click"/>
-            <Separator/>
+            <Separator Style="{StaticResource SimpleButtonFocusVisual}"/>
             <Button x:Name="MenuItemOpenSFM" Content="Open SFM" Click="MenuItemOpenSFM_Click"/>
             <Button x:Name="MenuItemOpenSFMDir" Content="Open SFM Directory"/>
-            <Separator/>
+            <Separator Style="{StaticResource SimpleButtonFocusVisual}"/>
             <Button x:Name="MenuItemSettings" Content="Settings" Click="MenuItemSettings_Click"/>
-            <Separator/>
+            <Separator Style="{StaticResource SimpleButtonFocusVisual}"/>
             <Button x:Name="MenuItemExit" Content="Exit" Click="MenuItemExit_Click"/>
             <Label x:Name="MenuHelpLabel" Content="Help"/>
             <Button x:Name="MenuItemHelp" Content="Online Guide" Click="MenuItemHelp_Click"/>
-            <Button x:Name="MenuItemAbout" Content="_About" Click="MenuItemAbout_Click"/>
+            <Button x:Name="MenuItemAbout" Content="About" Click="MenuItemAbout_Click"/>
         </VirtualizingStackPanel>
     </Grid>
 </Controls:MetroWindow>
