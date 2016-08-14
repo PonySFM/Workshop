@@ -17,18 +17,37 @@
             <BeginStoryboard Storyboard="{DynamicResource MenuBarOpen}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuButton">
-            <BeginStoryboard Storyboard="{DynamicResource MenuBarClose}"/>
+            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard" Storyboard="{DynamicResource MenuBarClose}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseUp" SourceName="MenuBar">
+            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard1" Storyboard="{DynamicResource MenuBarClose}"/>
         </EventTrigger>
     </Controls:MetroWindow.Triggers>
     <Controls:MetroWindow.Resources>
         <Storyboard x:Key="MenuBarOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="MenuBar">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="200">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="MenuBar">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="MenuBarClose">
@@ -64,9 +83,10 @@
             <Button Click="MenuItemOpenSFM_Click">Open SFM</Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
+    
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <DockPanel>
-            <Button x:Name="MainMenuButton" Width="50" VerticalAlignment="Top" Height="50" Click="MainMenuButton_Click">
+            <Button x:Name="MainMenuButton" Width="40" VerticalAlignment="Top" Height="40" Click="MainMenuButton_Click">
                 <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White"
                       Margin="-3,-3,0,0"/>
             </Button>
@@ -82,7 +102,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </VirtualizingStackPanel.RenderTransform>
-            <Button x:Name="MenuButton" Width="50" Height="50" HorizontalAlignment="Left">
+            <Button x:Name="MenuButton" Width="40" Height="40" HorizontalAlignment="Left">
                 <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White"
                       Margin="-3,-3,0,0"/>
             </Button>
