@@ -87,5 +87,10 @@ namespace PonySFM_Workshop
         {
             Process.Start(ModManager.PonySFMURL);
         }
+
+        private void MetroWindow_Closed(object sender, System.EventArgs e)
+        {
+            App.Current.Shutdown();
+        }
     }
 }

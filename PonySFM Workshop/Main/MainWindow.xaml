@@ -11,7 +11,7 @@
         GlowBrush="{StaticResource AccentColorBrush}"
         Style="{DynamicResource CleanWindowStyleKey}"
         ResizeMode="CanResizeWithGrip"
-        Title="PonySFM Desktop">
+        Title="PonySFM Desktop" Closed="MetroWindow_Closed">
         <Controls:MetroWindow.RightWindowCommands>
             <Controls:WindowCommands>
                 <Button Click="MenuItemOpenPonySFM_Click">PonySFM.com</Button>
