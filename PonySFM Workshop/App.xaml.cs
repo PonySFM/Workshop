@@ -122,7 +122,7 @@ namespace PonySFM_Workshop
                 if (msg == MessageBoxResult.Yes)
                 {
                     var list = new List<int>() { id };
-                    new DeinstallationWindow(revMgr, list).ShowDialog();
+                    new DeinstallationWindow(revMgr, list, true).ShowDialog();
                 }
                 else
                 {
@@ -132,7 +132,7 @@ namespace PonySFM_Workshop
             else
             {
                 List<int> ids = new List<int>() { id };
-                new InstallationWindow(ids, revMgr).ShowDialog();
+                new InstallationWindow(ids, revMgr, true).ShowDialog();
             }
 
             PonySFM_Workshop.MainWindow.Instance.RefreshListData();
