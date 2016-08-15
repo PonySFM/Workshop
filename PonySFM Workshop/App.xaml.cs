@@ -111,10 +111,14 @@ namespace PonySFM_Workshop
             }
         }
 
+        ConfigHandler config;
         RevisionManager revMgr;
 
         private bool StartInstallation(int id)
         {
+            /* force refresh */
+            revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
+
             if (revMgr.IsInstalled(id))
             {
                 var msg = MessageBox.Show("This revision is already installed. Do you want to uninstall?",
@@ -161,7 +165,7 @@ namespace PonySFM_Workshop
                 StartPipeThread();
             }
 
-            ConfigHandler config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
+            config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
             if (config.Exists())
             {
                 revMgr = new RevisionManager(config.Read(), WindowsFileSystem.Instance);
