@@ -110,7 +110,7 @@
             <Button x:Name="MenuItemOpenPonySFM" Content="Visit PonySFM.com" Click="MenuItemOpenPonySFM_Click"/>
             <Separator Style="{StaticResource SimpleButtonFocusVisual}"/>
             <Button x:Name="MenuItemOpenSFM" Content="Open SFM" Click="MenuItemOpenSFM_Click"/>
-            <Button x:Name="MenuItemOpenSFMDir" Content="Open SFM Directory"/>
+            <Button x:Name="MenuItemOpenSFMDir" Content="Open SFM Directory" Click="MenuItemOpenSFMDir_Click"/>
             <Separator Style="{StaticResource SimpleButtonFocusVisual}"/>
             <Button x:Name="MenuItemSettings" Content="Settings" Click="MenuItemSettings_Click"/>
             <Separator Style="{StaticResource SimpleButtonFocusVisual}"/>
