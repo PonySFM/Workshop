@@ -112,7 +112,7 @@ namespace PonySFM_Workshop
 
             if(ids.Count > 0)
             {
-                var w = new DeinstallationWindow(_revisionManager, ids);
+                var w = new DeinstallationWindow(_revisionManager, ids, true);
                 w.ShowDialog();
                 PopulateListData();
             }
