@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using CoreLib;
 using CoreLib.Impl;
 using CoreLib.Interface;
@@ -96,18 +98,9 @@ namespace PonySFM_Workshop
         {
             var zipTmp = _fs.GetTempPath();
             var tempDir = _fs.GetTempPath();
+            IZIPFile zip = null;
 
             var progress = new Progress<int>(i => SetProgress(_currentProgressState, i));
-            /*
-            var existsProgress = new Progress<DirectoryCopierFileExistsEventArgs>(e =>
-            {
-                if (View is InstallationWindow)
-                {
-                    e.FileCopyMode = (View as InstallationWindow).OnFileExists(e.File1, e.File2);
-                }
-            });
-            */
-
             _revisionMgr.OnFileExists += (s,e) => OnFileExists(s, e);
 
             if (!_fs.DirectoryExists(tempDir))
@@ -117,11 +110,31 @@ namespace PonySFM_Workshop
 
             _currentProgressState = ProgressState.Download;
             LogInstallation("Downloading file...\n");
-            await _api.DownloadRevisionZIP(id, zipTmp, progress);
+
+            Action cleanup = delegate ()
+            {
+                if (zip != null)
+                    if (zip is MockZIPFile)
+                        _fs.DeleteDirectory(zipTmp);
+                    else
+                        _fs.DeleteFile(zipTmp);
+                _fs.DeleteDirectory(tempDir);
+            };
+
+            try
+            {
+                await _api.DownloadRevisionZIP(id, zipTmp, progress);
+            }
+            catch(WebException e)
+            {
+                MessageBox.Show("Failed to download: " + e.Message);
+                cleanup();
+                return;
+            }
 
             _currentProgressState = ProgressState.Extraction;
             LogInstallation("Extracting zip file...\n");
-            var zip = _fs.OpenZIP(zipTmp);
+            zip = _fs.OpenZIP(zipTmp);
             await zip.Extract(tempDir, progress);
 
             var parser = new TempRevisionParser(tempDir, _fs);
@@ -129,15 +142,10 @@ namespace PonySFM_Workshop
 
             if (string.IsNullOrWhiteSpace(modDir))
             {
-                LogInstallation("This mod cannot be installed because it does not have the appropriate file-structure.");
-
-                if (zip is MockZIPFile)
-                    _fs.DeleteDirectory(zipTmp);
-                else
-                    _fs.DeleteFile(zipTmp);
-
-                _fs.DeleteDirectory(tempDir);
-
+                string s = "This mod cannot be installed because it does not have the appropriate file-structure.";
+                LogInstallation(s);
+                MessageBox.Show(s);
+                cleanup();
                 return;
             }
 
@@ -152,12 +160,7 @@ namespace PonySFM_Workshop
             GC.WaitForPendingFinalizers();
 
             LogInstallation("Cleaning up...\n");
-            if (zip is MockZIPFile)
-                _fs.DeleteDirectory(zipTmp);
-            else
-                _fs.DeleteFile(zipTmp);
-
-            _fs.DeleteDirectory(tempDir);
+            cleanup();
         }
 
         private void LogInstallation(string msg)
