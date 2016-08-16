@@ -20,7 +20,7 @@
             </StackPanel>
             <StackPanel DockPanel.Dock="Right" Width="Auto" Background="#FF1A1A1A" Margin="10,10,10,10">
                 <Label FontSize="20" DockPanel.Dock="Top" Margin="10">Installed Mods</Label>
-                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="25" Margin="10">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="Auto" Margin="10">
                     <Button x:Name="UninstallButton" Click="UninstallButton_Click">Uninstall</Button>
                     <Button x:Name="VerifyButton" Margin="10,0,0,0" Click="VerifyButton_Click">Verify Files</Button>
                 </StackPanel>
