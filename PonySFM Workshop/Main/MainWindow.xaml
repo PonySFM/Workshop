@@ -16,11 +16,29 @@
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MainMenuButton">
             <BeginStoryboard Storyboard="{DynamicResource MenuBarOpen}"/>
         </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuItemHelp">
+            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard5" Storyboard="{DynamicResource MenuBarClose}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuItemAbout">
+            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard6" Storyboard="{DynamicResource MenuBarClose}"/>
+        </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuButton">
             <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard" Storyboard="{DynamicResource MenuBarClose}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="UIElement.MouseUp" SourceName="MenuBar">
             <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard1" Storyboard="{DynamicResource MenuBarClose}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuItemOpenPonySFM">
+            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard2" Storyboard="{DynamicResource MenuBarClose}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuItemOpenSFM">
+            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard3" Storyboard="{DynamicResource MenuBarClose}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuItemSettings">
+            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard4" Storyboard="{DynamicResource MenuBarClose}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuItemOpenSFMDir">
+            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard7" Storyboard="{DynamicResource MenuBarClose}"/>
         </EventTrigger>
     </Controls:MetroWindow.Triggers>
     <Controls:MetroWindow.Resources>
@@ -83,17 +101,17 @@
             <Button Click="MenuItemOpenSFM_Click">Open SFM</Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    
+
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <DockPanel>
-            <Button x:Name="MainMenuButton" Width="40" VerticalAlignment="Top" Height="40" Click="MainMenuButton_Click">
+            <Button x:Name="MainMenuButton" Width="40" VerticalAlignment="Top" Height="40" Click="MainMenuButton_Click" Background="#FF6E6E6E">
                 <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White"
                       Margin="-3,-3,0,0"/>
             </Button>
             <Separator/>
             <Frame x:Name="ContentFrame" DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </DockPanel>
-        <VirtualizingStackPanel x:Name="MenuBar" HorizontalAlignment="Left" Margin="-200,0,0,0" VerticalAlignment="Stretch" Width="200" RenderTransformOrigin="0.5,0.5" Background="#FF1E1E1E">
+        <VirtualizingStackPanel x:Name="MenuBar" HorizontalAlignment="Left" Margin="-200,0,0,0" VerticalAlignment="Stretch" Width="200" RenderTransformOrigin="0.5,0.5" Background="#FF323232">
             <VirtualizingStackPanel.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -102,22 +120,22 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </VirtualizingStackPanel.RenderTransform>
-            <Button x:Name="MenuButton" Width="40" Height="40" HorizontalAlignment="Left">
+            <Button x:Name="MenuButton" Width="40" Height="40" HorizontalAlignment="Left" Background="#FF6E6E6E">
                 <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White"
                       Margin="-3,-3,0,0"/>
             </Button>
             <Label x:Name="MenuFileLabel" Content="File"/>
-            <Button x:Name="MenuItemOpenPonySFM" Content="Visit PonySFM.com" Click="MenuItemOpenPonySFM_Click"/>
+            <Button x:Name="MenuItemOpenPonySFM" Content="Visit PonySFM.com" Click="MenuItemOpenPonySFM_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
             <Separator Style="{StaticResource SimpleButtonFocusVisual}"/>
-            <Button x:Name="MenuItemOpenSFM" Content="Open SFM" Click="MenuItemOpenSFM_Click"/>
-            <Button x:Name="MenuItemOpenSFMDir" Content="Open SFM Directory" Click="MenuItemOpenSFMDir_Click"/>
+            <Button x:Name="MenuItemOpenSFM" Content="Open SFM" Click="MenuItemOpenSFM_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
+            <Button x:Name="MenuItemOpenSFMDir" Content="Open SFM Directory" Click="MenuItemOpenSFMDir_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
             <Separator Style="{StaticResource SimpleButtonFocusVisual}"/>
-            <Button x:Name="MenuItemSettings" Content="Settings" Click="MenuItemSettings_Click"/>
+            <Button x:Name="MenuItemSettings" Content="Settings" Click="MenuItemSettings_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
             <Separator Style="{StaticResource SimpleButtonFocusVisual}"/>
-            <Button x:Name="MenuItemExit" Content="Exit" Click="MenuItemExit_Click"/>
+            <Button x:Name="MenuItemExit" Content="Exit" Click="MenuItemExit_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
             <Label x:Name="MenuHelpLabel" Content="Help"/>
-            <Button x:Name="MenuItemHelp" Content="Online Guide" Click="MenuItemHelp_Click"/>
-            <Button x:Name="MenuItemAbout" Content="About" Click="MenuItemAbout_Click"/>
+            <Button x:Name="MenuItemHelp" Content="Online Guide" Click="MenuItemHelp_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
+            <Button x:Name="MenuItemAbout" Content="About" Click="MenuItemAbout_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
         </VirtualizingStackPanel>
     </Grid>
 </Controls:MetroWindow>
