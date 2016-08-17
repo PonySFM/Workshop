@@ -101,7 +101,9 @@ namespace PonySFM_Workshop
         {
             using (var client = new NamedPipeClientStream(".", PipeName))
             {
-                client.Connect();
+                client.Connect(1000);
+                if (!client.IsConnected)
+                    return;
                 using (var writer = new StreamWriter(client))
                 {
                     writer.WriteLine(str);
