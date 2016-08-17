@@ -11,36 +11,9 @@
         GlowBrush="{StaticResource AccentColorBrush}"
         Style="{DynamicResource CleanWindowStyleKey}"
         ResizeMode="CanResizeWithGrip"
-        Title="PonySFM Desktop" Closed="MetroWindow_Closed">
-    <Controls:MetroWindow.Triggers>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MainMenuButton">
-            <BeginStoryboard Storyboard="{DynamicResource MenuBarOpen}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuItemHelp">
-            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard5" Storyboard="{DynamicResource MenuBarClose}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuItemAbout">
-            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard6" Storyboard="{DynamicResource MenuBarClose}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuButton">
-            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard" Storyboard="{DynamicResource MenuBarClose}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="UIElement.MouseUp" SourceName="MenuBar">
-            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard1" Storyboard="{DynamicResource MenuBarClose}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuItemOpenPonySFM">
-            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard2" Storyboard="{DynamicResource MenuBarClose}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuItemOpenSFM">
-            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard3" Storyboard="{DynamicResource MenuBarClose}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuItemSettings">
-            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard4" Storyboard="{DynamicResource MenuBarClose}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="MenuItemOpenSFMDir">
-            <BeginStoryboard x:Name="MenuBarClose_BeginStoryboard7" Storyboard="{DynamicResource MenuBarClose}"/>
-        </EventTrigger>
-    </Controls:MetroWindow.Triggers>
+        Title="PonySFM Desktop" Closed="MetroWindow_Closed"
+        MouseDown="MetroWindow_MouseDown">
+    <!-- Window resources -->
     <Controls:MetroWindow.Resources>
         <Storyboard x:Key="MenuBarOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="MenuBar">
@@ -101,17 +74,18 @@
             <Button Click="MenuItemOpenSFM_Click">Open SFM</Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
+    
+    <!-- Window controls -->
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <DockPanel>
-            <Button x:Name="MainMenuButton" Width="40" VerticalAlignment="Top" Height="40" Click="MainMenuButton_Click" Background="#FF6E6E6E">
-                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White"
-                      Margin="-3,-3,0,0"/>
+            <Button x:Name="MainMenuButton" Width="40" VerticalAlignment="Top" Height="40" Background="#FF6E6E6E" Click="MainMenuButton_Click">
+                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White" Margin="-3,-3,0,0"/>
             </Button>
             <Separator/>
             <Frame x:Name="ContentFrame" DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </DockPanel>
-        <VirtualizingStackPanel x:Name="MenuBar" HorizontalAlignment="Left" Margin="-200,0,0,0" VerticalAlignment="Stretch" Width="200" RenderTransformOrigin="0.5,0.5" Background="#FF323232">
+        <VirtualizingStackPanel x:Name="MenuBar" HorizontalAlignment="Left" Margin="-200,0,0,0" VerticalAlignment="Stretch" Width="200" RenderTransformOrigin="0.5,0.5" Background="#FF323232" CanVerticallyScroll="True" ScrollViewer.CanContentScroll="True">
             <VirtualizingStackPanel.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -120,7 +94,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </VirtualizingStackPanel.RenderTransform>
-            <Button x:Name="MenuButton" Width="40" Height="40" HorizontalAlignment="Left" Background="#FF6E6E6E">
+            <Button x:Name="MenuButton" Width="40" Height="40" HorizontalAlignment="Left" Background="#FF6E6E6E" Click="MenuButton_Click">
                 <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White"
                       Margin="-3,-3,0,0"/>
             </Button>

@@ -5,6 +5,9 @@ using System.Windows;
 using System.Windows.Controls;
 using CoreLib;
 using CoreLib.Impl;
+using System.Windows.Input;
+using System.IO;
+using System.Windows.Media.Animation;
 
 namespace PonySFM_Workshop
 {
@@ -23,6 +26,8 @@ namespace PonySFM_Workshop
                 singleton;
 
         private Dictionary<string, Page> _pages = new Dictionary<string, Page>();
+
+        static bool MenuOpened;
 
         private MainWindow()
         {
@@ -67,41 +72,79 @@ namespace PonySFM_Workshop
             Close();
         }
 
+        // Menu buttons
+
         // Online Guide
         private void MenuItemHelp_Click(object sender, RoutedEventArgs e)
         {
 
+
+            //CloseMenu();
         }
 
         private void MenuItemOpenSFMDir_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(_configFile.SFMDirectoryPath);
+
+            CloseMenu();
         }
 
         private void MenuItemOpenSFM_Click(object sender, RoutedEventArgs e)
         {
-            var path = System.IO.Path.Combine(_sfmDirParser.Path, "sfm.exe");
-            Process.Start(path);
+            Process.Start(Path.Combine(_sfmDirParser.Path, "sfm.exe"));
+
+            CloseMenu();
         }
 
         private void MenuItemSettings_Click(object sender, RoutedEventArgs e)
         {
             SetPage("SettingsPage");
+
+            CloseMenu();
         }
 
         private void MenuItemOpenPonySFM_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(ModManager.PonySFMURL);
+
+            CloseMenu();
         }
+
+        // Other events
 
         private void MetroWindow_Closed(object sender, System.EventArgs e)
         {
             Application.Current.Shutdown();
         }
+
+        private void MetroWindow_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (MenuOpened && e.GetPosition(sender as IInputElement).X > MenuBar.Width)
+                CloseMenu();
+        }
         
         private void MainMenuButton_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(MenuBar, "MenuBarStates", true);
+            OpenMenu();
+        }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            CloseMenu();
+        }
+
+        void CloseMenu()
+        {
+            MenuBar.BeginStoryboard(FindResource("MenuBarClose") as Storyboard);
+
+            MenuOpened = false;
+        }
+
+        void OpenMenu()
+        {
+            MenuBar.BeginStoryboard(FindResource("MenuBarOpen") as Storyboard);
+
+            MenuOpened = true;
         }
     }
 }
