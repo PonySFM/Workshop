@@ -62,11 +62,6 @@ namespace PonySFM_Workshop
             (_pages["MainPage"] as MainPage).RefreshListData();
         }
 
-        private void MenuItemAbout_Click(object sender, RoutedEventArgs e)
-        {
-            SetPage("AboutPage");
-        }
-
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -106,6 +101,13 @@ namespace PonySFM_Workshop
         private void MenuItemOpenPonySFM_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(ModManager.PonySFMURL);
+
+            CloseMenu();
+        }
+
+        private void MenuItemAbout_Click(object sender, RoutedEventArgs e)
+        {
+            SetPage("AboutPage");
 
             CloseMenu();
         }
