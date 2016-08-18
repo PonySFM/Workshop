@@ -19,24 +19,12 @@
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="MenuBar">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0">
                     <EasingDoubleKeyFrame.EasingFunction>
-                        <QuinticEase EasingMode="EaseInOut"/>
+                        <QuinticEase EasingMode="EaseOut"/>
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="200">
                     <EasingDoubleKeyFrame.EasingFunction>
-                        <QuinticEase EasingMode="EaseInOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="MenuBar">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuinticEase EasingMode="EaseInOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuinticEase EasingMode="EaseInOut"/>
+                        <QuinticEase EasingMode="EaseOut"/>
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
@@ -45,24 +33,12 @@
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="MenuBar">
                 <EasingDoubleKeyFrame KeyTime="0" Value="200">
                     <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut" />
+                        <QuadraticEase EasingMode="EaseOut" />
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0">
                     <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut" />
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="MenuBar">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut" />
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut" />
+                        <QuadraticEase EasingMode="EaseOut" />
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
@@ -80,7 +56,7 @@
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <DockPanel>
             <Button x:Name="MainMenuButton" Width="40" VerticalAlignment="Top" Height="40" Background="#FF6E6E6E" Click="MainMenuButton_Click">
-                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White" Margin="-3,-3,0,0"/>
+                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White" Margin="2,8,2,8" Stretch="Fill"/>
             </Button>
             <Separator/>
             <Frame x:Name="ContentFrame" DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
@@ -95,8 +71,7 @@
                 </TransformGroup>
             </VirtualizingStackPanel.RenderTransform>
             <Button x:Name="MenuButton" Width="40" Height="40" HorizontalAlignment="Left" Background="#FF6E6E6E" Click="MenuButton_Click">
-                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White"
-                      Margin="-3,-3,0,0"/>
+                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White" Margin="2,8,2,8" Stretch="Fill"/>
             </Button>
             <Label x:Name="MenuFileLabel" Content="File"/>
             <Button x:Name="MenuItemOpenPonySFM" Content="Visit PonySFM.com" Click="MenuItemOpenPonySFM_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>

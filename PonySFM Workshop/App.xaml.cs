@@ -192,6 +192,7 @@ namespace PonySFM_Workshop
 
                 if (mutexCreated)
                 {
+                    PonySFM_Workshop.MainWindow.Initiate();
                     PonySFM_Workshop.MainWindow.Instance.InitialisePages();
                     PonySFM_Workshop.MainWindow.Instance.Show();
                 }
@@ -200,7 +201,7 @@ namespace PonySFM_Workshop
                     SendPipeString("BringToFront");
                 }
             }
-            else
+            else // Installation mode
             {
                 var w = SetupWindow.Instance;
                 w.SetPage(new SetupGreeting());
@@ -208,7 +209,7 @@ namespace PonySFM_Workshop
             }
 
             /* Immediately shut down if in client mode */
-            if(!mutexCreated)
+            if (!mutexCreated)
             {
                 Shutdown();
             }

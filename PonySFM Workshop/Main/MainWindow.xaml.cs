@@ -16,22 +16,25 @@ namespace PonySFM_Workshop
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private static MainWindow singleton;
         private SFMDirectoryParser _sfmDirParser;
         private ConfigFile _configFile;
 
-        public static MainWindow Instance =>
-            singleton == null ?
-                singleton = new MainWindow() :
-                singleton;
+        public static MainWindow Instance;
 
         private Dictionary<string, Page> _pages = new Dictionary<string, Page>();
 
-        static bool MenuOpened;
+        static bool MenuIsOpen;
 
         private MainWindow()
         {
             InitializeComponent();
+
+            Instance = this;
+        }
+
+        public static void Initiate()
+        {
+            new MainWindow();
         }
 
         public void InitialisePages()
@@ -62,11 +65,19 @@ namespace PonySFM_Workshop
             (_pages["MainPage"] as MainPage).RefreshListData();
         }
 
-        private void MenuItemExit_Click(object sender, RoutedEventArgs e)
+        void CloseMenu()
         {
-            Close();
+            MenuBar.BeginStoryboard(FindResource("MenuBarClose") as Storyboard);
+
+            MenuIsOpen = false;
         }
 
+        void OpenMenu()
+        {
+            MenuBar.BeginStoryboard(FindResource("MenuBarOpen") as Storyboard);
+
+            MenuIsOpen = true;
+        }
         // Menu buttons
 
         // Online Guide
@@ -88,7 +99,8 @@ namespace PonySFM_Workshop
         {
             Process.Start(Path.Combine(_sfmDirParser.Path, "sfm.exe"));
 
-            CloseMenu();
+            if (!MenuIsOpen)
+                CloseMenu();
         }
 
         private void MenuItemSettings_Click(object sender, RoutedEventArgs e)
@@ -102,13 +114,26 @@ namespace PonySFM_Workshop
         {
             Process.Start(ModManager.PonySFMURL);
 
-            CloseMenu();
+            if (MenuIsOpen)
+                CloseMenu();
         }
 
         private void MenuItemAbout_Click(object sender, RoutedEventArgs e)
         {
             SetPage("AboutPage");
 
+            CloseMenu();
+        }
+
+        // Window control events
+        
+        private void MainMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenMenu();
+        }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
             CloseMenu();
         }
 
@@ -121,32 +146,13 @@ namespace PonySFM_Workshop
 
         private void MetroWindow_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (MenuOpened && e.GetPosition(sender as IInputElement).X > MenuBar.Width)
+            if (MenuIsOpen && e.GetPosition(sender as IInputElement).X > MenuBar.Width)
                 CloseMenu();
         }
-        
-        private void MainMenuButton_Click(object sender, RoutedEventArgs e)
+
+        private void MenuItemExit_Click(object sender, RoutedEventArgs e)
         {
-            OpenMenu();
-        }
-
-        private void MenuButton_Click(object sender, RoutedEventArgs e)
-        {
-            CloseMenu();
-        }
-
-        void CloseMenu()
-        {
-            MenuBar.BeginStoryboard(FindResource("MenuBarClose") as Storyboard);
-
-            MenuOpened = false;
-        }
-
-        void OpenMenu()
-        {
-            MenuBar.BeginStoryboard(FindResource("MenuBarOpen") as Storyboard);
-
-            MenuOpened = true;
+            Close();
         }
     }
 }
