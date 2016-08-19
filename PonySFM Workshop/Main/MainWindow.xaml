@@ -11,8 +11,9 @@
         GlowBrush="{StaticResource AccentColorBrush}"
         Style="{DynamicResource CleanWindowStyleKey}"
         ResizeMode="CanResizeWithGrip"
-        Title="PonySFM Desktop" Closed="MetroWindow_Closed"
-        MouseDown="MetroWindow_MouseDown">
+        Title="" Closed="MetroWindow_Closed"
+        ShowIconOnTitleBar="True"
+        MouseDown="MetroWindow_MouseDown" Loaded="MetroWindow_Loaded">
     <!-- Window resources -->
     <Controls:MetroWindow.Resources>
         <Storyboard x:Key="MenuBarOpen">

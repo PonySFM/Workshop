@@ -8,6 +8,9 @@ using CoreLib.Impl;
 using System.Windows.Input;
 using System.IO;
 using System.Windows.Media.Animation;
+using System.Runtime.InteropServices;
+using System;
+using System.Windows.Interop;
 
 namespace PonySFM_Workshop
 {
@@ -32,6 +35,9 @@ namespace PonySFM_Workshop
                 return "SFM Directory: \"" + _configFile.SFMDirectoryPath + "\"";
             }
         }
+
+        [DllImport("user32.dll")]
+        static extern int SetWindowText(IntPtr hWnd, string text);
 
         private MainWindow()
         {
@@ -162,6 +168,11 @@ namespace PonySFM_Workshop
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            SetWindowText(new WindowInteropHelper(this).Handle, "PonySFM Workshop");
         }
     }
 }
