@@ -25,11 +25,20 @@ namespace PonySFM_Workshop
 
         static bool MenuIsOpen;
 
+        public string StatusBarText
+        {
+            get
+            {
+                return "SFM Directory: \"" + _configFile.SFMDirectoryPath + "\"";
+            }
+        }
+
         private MainWindow()
         {
             InitializeComponent();
 
             Instance = this;
+            StatusBarTextBlock.DataContext = this;
         }
 
         public static void Initiate()

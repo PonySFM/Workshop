@@ -9,7 +9,8 @@
       Title="MainPage">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <DockPanel>
-            <StackPanel Width="280" Margin="10">
+                       
+            <StackPanel Width="280" Margin="10" DockPanel.Dock="Left">
                 <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
                     <Image Height="30" Source="/PonySFM Workshop;component/Images/icon-small.png" VerticalAlignment="Center"/>
                     <Label FontSize="20">PonySFM Workshop</Label>
@@ -74,6 +75,7 @@
                     </DataGrid.ContextMenu>
                 </DataGrid>
             </StackPanel>
+
         </DockPanel>
     </Grid>
 </Page>

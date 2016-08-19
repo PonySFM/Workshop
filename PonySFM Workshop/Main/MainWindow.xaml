@@ -55,6 +55,12 @@
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <DockPanel>
+            <StatusBar DockPanel.Dock="Bottom" Background="{StaticResource AccentColorBrush}">
+                <StatusBarItem>
+                    <TextBlock x:Name="StatusBarTextBlock" Text="{Binding StatusBarText, Mode=OneWay}"></TextBlock>
+                </StatusBarItem>
+            </StatusBar>
+ 
             <Button x:Name="MainMenuButton" Width="40" VerticalAlignment="Top" Height="40" Background="#FF6E6E6E" Click="MainMenuButton_Click">
                 <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White" Margin="2,8,2,8" Stretch="Fill"/>
             </Button>
