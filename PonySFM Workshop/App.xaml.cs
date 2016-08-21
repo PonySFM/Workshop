@@ -9,6 +9,7 @@ using CoreLib;
 using CoreLib.Impl;
 using System.Threading.Tasks;
 using System.IO;
+using System.Security.Principal;
 
 namespace PonySFM_Workshop
 {
@@ -67,7 +68,8 @@ namespace PonySFM_Workshop
             Task.Run(() =>
             {
                 var ps = new PipeSecurity();
-                var par = new PipeAccessRule("Everyone", PipeAccessRights.ReadWrite, System.Security.AccessControl.AccessControlType.Allow);
+                var everyone = new SecurityIdentifier(WellKnownSidType.WorldSid, null);
+                var par = new PipeAccessRule(everyone, PipeAccessRights.ReadWrite, System.Security.AccessControl.AccessControlType.Allow);
                 ps.AddAccessRule(par);
                 using (var server = new NamedPipeServerStream(PipeName, PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.Asynchronous, 512, 512, ps, HandleInheritability.None))
                 {
