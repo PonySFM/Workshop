@@ -45,6 +45,11 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Controls:MetroWindow.Resources>
+    <Controls:MetroWindow.LeftWindowCommands>
+        <Controls:WindowCommands>
+            <Button Click="DonateButton_Click">Donate!</Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.LeftWindowCommands>
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button Click="MenuItemOpenPonySFM_Click">PonySFM.com</Button>
@@ -58,7 +63,7 @@
         <DockPanel>
             <StatusBar DockPanel.Dock="Bottom" Background="{StaticResource AccentColorBrush}">
                 <StatusBarItem>
-                    <TextBlock x:Name="StatusBarTextBlock" Text="{Binding StatusBarText, Mode=OneWay}"></TextBlock>
+                    <TextBlock x:Name="StatusBarTextBlock" Text="{Binding StatusBarText, Mode=OneWay}"/>
                 </StatusBarItem>
             </StatusBar>
  

@@ -179,5 +179,10 @@ namespace PonySFM_Workshop
         {
             NativeMethods.SetWindowText(new WindowInteropHelper(this).Handle, "PonySFM Workshop");
         }
+
+        private void DonateButton_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://www.patreon.com/PonySFM");
+        }
     }
 }
