@@ -31,12 +31,12 @@ namespace CoreLibTest
             "{\n" +
             "   SearchPaths\n" +
             "   {\n" +
-            GameinfoHandler.GameinfoLine +
             "       Game    |gameinfo_path|.\n" +
             "       Game    tf_movies\n" +
             "       Game    tf\n" +
+            GameinfoHandler.GameinfoLine + "\n" +
             "   }\n" +
-            "}";
+            "}\n";
 
         /// <summary>
         /// Gameinfo data missing 'SearchPaths' key
@@ -57,8 +57,9 @@ namespace CoreLibTest
 
             Assert.AreEqual(GameinfoHandlerError.Success, error);
 
-            var newdata = Encoding.UTF8.GetString(fs.ReadFile("C:\\gameinfo.txt"));
+            var newdata = Encoding.UTF8.GetString(fs.ReadFile("C:\\gameinfo.txt")).Replace("\r", "");
             Assert.IsTrue(newdata.IndexOf(GameinfoHandler.GameinfoLine) != -1);
+            Assert.AreEqual(gameinfoDataComplete, newdata);
         }
 
         [TestMethod]

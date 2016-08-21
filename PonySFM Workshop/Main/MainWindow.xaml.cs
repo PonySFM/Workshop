@@ -22,7 +22,17 @@ namespace PonySFM_Workshop
         private SFMDirectoryParser _sfmDirParser;
         private ConfigFile _configFile;
 
-        public static MainWindow Instance;
+        private static MainWindow _instance;
+
+        public static MainWindow Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new MainWindow();
+                return _instance;
+            }
+        }
 
         private Dictionary<string, Page> _pages = new Dictionary<string, Page>();
 
@@ -39,8 +49,6 @@ namespace PonySFM_Workshop
         private MainWindow()
         {
             InitializeComponent();
-
-            Instance = this;
             StatusBarTextBlock.DataContext = this;
         }
 

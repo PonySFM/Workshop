@@ -58,7 +58,10 @@ namespace CoreLib
             {
                 if(str.Contains("SearchPaths"))
                 {
-                    txtLines.Insert(txtLines.IndexOf(str) + 2, GameinfoLine);
+                    int n = txtLines.IndexOf(str);
+                    while (!txtLines[n].Contains("}"))
+                        n++;
+                    txtLines.Insert(n, GameinfoLine);
                     lineInserted = true;
                     break;
                 }
