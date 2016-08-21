@@ -31,12 +31,14 @@ namespace PonySFM_Workshop
         {
             _presenter.OnUninstall();
             dataGrid.Items.Refresh();
+            CheckAllBox.IsChecked = false;
         }
 
         private void VerifyButton_Click(object sender, RoutedEventArgs e)
         {
             _presenter.OnVerify();
             dataGrid.Items.Refresh();
+            CheckAllBox.IsChecked = false;
         }
 
         private void MenuViewOnSite_Click(object sender, RoutedEventArgs e)
