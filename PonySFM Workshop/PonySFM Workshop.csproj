@@ -95,6 +95,7 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main\SettingsPresenter.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="SFM.cs" />
     <Compile Include="Verification\VerificationPresenter.cs" />
     <Compile Include="Verification\VerificationWindow.xaml.cs">

@@ -36,9 +36,6 @@ namespace PonySFM_Workshop
             }
         }
 
-        [DllImport("user32.dll")]
-        static extern int SetWindowText(IntPtr hWnd, string text);
-
         private MainWindow()
         {
             InitializeComponent();
@@ -172,7 +169,7 @@ namespace PonySFM_Workshop
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            SetWindowText(new WindowInteropHelper(this).Handle, "PonySFM Workshop");
+            NativeMethods.SetWindowText(new WindowInteropHelper(this).Handle, "PonySFM Workshop");
         }
     }
 }
