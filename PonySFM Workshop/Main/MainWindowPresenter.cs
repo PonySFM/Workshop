@@ -160,5 +160,13 @@ namespace PonySFM_Workshop
             }
             NotifyPropertyChange("InstalledRevisions");
         }
+
+        public void CheckAll(bool check)
+        {
+            foreach (var item in _items)
+            {
+                item.Checked = check;
+            }
+        }
     }
 }

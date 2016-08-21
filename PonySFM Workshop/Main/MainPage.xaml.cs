@@ -63,5 +63,15 @@ namespace PonySFM_Workshop
             var entry = (item as RevisionListItem);
             entry.Checked = !entry.Checked;
         }
+
+        private void CheckAllBox_Checked(object sender, RoutedEventArgs e)
+        {
+            _presenter.CheckAll(true);
+        }
+
+        private void CheckAllBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _presenter.CheckAll(false);
+        }
     }
 }
