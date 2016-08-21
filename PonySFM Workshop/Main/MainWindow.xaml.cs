@@ -111,7 +111,7 @@ namespace PonySFM_Workshop
         {
             Process.Start(Path.Combine(_sfmDirParser.Path, "sfm.exe"));
 
-            if (!MenuIsOpen)
+            if (MenuIsOpen)
                 CloseMenu();
         }
 
