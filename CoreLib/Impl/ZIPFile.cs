@@ -18,13 +18,21 @@ namespace CoreLib.Impl
         {
             using (ZipFile zip1 = ZipFile.Read(_path))
             {
-                zip1.ExtractProgress += delegate (object sender, ExtractProgressEventArgs e)
+                int total = zip1.Entries.Count;
+                int i = 0;
+                await Task.Run(() =>
                 {
-                    if (e.EntriesExtracted != 0)
-                        progress.Report(e.EntriesExtracted / e.EntriesTotal * 100);
-                };
+                    foreach (ZipEntry e in zip1)
+                    {
+                        /* Skip annoying READMEs etc. */
+                        if (e.FileName.ToLower().EndsWith(".txt"))
+                            continue;
+                        e.Extract(dir, ExtractExistingFileAction.OverwriteSilently);
 
-                await Task.Run(() => zip1.ExtractAll(dir, ExtractExistingFileAction.DoNotOverwrite));
+                        progress?.Report((int)(i / (double)total * 100.0));
+                        i++;
+                    }
+                });
             }
         }
     }
