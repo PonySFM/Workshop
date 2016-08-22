@@ -42,7 +42,8 @@ namespace PonySFM_Workshop
         {
             get
             {
-                return "SFM Directory: \"" + _configFile.SFMDirectoryPath + "\"";
+                /* FIXME: this gets called twice on startup, before _configFile exists and after */
+                return "SFM Directory: \"" + _configFile?.SFMDirectoryPath + "\"";
             }
         }
 
