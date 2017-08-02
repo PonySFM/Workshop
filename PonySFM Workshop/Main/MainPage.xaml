@@ -34,7 +34,7 @@
                     <DataGrid.Columns>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.Header>
-                                <CheckBox x:Name="CheckAllBox" Checked="CheckAllBox_Checked" Unchecked="CheckAllBox_Unchecked"></CheckBox>
+                                <CheckBox x:Name="CheckAllBox" Checked="CheckAllBox_Checked" Unchecked="CheckAllBox_Unchecked" Margin="1,0,0,0"></CheckBox>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
