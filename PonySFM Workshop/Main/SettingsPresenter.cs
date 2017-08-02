@@ -56,6 +56,7 @@ namespace PonySFM_Workshop
             _file.SFMDirectoryPath = parser.Path;
 
             _config.Write(_file);
+            MainWindow.Instance.RefreshListData();
 
             return true;
         }
