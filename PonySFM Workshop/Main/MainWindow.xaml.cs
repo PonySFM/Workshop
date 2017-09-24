@@ -185,5 +185,10 @@ namespace PonySFM_Workshop
         {
             Process.Start("https://www.patreon.com/PonySFM");
         }
+
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://www.patreon.com/PonySFM");
+        }
     }
 }

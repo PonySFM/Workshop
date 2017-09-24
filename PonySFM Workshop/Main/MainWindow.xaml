@@ -48,6 +48,7 @@
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
             <Button Click="DonateButton_Click">Donate!</Button>
+            <Button Click="HelpButton_Click">?</Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
     <Controls:MetroWindow.RightWindowCommands>
