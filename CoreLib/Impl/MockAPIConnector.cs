@@ -34,7 +34,6 @@ namespace CoreLib.Impl
             _fakeRevisions.Add(new Tuple<string, Revision>(dir, revision));
         }
 
-
         public async Task DownloadRevisionAdditionalInformation(Revision revision)
         {
             // NOP
