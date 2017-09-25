@@ -8,7 +8,6 @@ using CoreLib.Impl;
 using System.Windows.Input;
 using System.IO;
 using System.Windows.Media.Animation;
-using System.Runtime.InteropServices;
 using System;
 using System.Windows.Interop;
 
@@ -160,7 +159,7 @@ namespace PonySFM_Workshop
 
         // Other events
 
-        private void MetroWindow_Closed(object sender, System.EventArgs e)
+        private void MetroWindow_Closed(object sender, EventArgs e)
         {
             Application.Current.Shutdown();
         }

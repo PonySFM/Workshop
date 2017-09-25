@@ -13,7 +13,9 @@
         Title="" Closed="MetroWindow_Closed"
         ShowIconOnTitleBar="True"
         MouseDown="MetroWindow_MouseDown" Loaded="MetroWindow_Loaded">
+    
     <!-- Window resources -->
+    
     <Controls:MetroWindow.Resources>
         <Storyboard x:Key="MenuBarOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="MenuBar">
@@ -44,10 +46,15 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Controls:MetroWindow.Resources>
+    
+    <!-- Window titlebar -->
+    
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
             <Button Click="DonateButton_Click">Donate!</Button>
+            <!--
             <Button Click="HelpButton_Click">?</Button>
+            -->
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
     <Controls:MetroWindow.RightWindowCommands>
