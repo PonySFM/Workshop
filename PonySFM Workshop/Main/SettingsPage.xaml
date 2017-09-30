@@ -11,7 +11,7 @@
         <DockPanel>
             <StackPanel>
                 <Grid Height="50" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="25,0,0,0">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0">
                         <Button x:Name="BackBtn" Width="40" Height="40" Style="{DynamicResource MetroCircleButtonStyle}" VerticalAlignment="Center" Click="BackBtn_Click">
                             <Rectangle Width="10" Height="10">
                                 <Rectangle.Fill>
@@ -22,7 +22,7 @@
                         <Label FontSize="30">Settings</Label>
                     </StackPanel>
                 </Grid>
-                <StackPanel Orientation="Horizontal" Margin="25,25,0,0">
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                     <StackPanel Width="300">
                         <Label FontSize="16">SFM Directory</Label>
                         <StackPanel Margin="0,0,-222,0" Orientation="Horizontal">
