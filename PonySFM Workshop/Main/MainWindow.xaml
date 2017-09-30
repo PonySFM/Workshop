@@ -15,7 +15,7 @@
         MouseDown="MetroWindow_MouseDown" Loaded="MetroWindow_Loaded">
     
     <!-- Window resources -->
-    
+
     <Controls:MetroWindow.Resources>
         <Storyboard x:Key="MenuBarOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="MenuBar">
@@ -45,8 +45,25 @@
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Canvas x:Key="feather-external-link" Margin="2" Height="24" Width="14" >
+            <Path Stretch="Uniform" Stroke="White" StrokeThickness="2" StrokeDashCap="Round">
+                <Path.Data>
+                    <GeometryGroup>
+                            <PathGeometry>M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6</PathGeometry>
+                            <LineGeometry StartPoint="10,14" EndPoint="21,3" />
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+            <Polyline Stroke="White" StrokeThickness="2" Margin="2" Height="24" Stretch="Uniform">
+                <Polyline.Points>
+                    <Point>15,3</Point>
+                    <Point>21,3</Point>
+                    <Point>21,9</Point>
+                </Polyline.Points>
+            </Polyline>
+        </Canvas>
     </Controls:MetroWindow.Resources>
-    
+
     <!-- Window titlebar -->
     
     <Controls:MetroWindow.LeftWindowCommands>
@@ -73,11 +90,9 @@
                     <TextBlock x:Name="StatusBarTextBlock" Text="{Binding StatusBarText, Mode=OneWay}"/>
                 </StatusBarItem>
             </StatusBar>
- 
             <Button x:Name="MainMenuButton" Width="40" VerticalAlignment="Top" Height="40" Background="#FF6E6E6E" Click="MainMenuButton_Click">
                 <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White" Margin="2,8,2,8" Stretch="Fill"/>
             </Button>
-            <Separator/>
             <Frame x:Name="ContentFrame" DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </DockPanel>
         <VirtualizingStackPanel x:Name="MenuBar" HorizontalAlignment="Left" Margin="-200,0,0,0" VerticalAlignment="Stretch" Width="200" RenderTransformOrigin="0.5,0.5" Background="#FF323232" CanVerticallyScroll="True" ScrollViewer.CanContentScroll="True">
@@ -93,7 +108,14 @@
                 <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White" Margin="2,8,2,8" Stretch="Fill"/>
             </Button>
             <Label x:Name="MenuFileLabel" Content="File"/>
-            <Button x:Name="MenuItemOpenPonySFM" Content="Visit PonySFM.com" Click="MenuItemOpenPonySFM_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
+            <Button x:Name="MenuItemOpenPonySFM" Click="MenuItemOpenPonySFM_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke">
+                <StackPanel Orientation="Horizontal">
+                    <Label>Gay</Label>
+                    <Canvas>
+                        <ContentControl Content="{Binding Source={StaticResource feather-external-link}}"/>
+                    </Canvas>
+                </StackPanel>
+            </Button>
             <Separator Style="{StaticResource SimpleButtonFocusVisual}"/>
             <Button x:Name="MenuItemOpenSFM" Content="Open SFM" Click="MenuItemOpenSFM_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
             <Button x:Name="MenuItemOpenSFMDir" Content="Open SFM Directory" Click="MenuItemOpenSFMDir_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
