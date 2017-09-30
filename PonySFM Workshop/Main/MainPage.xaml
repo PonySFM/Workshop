@@ -22,7 +22,7 @@
                     <Button x:Name="UninstallButton" Click="UninstallButton_Click" FontSize="12" Content="Uninstall"/>
                     <Button x:Name="VerifyButton" Margin="10,0,0,0" Click="VerifyButton_Click" FontSize="12" Content="Verify Files"/>
                 </StackPanel>
-                <DataGrid DockPanel.Dock="Right" x:Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="True" SelectionMode="Single" AutoGenerateColumns="False" Background="#FF1A1A1A" RowBackground="#FF1A1A1A" MouseDoubleClick="dataGrid_MouseDoubleClick" Margin="3">
+                <DataGrid DockPanel.Dock="Right" x:Name="dataGrid" ItemsSource="{Binding InstalledRevisions}" CanUserResizeColumns="False" SelectionMode="Single" AutoGenerateColumns="False" Background="#FF1A1A1A" RowBackground="#FF1A1A1A" MouseDoubleClick="dataGrid_MouseDoubleClick" Margin="3">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="#FF1A1A1A" />
@@ -39,7 +39,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="ID" IsReadOnly="True" Width="20">
+                        <DataGridTemplateColumn Header="ID" IsReadOnly="True" Width="100">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Label Content="{Binding ID}"/>
@@ -60,7 +60,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Installation Time" IsReadOnly="True" Width="100">
+                        <DataGridTemplateColumn Header="Installation Time" IsReadOnly="True" Width="200">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Label Content="{Binding InstallationTime}"/>
