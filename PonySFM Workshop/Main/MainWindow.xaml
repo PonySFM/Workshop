@@ -13,7 +13,7 @@
         Title="" Closed="MetroWindow_Closed"
         ShowIconOnTitleBar="True"
         MouseDown="MetroWindow_MouseDown" Loaded="MetroWindow_Loaded">
-    
+
     <!-- Window resources -->
 
     <Controls:MetroWindow.Resources>
@@ -45,27 +45,28 @@
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        <Canvas x:Key="feather-external-link" Margin="2" Height="24" Width="14" >
-            <Path Stretch="Uniform" Stroke="White" StrokeThickness="2" StrokeDashCap="Round">
-                <Path.Data>
-                    <GeometryGroup>
-                            <PathGeometry>M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6</PathGeometry>
-                            <LineGeometry StartPoint="10,14" EndPoint="21,3" />
-                    </GeometryGroup>
-                </Path.Data>
-            </Path>
-            <Polyline Stroke="White" StrokeThickness="2" Margin="2" Height="24" Stretch="Uniform">
+        <Canvas x:Key="feather-external-link" Height="24" Width="24">
+            <Path Stroke="White" StrokeThickness="2" StrokeDashCap="Round"
+                 Data="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+            <Line X1="10" Y1="14" X2="21" Y2="3" Stroke="White" StrokeThickness="2"
+                  StrokeDashCap="Round" />
+            <Polyline Stroke="White" StrokeThickness="2">
                 <Polyline.Points>
-                    <Point>15,3</Point>
-                    <Point>21,3</Point>
                     <Point>21,9</Point>
+                    <Point>21,3</Point>
+                    <Point>15,3</Point>
                 </Polyline.Points>
             </Polyline>
+        </Canvas>
+        <Canvas x:Key="feather-menu" Height="24" Width="24">
+            <Line X1="3" Y1="12" X2="21" Y2="12" Stroke="White" />
+            <Line X1="3" Y1="6" X2="21" Y2="6" Stroke="White" />
+            <Line X1="3" Y1="18" X2="21" Y2="18" Stroke="White" />
         </Canvas>
     </Controls:MetroWindow.Resources>
 
     <!-- Window titlebar -->
-    
+
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
             <Button Click="DonateButton_Click">Donate!</Button>
@@ -80,7 +81,7 @@
             <Button Click="MenuItemOpenSFM_Click">Open SFM</Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    
+
     <!-- Window controls -->
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -90,8 +91,8 @@
                     <TextBlock x:Name="StatusBarTextBlock" Text="{Binding StatusBarText, Mode=OneWay}"/>
                 </StatusBarItem>
             </StatusBar>
-            <Button x:Name="MainMenuButton" Width="40" VerticalAlignment="Top" Height="40" Background="#FF6E6E6E" Click="MainMenuButton_Click">
-                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White" Margin="2,8,2,8" Stretch="Fill"/>
+            <Button x:Name="MainMenuButton" Width="32" Height="32" VerticalAlignment="Top" Background="#FF6E6E6E" Click="MainMenuButton_Click">
+                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White" Margin="0,5" Stretch="Fill"/>
             </Button>
             <Frame x:Name="ContentFrame" DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </DockPanel>
@@ -104,28 +105,39 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </VirtualizingStackPanel.RenderTransform>
-            <Button x:Name="MenuButton" Width="40" Height="40" HorizontalAlignment="Left" Background="#FF6E6E6E" Click="MenuButton_Click">
-                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White" Margin="2,8,2,8" Stretch="Fill"/>
+            <Button x:Name="MenuButton" Width="32" Height="32" HorizontalAlignment="Left" Background="#FF6E6E6E" Click="MenuButton_Click">
+                <Path Data="M2 15.5v2h20v-2H2zm0-5v2h20v-2H2zm0-5v2h20v-2H2z" Fill="White" Margin="0,5" Stretch="Fill"/>
             </Button>
-            <Label x:Name="MenuFileLabel" Content="File"/>
-            <Button x:Name="MenuItemOpenPonySFM" Click="MenuItemOpenPonySFM_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke">
-                <StackPanel Orientation="Horizontal">
-                    <Label>Gay</Label>
-                    <Canvas>
-                        <ContentControl Content="{Binding Source={StaticResource feather-external-link}}"/>
-                    </Canvas>
+            <Label x:Name="MenuFileLabel" Content="File" FontSize="16"/>
+            <Button x:Name="MenuItemOpenPonySFM" Click="MenuItemOpenPonySFM_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Center" Padding="0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="4">
+                    <Label>PonySFM Website</Label>
+                    <Viewbox Width="18" Height="18">
+                        <Canvas Width="24" Height="24">
+                            <ContentControl Content="{Binding Source={StaticResource feather-external-link}}" RenderTransformOrigin="0.5,0.5"/>
+                        </Canvas>
+                    </Viewbox>
                 </StackPanel>
             </Button>
             <Separator Style="{StaticResource SimpleButtonFocusVisual}"/>
-            <Button x:Name="MenuItemOpenSFM" Content="Open SFM" Click="MenuItemOpenSFM_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
-            <Button x:Name="MenuItemOpenSFMDir" Content="Open SFM Directory" Click="MenuItemOpenSFMDir_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
+            <Button x:Name="MenuItemOpenSFM" Content="Open SFM" Click="MenuItemOpenSFM_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke" HorizontalContentAlignment="Left" Height="32"/>
+            <Button x:Name="MenuItemOpenSFMDir" Content="Open SFM Directory" Click="MenuItemOpenSFMDir_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke" HorizontalContentAlignment="Left" Height="32"/>
             <Separator Style="{StaticResource SimpleButtonFocusVisual}"/>
-            <Button x:Name="MenuItemSettings" Content="Settings" Click="MenuItemSettings_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
+            <Button x:Name="MenuItemSettings" Content="Settings" Click="MenuItemSettings_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke" HorizontalContentAlignment="Left" Height="32"/>
             <Separator Style="{StaticResource SimpleButtonFocusVisual}"/>
-            <Button x:Name="MenuItemExit" Content="Exit" Click="MenuItemExit_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
-            <Label x:Name="MenuHelpLabel" Content="Help"/>
-            <Button x:Name="MenuItemHelp" Content="Online Guide" Click="MenuItemHelp_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
-            <Button x:Name="MenuItemAbout" Content="About" Click="MenuItemAbout_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke"/>
+            <Button x:Name="MenuItemExit" Content="Exit" Click="MenuItemExit_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke" HorizontalContentAlignment="Left" Height="32"/>
+            <Label x:Name="MenuHelpLabel" Content="Help" FontSize="16"/>
+            <Button x:Name="MenuItemHelp" Click="MenuItemHelp_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke" HorizontalContentAlignment="Left" Padding="0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="4">
+                    <Label>Online Guide</Label>
+                    <Viewbox Width="18" Height="18">
+                        <Canvas Width="24" Height="24">
+                            <ContentControl Content="{Binding Source={StaticResource feather-external-link}}" RenderTransformOrigin="0.5,0.5"/>
+                        </Canvas>
+                    </Viewbox>
+                </StackPanel>
+            </Button>
+            <Button x:Name="MenuItemAbout" Content="About" Click="MenuItemAbout_Click" Background="#FF6E6E6E" Foreground="WhiteSmoke" HorizontalContentAlignment="Left" Height="32"/>
         </VirtualizingStackPanel>
     </Grid>
 </Controls:MetroWindow>
