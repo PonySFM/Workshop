@@ -101,17 +101,15 @@ namespace PonySFM_Workshop
 
         static void SendPipeString(string str)
         {
-            using (var client = new NamedPipeClientStream(".", PipeName))
+            var client = new NamedPipeClientStream(".", PipeName);
+            client.Connect(1000);
+
+            if (client.IsConnected)
             {
-                client.Connect(1000);
-                if (!client.IsConnected)
-                    return;
-                using (var writer = new StreamWriter(client))
-                {
-                    writer.WriteLine(str);
-                    writer.Flush();
-                    client.WaitForPipeDrain();
-                }
+                var writer = new StreamWriter(client);
+                writer.WriteLine(str);
+                writer.Flush();
+                client.WaitForPipeDrain();
             }
         }
 

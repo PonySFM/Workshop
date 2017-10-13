@@ -37,6 +37,7 @@ namespace CoreLib.Impl
         public async Task DownloadRevisionAdditionalInformation(Revision revision)
         {
             // NOP
+            await Task.FromResult(false);
         }
 
         public async Task DownloadRevisionZIP(int id, string filepath, IProgress<int> progress)

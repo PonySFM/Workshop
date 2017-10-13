@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 using CoreLib.Interface;
+using System;
 
 namespace CoreLib
 {
@@ -136,7 +137,7 @@ namespace CoreLib
         }
     }
 
-    public class DirectoryProgressEventArgs
+    public class DirectoryProgressEventArgs : EventArgs
     {
         public int Progress { get; private set; }
 
@@ -146,7 +147,7 @@ namespace CoreLib
         }
     }
 
-    public class DirectoryCopierCopyEventArgs
+    public class DirectoryCopierCopyEventArgs : EventArgs
     {
         public string File1 { get; private set; }
         public string File2 { get; private set; }
