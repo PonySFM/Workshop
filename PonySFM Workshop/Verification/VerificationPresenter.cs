@@ -13,6 +13,7 @@ namespace PonySFM_Workshop
         int _progress;
         private Dictionary<int, int> _uninstallProgress = new Dictionary<int, int>();
         string _installationLog;
+        string _currentStatus;
 
         public int MaxProgress
         {
@@ -33,6 +34,19 @@ namespace PonySFM_Workshop
             {
                 _progress = value;
                 NotifyPropertyChange("Progress");
+            }
+        }
+
+        public string CurrentStatus
+        {
+            get
+            {
+                return _currentStatus;
+            }
+            set
+            {
+                _currentStatus = value;
+                NotifyPropertyChange("CurrentStatus");
             }
         }
 
@@ -99,6 +113,7 @@ namespace PonySFM_Workshop
 
         private void LogInstallation(string msg)
         {
+            CurrentStatus = msg;
             InstallationLog += msg;
         }
 

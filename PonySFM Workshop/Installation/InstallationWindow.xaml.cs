@@ -3,16 +3,18 @@ using System.Windows;
 using System.Threading;
 using CoreLib;
 using CoreLib.Impl;
+using MahApps.Metro.Controls;
 
 namespace PonySFM_Workshop
 {
     /// <summary>
     /// Interaction logic for InstallationWindow.xaml
     /// </summary>
-    public partial class InstallationWindow : Window
+    public partial class InstallationWindow : MetroWindow
     {
         InstallationPresenter _presenter;
         bool _closeOnFinish;
+        bool _showDetails;
 
         public InstallationWindow(List<int> ids, RevisionManager revisionMgr, bool closeOnFinish = false)
         {
@@ -76,6 +78,22 @@ namespace PonySFM_Workshop
             /* TODO: prompt? */
             _presenter.CancellationSource.Cancel();
             e.Cancel = false;
+        }
+
+        private void ToggleDetailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _showDetails = !_showDetails;
+
+            if(_showDetails)
+            {
+                installationLog.Visibility = Visibility.Visible;
+                Height = 500;
+            }
+            else
+            {
+                installationLog.Visibility = Visibility.Hidden;
+                Height = 200;
+            }
         }
     }
 }

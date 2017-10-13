@@ -23,6 +23,7 @@ namespace PonySFM_Workshop
         enum ProgressState { Download, Extraction, Installation }
 
         int _progress;
+        string _currentStatus;
         StringBuilder _installationLog = new StringBuilder();
         Dictionary<ProgressState, int> _progresses = new Dictionary<ProgressState, int>();
         CancellationTokenSource _cancellationSource = new CancellationTokenSource();
@@ -50,6 +51,19 @@ namespace PonySFM_Workshop
             {
                 _progress = value;
                 NotifyPropertyChange("Progress");
+            }
+        }
+
+        public string CurrentStatus
+        {
+            get
+            {
+                return _currentStatus;
+            }
+            set
+            {
+                _currentStatus = value;
+                NotifyPropertyChange("CurrentStatus");
             }
         }
 
@@ -161,10 +175,13 @@ namespace PonySFM_Workshop
 
             LogInstallation("Cleaning up...\n");
             cleanup();
+
+            LogInstallation("Done!\n");
         }
 
         private void LogInstallation(string msg)
         {
+            CurrentStatus = msg;
             _installationLog.Append(msg);
             NotifyPropertyChange("InstallationLog");
         }

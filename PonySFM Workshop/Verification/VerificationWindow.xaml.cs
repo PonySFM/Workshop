@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using CoreLib;
+using MahApps.Metro.Controls;
 
 namespace PonySFM_Workshop
 {
     /// <summary>
     /// Interaction logic for VerificationWindow.xaml
     /// </summary>
-    public partial class VerificationWindow : Window
+    public partial class VerificationWindow : MetroWindow
     {
         RevisionManager _revisionManager;
         VerificationPresenter _presenter;
+        bool _showDetails;
+
         public VerificationWindow(List<int> ids, RevisionManager revisionManager)
         {
             _presenter = new VerificationPresenter(revisionManager, ids);
@@ -35,6 +38,22 @@ namespace PonySFM_Workshop
 
                     Close();
                 }
+            }
+        }
+
+        private void ToggleDetailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _showDetails = !_showDetails;
+
+            if(_showDetails)
+            {
+                installationLog.Visibility = Visibility.Visible;
+                Height = 500;
+            }
+            else
+            {
+                installationLog.Visibility = Visibility.Hidden;
+                Height = 200;
             }
         }
     }

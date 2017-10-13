@@ -8,12 +8,12 @@ namespace PonySFM_Workshop
 {
     public class DeinstallationPresenter : BasePresenter
     {
-        private RevisionManager _revisionManager;
-        private List<int> _uninstallList;
-        private Dictionary<int, int> _uninstallProgress = new Dictionary<int, int>();
-        private int _progress;
-        private string _installationLog;
-
+        RevisionManager _revisionManager;
+        List<int> _uninstallList;
+        Dictionary<int, int> _uninstallProgress = new Dictionary<int, int>();
+        int _progress;
+        string _installationLog;
+        string _currentStatus;
 
         public int MaxProgress { get { return 100; } }
 
@@ -28,6 +28,19 @@ namespace PonySFM_Workshop
             {
                 _progress = value;
                 NotifyPropertyChange("Change");
+            }
+        }
+
+        public string CurrentStatus
+        {
+            get
+            {
+                return _currentStatus;
+            }
+            set
+            {
+                _currentStatus = value;
+                NotifyPropertyChange("CurrentStatus");
             }
         }
 
@@ -71,6 +84,7 @@ namespace PonySFM_Workshop
 
         private void LogInstallation(string msg)
         {
+            CurrentStatus = msg;
             InstallationLog += msg;
         }
 
