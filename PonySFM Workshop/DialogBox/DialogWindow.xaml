@@ -6,12 +6,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PonySFM_Workshop"
         mc:Ignorable="d"
-        Title="DialogBox" Height="226" Width="343" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" ResizeMode="NoResize" AutomationProperties.IsRequiredForForm="True" AutomationProperties.Name="DialogBox" TitleCaps="False" Controls:ControlsHelper.ContentCharacterCasing="Lower" Topmost="True">
-    <Grid>
-        <Button x:Name="YesButton" Content="Yes" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" Width="75" Click="YesButton_Click"/>
-        <Button x:Name="YesAllButton" Content="Yes to all" HorizontalAlignment="Left" Margin="90,160,0,0" VerticalAlignment="Top" Width="75" Click="YesAllButton_Click"/>
-        <Button x:Name="NoButton" Content="No" HorizontalAlignment="Left" Margin="170,160,0,0" VerticalAlignment="Top" Width="75" Click="NoButton_Click"/>
-        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="250,160,0,0" VerticalAlignment="Top" Width="75" Click="CancelButton_Click"/>
-        <TextBlock x:Name="DialogLabel" TextWrapping="WrapWithOverflow" Text="Are you sure?" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        Title="DialogBox" Height="200" Width="350" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" ResizeMode="NoResize" AutomationProperties.IsRequiredForForm="True" AutomationProperties.Name="DialogBox" TitleCaps="False" Controls:ControlsHelper.ContentCharacterCasing="Lower" Topmost="True">
+    <Grid Margin="10">
+        <DockPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Margin="0,0,0,0">
+                <Button x:Name="YesButton" Content="Yes" Width="75" Click="YesButton_Click"                 Margin="0,0,0,0"/>
+                <Button x:Name="YesAllButton" Content="Yes to all" Width="75" Click="YesAllButton_Click"    Margin="10,0,0,0"/>
+                <Button x:Name="NoButton" Content="No" Width="75" Click="NoButton_Click"                    Margin="10,0,0,0"/>
+                <Button x:Name="CancelButton" Content="Cancel" Width="75" Click="CancelButton_Click"        Margin="10,0,0,0"/>
+            </StackPanel>
+            <TextBlock x:Name="DialogLabel" DockPanel.Dock="Top" Margin="0,0,0,0" TextWrapping="WrapWithOverflow" Text="Are you sure?" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </DockPanel>
     </Grid>
 </Controls:MetroWindow>
