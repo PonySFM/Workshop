@@ -6,6 +6,12 @@ using CoreLib.Interface;
 
 namespace CoreLib
 {
+    public enum InstallationResult
+    {
+        Cancelled,
+        Success
+    }
+
     public class RevisionManager
     {
         ConfigFile _configFile;
@@ -37,7 +43,7 @@ namespace CoreLib
             _dirParser.CreateDirectories();
         }
 
-        public async Task InstallRevision(Revision revision, string topDir, IProgress<int> progress, CancellationToken cancel = default(CancellationToken))
+        public async Task<InstallationResult> InstallRevision(Revision revision, string topDir, IProgress<int> progress, CancellationToken cancel = default(CancellationToken))
         {
             /* Copy files and blahblah */
             var directoryCopier = new DirectoryCopier(_fs, topDir, _dirParser.InstallationPath, true);
@@ -54,15 +60,15 @@ namespace CoreLib
             }
             catch(OperationCanceledException)
             {
-                // NOP
+                return InstallationResult.Cancelled;
             }
-            finally
-            {
-                revision.ChangeTopDirectory(topDir, _dirParser.InstallationPath);
-                revision.AdditionalData["InstallationTime"] = DateTime.Now.ToString();
-                _db.AddToDB(revision);
-                _db.WriteDBDisk();
-            }
+
+            revision.ChangeTopDirectory(topDir, _dirParser.InstallationPath);
+            revision.AdditionalData["InstallationTime"] = DateTime.Now.ToString();
+            _db.AddToDB(revision);
+            _db.WriteDBDisk();
+
+            return InstallationResult.Success;
         }
 
         public async Task UninstallRevision(int id, IProgress<int> progress)

@@ -41,34 +41,17 @@ namespace PonySFM_Workshop
 
         public DirectoryCopierFileCopyMode OnFileExists(string file1, string file2)
         {
-            var ret = DirectoryCopierFileCopyMode.DoNotCopy;
-            bool b = false;
-            /* FIXME: This should block. It doesn't block. Why doesn't it block? */
-            ret = Dispatcher.Invoke(() =>
+            return Dispatcher.Invoke(() =>
             {
                 switch (DialogSystem.Show("Conflict", string.Format("The file {0} already exists. Overwrite?", file2)))
                 {
-                    case PonySFM_Workshop.DialogResult.Ok:
-                        ret = DirectoryCopierFileCopyMode.Copy;
-                        break;
-                    case PonySFM_Workshop.DialogResult.No:
-                        ret = DirectoryCopierFileCopyMode.DoNotCopy;
-                        break;
-                    case PonySFM_Workshop.DialogResult.YesAll:
-                        ret = DirectoryCopierFileCopyMode.CopyAll;
-                        break;
-                    case PonySFM_Workshop.DialogResult.Cancel:
-                        ret = DirectoryCopierFileCopyMode.Cancel;
-                        /* TODO: delete already installed files */
-                        break;
+                    case PonySFM_Workshop.DialogResult.Ok:      return DirectoryCopierFileCopyMode.Copy;
+                    case PonySFM_Workshop.DialogResult.No:      return DirectoryCopierFileCopyMode.DoNotCopy;
+                    case PonySFM_Workshop.DialogResult.YesAll:  return DirectoryCopierFileCopyMode.CopyAll;
+                    case PonySFM_Workshop.DialogResult.Cancel:  return DirectoryCopierFileCopyMode.Cancel;
+                    default:                                    return DirectoryCopierFileCopyMode.DoNotCopy;
                 }
-
-                b = true;
-                return ret;
             });
-
-            while (!b) Thread.Sleep(100);
-            return ret;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
