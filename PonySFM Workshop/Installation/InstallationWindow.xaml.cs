@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using System.Threading;
 using CoreLib;
 using CoreLib.Impl;
 using MahApps.Metro.Controls;
+using PonySFM_Workshop.DialogBox;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Installation
 {
     /// <summary>
     /// Interaction logic for InstallationWindow.xaml
@@ -45,10 +45,10 @@ namespace PonySFM_Workshop
             {
                 switch (DialogSystem.Show("Conflict", string.Format("The file {0} already exists. Overwrite?", file2)))
                 {
-                    case PonySFM_Workshop.DialogResult.Ok:      return DirectoryCopierFileCopyMode.Copy;
-                    case PonySFM_Workshop.DialogResult.No:      return DirectoryCopierFileCopyMode.DoNotCopy;
-                    case PonySFM_Workshop.DialogResult.YesAll:  return DirectoryCopierFileCopyMode.CopyAll;
-                    case PonySFM_Workshop.DialogResult.Cancel:  return DirectoryCopierFileCopyMode.Cancel;
+                    case DialogBox.DialogResult.Ok:      return DirectoryCopierFileCopyMode.Copy;
+                    case DialogBox.DialogResult.No:      return DirectoryCopierFileCopyMode.DoNotCopy;
+                    case DialogBox.DialogResult.YesAll:  return DirectoryCopierFileCopyMode.CopyAll;
+                    case DialogBox.DialogResult.Cancel:  return DirectoryCopierFileCopyMode.Cancel;
                     default:                                    return DirectoryCopierFileCopyMode.DoNotCopy;
                 }
             });

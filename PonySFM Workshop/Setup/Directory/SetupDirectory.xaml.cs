@@ -2,8 +2,9 @@
 using System.Windows.Controls;
 using CoreLib;
 using CoreLib.Impl;
+using PonySFM_Workshop.DialogBox;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Setup.Directory
 {
     /// <summary>
     /// Interaction logic for SetupDirectory.xaml

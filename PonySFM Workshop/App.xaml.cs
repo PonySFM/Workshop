@@ -81,11 +81,11 @@ namespace PonySFM_Workshop
                             break;
                         if(line == "BringToFront")
                         {
-                            Dispatcher.Invoke(() => PonySFM_Workshop.MainWindow.Instance.Activate());
+                            Dispatcher.Invoke(() => PonySFM_Workshop.Main.MainWindow.Instance.Activate());
                         }
                         else
                         {
-                            Dispatcher.Invoke(() => PonySFM_Workshop.MainWindow.Instance.Activate());
+                            Dispatcher.Invoke(() => PonySFM_Workshop.Main.MainWindow.Instance.Activate());
                             var id = Convert.ToInt32(line);
                             if(id != 0)
                             {
@@ -127,7 +127,7 @@ namespace PonySFM_Workshop
                 if (msg == MessageBoxResult.Yes)
                 {
                     var list = new List<int>() { id };
-                    new DeinstallationWindow(_revMgr, list, true).ShowDialog();
+                    new Deinstallation.DeinstallationWindow(_revMgr, list, true).ShowDialog();
                 }
                 else
                 {
@@ -137,10 +137,10 @@ namespace PonySFM_Workshop
             else
             {
                 var ids = new List<int>() { id };
-                new InstallationWindow(ids, _revMgr, true).ShowDialog();
+                new Installation.InstallationWindow(ids, _revMgr, true).ShowDialog();
             }
 
-            PonySFM_Workshop.MainWindow.Instance.RefreshListData();
+            PonySFM_Workshop.Main.MainWindow.Instance.RefreshListData();
 
             return true;
         } 
@@ -191,8 +191,8 @@ namespace PonySFM_Workshop
 
                 if (mutexCreated)
                 {
-                    PonySFM_Workshop.MainWindow.Instance.InitialisePages();
-                    PonySFM_Workshop.MainWindow.Instance.Show();
+                    PonySFM_Workshop.Main.MainWindow.Instance.InitialisePages();
+                    PonySFM_Workshop.Main.MainWindow.Instance.Show();
                 }
                 else
                 {
@@ -201,8 +201,8 @@ namespace PonySFM_Workshop
             }
             else // Installation mode
             {
-                var w = SetupWindow.Instance;
-                w.SetPage(new SetupGreeting());
+                var w = Setup.SetupWindow.Instance;
+                w.SetPage(new Setup.Greeting.SetupGreeting());
                 w.Show();
             }
 

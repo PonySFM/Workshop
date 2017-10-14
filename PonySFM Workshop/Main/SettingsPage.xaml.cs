@@ -1,8 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using CoreLib;
+using PonySFM_Workshop.DialogBox;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Main
 {
     /// <summary>
     /// Interaction logic for SettingsPage.xaml

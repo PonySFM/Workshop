@@ -3,7 +3,7 @@ using System.Windows;
 using CoreLib;
 using MahApps.Metro.Controls;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Verification
 {
     /// <summary>
     /// Interaction logic for VerificationWindow.xaml
@@ -30,10 +30,10 @@ namespace PonySFM_Workshop
 
             if(answer == MessageBoxResult.Yes)
             {
-                var deinstallationWindow = new DeinstallationWindow(_revisionManager, failedIDs, true);
+                var deinstallationWindow = new Deinstallation.DeinstallationWindow(_revisionManager, failedIDs, true);
                 deinstallationWindow.ShowDialog();
 
-                var installationWindow = new InstallationWindow(failedIDs, _revisionManager, true);
+                var installationWindow = new Installation.InstallationWindow(failedIDs, _revisionManager, true);
                 installationWindow.ShowDialog();
 
                 Close();

@@ -9,8 +9,9 @@ using System.Windows;
 using CoreLib;
 using CoreLib.Impl;
 using CoreLib.Interface;
+using PonySFM_Workshop.Base;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Installation
 {
     /* TODO: I have a feeling this class does way too much for just being a presenter */
     /* May encapsulate the whole installion-process and adapters to progress event in a way */

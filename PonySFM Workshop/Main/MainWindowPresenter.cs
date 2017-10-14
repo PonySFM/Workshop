@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreLib;
 using CoreLib.Impl;
-using System.Collections.ObjectModel;
+using PonySFM_Workshop.Base;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Main
 {
     /* TODO: BasePresenter is false here because actually only want NotifyPropertyChange. Refactor? */
     public class RevisionListItem : BasePresenter
@@ -62,7 +62,7 @@ namespace PonySFM_Workshop
 
             if (ids.Count == 0) return;
 
-            var w = new DeinstallationWindow(_revisionManager, ids, true);
+            var w = new Deinstallation.DeinstallationWindow(_revisionManager, ids, true);
             w.ShowDialog();
             PopulateListData();
         }
@@ -74,7 +74,7 @@ namespace PonySFM_Workshop
 
             if (ids.Count == 0) return;
 
-            var w = new VerificationWindow(ids, _revisionManager);
+            var w = new Verification.VerificationWindow(ids, _revisionManager);
             w.ShowDialog();
             PopulateListData();
         }

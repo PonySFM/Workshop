@@ -8,21 +8,8 @@ namespace CoreLib.Impl
 {
     public class MockAPIConnector : IAPIConnector
     {
-        private List<Tuple<string, Revision>> _fakeRevisions = new List<Tuple<string, Revision>>();
-        private IFileSystem _fs;
-
-        public List<Tuple<string ,Revision>> FakeRevisions
-        {
-            get
-            {
-                return _fakeRevisions;
-            }
-
-            set
-            {
-                _fakeRevisions = value;
-            }
-        }
+        private readonly List<Tuple<string, Revision>> _fakeRevisions = new List<Tuple<string, Revision>>();
+        private readonly IFileSystem _fs;
 
         public MockAPIConnector(IFileSystem fs)
         {

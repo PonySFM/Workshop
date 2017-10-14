@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Licenses
 {
     /// <summary>
     /// Interaction logic for Licenses.xaml
@@ -192,7 +192,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
         private void GoBack()
         {
-            MainWindow.Instance.SetPage("AboutPage");
+            Main.MainWindow.Instance.SetPage("AboutPage");
         }
     }
 }

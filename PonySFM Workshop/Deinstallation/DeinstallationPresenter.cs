@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreLib;
+using PonySFM_Workshop.Base;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Deinstallation
 {
     public class DeinstallationPresenter : BasePresenter
     {

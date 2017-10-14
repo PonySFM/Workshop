@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using System.Threading.Tasks;
 using CoreLib;
@@ -10,27 +11,12 @@ namespace CoreLib.Impl
 {
     public class WindowsFile : IFile
     {
-        string _path;
-
-        public string Path
-        {
-            get
-            {
-                return _path;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return System.IO.Path.GetFileName(_path);
-            }
-        }
+        public string Name => System.IO.Path.GetFileName(Path);
+        public string Path { get; }
 
         public WindowsFile(string path)
         {
-            _path = path;
+            Path = path;
         }
 
         public bool IsDirectory()
@@ -48,15 +34,7 @@ namespace CoreLib.Impl
     {
         private static WindowsFileSystem _singleton;
 
-        public static WindowsFileSystem Instance
-        {
-            get
-            {
-                if (_singleton == null)
-                    _singleton = new WindowsFileSystem();
-                return _singleton;
-            }
-        }
+        public static WindowsFileSystem Instance => _singleton ?? (_singleton = new WindowsFileSystem());
 
         private WindowsFileSystem()
         {
@@ -75,7 +53,7 @@ namespace CoreLib.Impl
         public void CreateFile(string path, byte[] data = null)
         {
             var file = File.Create(path);
-            file.Write(data, 0, data.Length);
+            if(data != null) file.Write(data, 0, data.Length);
             file.Close();
         }
 
@@ -92,40 +70,23 @@ namespace CoreLib.Impl
         public string GetChecksum(string filepath)
         {
             var stream = File.OpenRead(filepath);
-            string checksum = FileUtil.GetChecksum(stream);
+            var checksum = FileUtil.GetChecksum(stream);
             stream.Close();
             return checksum;
         }
 
         public List<IFile> GetFiles(string dir)
         {
-            DirectoryInfo dirInfo = new DirectoryInfo(dir);
-            List<IFile> ret = new List<IFile>();
+            var dirInfo = new DirectoryInfo(dir);
 
-            foreach (var file in dirInfo.GetFiles())
-            {
-                ret.Add(new WindowsFile(file.FullName));
-            }
-
-            return ret;
+            return dirInfo.GetFiles().Select(file => new WindowsFile(file.FullName)).Cast<IFile>().ToList();
         }
 
         public List<IFile> GetDirectories(string dir, bool recursive = false)
         {
-            SearchOption opt;
-            if (recursive)
-                opt = SearchOption.AllDirectories;
-            else
-                opt = SearchOption.TopDirectoryOnly;
-            DirectoryInfo dirInfo = new DirectoryInfo(dir);
-            List<IFile> ret = new List<IFile>();
-
-            foreach (var file in dirInfo.GetDirectories("*.*", opt))
-            {
-                ret.Add(new WindowsFile(file.FullName));
-            }
-
-            return ret;
+            var opt = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+            var dirInfo = new DirectoryInfo(dir);
+            return dirInfo.GetDirectories("*.*", opt).Select(file => new WindowsFile(file.FullName)).Cast<IFile>().ToList();
         }
 
         public XmlDocument OpenXML(string filepath)
@@ -165,7 +126,7 @@ namespace CoreLib.Impl
 
         public string GetTempPath()
         {
-            string path = Path.GetTempFileName();
+            var path = Path.GetTempFileName();
             File.Delete(path);
             return path;
         }
@@ -173,11 +134,6 @@ namespace CoreLib.Impl
         public byte[] ReadFile(string filepath)
         {
             return File.ReadAllBytes(filepath);
-        }
-
-        public void WriteFile(string filepath, byte[] data)
-        {
-            File.WriteAllBytes(filepath, data);
         }
     }
 }

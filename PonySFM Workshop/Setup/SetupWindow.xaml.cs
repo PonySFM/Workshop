@@ -1,11 +1,11 @@
-﻿using MahApps.Metro.Controls;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using CoreLib;
 using CoreLib.Impl;
+using MahApps.Metro.Controls;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Setup
 {
     /// <summary>
     /// Interaction logic for SetupWindow.xaml
@@ -24,11 +24,11 @@ namespace PonySFM_Workshop
         {
             InitializeComponent();
             /* Order matters here */
-            _pages.Add(new SetupGreeting());
+            _pages.Add(new Greeting.SetupGreeting());
             /* TODO: where to put config? Global var? */
             // Settings could be a public static variable in <see cref="ConfigHandler"/> or another
             // represented class, such as Settings.
-            _pages.Add(new SetupDirectory(new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance)));
+            _pages.Add(new Directory.SetupDirectory(new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance)));
         }
 
         public void SetPage(Page page)
@@ -57,8 +57,8 @@ namespace PonySFM_Workshop
         public void GoToMainWindow()
         {
             _isFinished = true;
-            MainWindow.Instance.InitialisePages();
-            MainWindow.Instance.Show();
+            Main.MainWindow.Instance.InitialisePages();
+            Main.MainWindow.Instance.Show();
             Close();
         }
     }

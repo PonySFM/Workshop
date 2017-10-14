@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.About
 {
     /// <summary>
     /// Interaction logic for AboutPage.xaml
@@ -28,7 +28,7 @@ namespace PonySFM_Workshop
 
         private void Hyperlink_RequestPage(object sender, RequestNavigateEventArgs e)
         {
-            MainWindow.Instance.SetPage("LicensesPage");
+            Main.MainWindow.Instance.SetPage("LicensesPage");
             e.Handled = true;
         }
 
@@ -39,7 +39,7 @@ namespace PonySFM_Workshop
 
         private static void GoBack()
         {
-            MainWindow.Instance.SetPage("MainPage");
+            Main.MainWindow.Instance.SetPage("MainPage");
         }
     }
 }

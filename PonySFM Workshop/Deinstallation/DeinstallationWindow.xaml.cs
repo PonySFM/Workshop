@@ -3,7 +3,7 @@ using System.Windows;
 using CoreLib;
 using MahApps.Metro.Controls;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Deinstallation
 {
     /// <summary>
     /// Interaction logic for DeinstallationWindow.xaml

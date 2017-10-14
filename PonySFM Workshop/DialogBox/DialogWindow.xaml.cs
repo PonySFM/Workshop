@@ -1,20 +1,8 @@
-﻿using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.DialogBox
 {
     public enum DialogResult
     {
@@ -29,7 +17,7 @@ namespace PonySFM_Workshop
         public DialogWindow(string title, string entry)
         {
             InitializeComponent();
-            Result = PonySFM_Workshop.DialogResult.Cancel;
+            Result = DialogBox.DialogResult.Cancel;
             DialogLabel.Text = entry;
             Title = title;
         }
@@ -38,22 +26,22 @@ namespace PonySFM_Workshop
 
         private void YesButton_Click(object sender, RoutedEventArgs e)
         {
-            SetDialogResult(PonySFM_Workshop.DialogResult.Yes);
+            SetDialogResult(DialogBox.DialogResult.Yes);
         }
 
         private void YesAllButton_Click(object sender, RoutedEventArgs e)
         {
-            SetDialogResult(PonySFM_Workshop.DialogResult.YesAll);
+            SetDialogResult(DialogBox.DialogResult.YesAll);
         }
 
         private void NoButton_Click(object sender, RoutedEventArgs e)
         {
-            SetDialogResult(PonySFM_Workshop.DialogResult.No);
+            SetDialogResult(DialogBox.DialogResult.No);
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            SetDialogResult(PonySFM_Workshop.DialogResult.Cancel);
+            SetDialogResult(DialogBox.DialogResult.Cancel);
         }
 
         private void SetDialogResult(DialogResult result)

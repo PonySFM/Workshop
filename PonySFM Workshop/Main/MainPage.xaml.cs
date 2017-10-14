@@ -1,11 +1,10 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using CoreLib;
 using CoreLib.Impl;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Main
 {
     /// <summary>
     /// Interaction logic for MainPage.xaml

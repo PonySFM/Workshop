@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Base
 {
     public class BasePresenter : IPresenter, INotifyPropertyChanged
     {

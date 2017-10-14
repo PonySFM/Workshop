@@ -7,8 +7,8 @@ namespace CoreLib.Impl
 {
     public class MockZIPFile : IZIPFile
     {
-        string _path;
-        IFileSystem _fs;
+        private readonly string _path;
+        private readonly IFileSystem _fs;
 
         public MockZIPFile(string path, IFileSystem fs)
         {

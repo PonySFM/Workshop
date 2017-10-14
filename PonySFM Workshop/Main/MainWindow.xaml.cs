@@ -1,17 +1,17 @@
-﻿using MahApps.Metro.Controls;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Media.Animation;
 using CoreLib;
 using CoreLib.Impl;
-using System.Windows.Input;
-using System.IO;
-using System.Windows.Media.Animation;
-using System;
-using System.Windows.Interop;
+using MahApps.Metro.Controls;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Main
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -49,8 +49,8 @@ namespace PonySFM_Workshop
 
             _pages["MainPage"] = new MainPage(Instance, configFile, revMgr);
             _pages["SettingsPage"] = new SettingsPage(config);
-            _pages["LicensesPage"] = new LicensesPage();
-            _pages["AboutPage"] = new AboutPage();
+            _pages["LicensesPage"] = new Licenses.LicensesPage();
+            _pages["AboutPage"] = new About.AboutPage();
 
             Instance.SetPage("MainPage");
         }

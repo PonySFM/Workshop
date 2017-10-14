@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CoreLib;
 using CoreLib.Impl;
 using PonySFM_Workshop;
+using PonySFM_Workshop.Deinstallation;
 
 namespace UITest
 {

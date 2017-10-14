@@ -7,7 +7,7 @@ namespace CoreLib.Impl
 {
     public class ZIPFile : IZIPFile
     {
-        string _path;
+        private readonly string _path;
 
         public ZIPFile(string path)
         {
@@ -16,13 +16,13 @@ namespace CoreLib.Impl
 
         public async Task Extract(string dir, IProgress<int> progress)
         {
-            using (ZipFile zip1 = ZipFile.Read(_path))
+            using (var zip = ZipFile.Read(_path))
             {
-                int total = zip1.Entries.Count;
-                int i = 0;
+                var total = zip.Entries.Count;
+                var i = 0;
                 await Task.Run(() =>
                 {
-                    foreach (ZipEntry e in zip1)
+                    foreach (var e in zip)
                     {
                         /* Skip annoying READMEs etc. */
                         if (e.FileName.ToLower().EndsWith(".txt"))

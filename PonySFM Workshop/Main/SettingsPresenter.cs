@@ -1,8 +1,9 @@
 ﻿using System;
 using CoreLib;
 using CoreLib.Impl;
+using PonySFM_Workshop.Base;
 
-namespace PonySFM_Workshop
+namespace PonySFM_Workshop.Main
 {
     public class SettingsPresenter : BasePresenter
     {
