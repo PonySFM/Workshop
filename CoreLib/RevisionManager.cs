@@ -64,7 +64,7 @@ namespace CoreLib
             }
 
             revision.ChangeTopDirectory(topDir, _dirParser.InstallationPath);
-            revision.AdditionalData["InstallationTime"] = DateTime.Now.ToString();
+            revision.Metadata["InstallationTime"] = DateTime.Now.ToString();
             _db.AddToDB(revision);
             _db.WriteDBDisk();
 

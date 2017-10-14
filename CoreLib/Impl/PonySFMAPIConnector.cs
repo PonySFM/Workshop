@@ -53,16 +53,16 @@ namespace CoreLib.Impl
             var revisionAPIObject = await FetchJSON<RevisionAPIObject>("/api/revision.json?id={0}", id);
             var resourceAPIObject = await FetchJSON<ResourceAPIObject>("/api/resource.json?id={0}", revisionAPIObject.resource_id);
 
-            revision.AdditionalData["ResourceName"] = resourceAPIObject.name;
+            revision.Metadata["ResourceName"] = resourceAPIObject.name;
 
             if(resourceAPIObject.HasUser())
             {
                 var userAPIObject = await FetchJSON<UserAPIObject>("/api/user.json?id={0}", resourceAPIObject.user_id);
-                revision.AdditionalData["UserName"] = userAPIObject.name;
+                revision.Metadata["UserName"] = userAPIObject.name;
             }
             else
             {
-                revision.AdditionalData["UserName"] = "None";
+                revision.Metadata["UserName"] = "None";
             }
         }
 

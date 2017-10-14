@@ -83,7 +83,7 @@ namespace CoreLibTest
             }
 
             var rev = new Revision(id, files);
-            rev.AdditionalData["Test"] = "Cake";
+            rev.Metadata["Test"] = "Cake";
 
             return rev;
         }

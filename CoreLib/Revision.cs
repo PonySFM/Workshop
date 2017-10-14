@@ -54,27 +54,27 @@ namespace CoreLib
     {
         public int ID { get; set; }
         public List<RevisionFileEntry> Files { get; set; }
-        public Dictionary<string, string> AdditionalData { get; set; }
+        public Dictionary<string, string> Metadata { get; set; }
 
         public Revision(int id, List<RevisionFileEntry> files)
         {
             ID = id;
             Files = files;
-            AdditionalData = new Dictionary<string, string>();
+            Metadata = new Dictionary<string, string>();
         }
 
         public static Revision CreateFromXML(XmlElement elem)
         {
             List<RevisionFileEntry> files = new List<RevisionFileEntry>();
             int id = Convert.ToInt32(elem.GetAttribute("ID"));
-            Dictionary<string, string> additionalData = new Dictionary<string, string>();
+            Dictionary<string, string> metaData = new Dictionary<string, string>();
 
             foreach (XmlAttribute attr in elem.Attributes)
             {
                 if (attr.Name == "ID")
                     id = Convert.ToInt32(attr.Value);
                 else
-                    additionalData[attr.Name] = attr.Value;
+                    metaData[attr.Name] = attr.Value;
             }
 
             foreach(XmlElement file in elem.ChildNodes)
@@ -83,7 +83,7 @@ namespace CoreLib
             }
 
             var rev = new Revision(id, files);
-            rev.AdditionalData = additionalData;
+            rev.Metadata = metaData;
 
             return rev;
         }
@@ -93,7 +93,7 @@ namespace CoreLib
             var elem = doc.CreateElement("Revision");
             elem.SetAttribute("ID", ID.ToString());
 
-            foreach (var data in AdditionalData)
+            foreach (var data in Metadata)
             {
                 elem.SetAttribute(data.Key, data.Value);
             }
@@ -132,17 +132,21 @@ namespace CoreLib
             }
         }
 
-        public string GetAdditionalData(string key)
+        public string GetMetadataValue(string key)
         {
-            if (AdditionalData.ContainsKey(key))
-                return AdditionalData[key];
+            if (Metadata.ContainsKey(key))
+                return Metadata[key];
             else
                 return "N/A";
         }
 
-        public bool MissingAdditionalData()
+        /// <summary>
+        /// Check if we're missing some metadata key
+        /// </summary>
+        /// <returns></returns>
+        public bool MissingMetadata()
         {
-            return !AdditionalData.ContainsKey("UserName") || !AdditionalData.ContainsKey("ResourceName");
+            return !Metadata.ContainsKey("UserName") || !Metadata.ContainsKey("ResourceName");
         }
 
         public static Revision CreateTemporaryRevisionFromFolder(int id, string dir, IFileSystem fs)

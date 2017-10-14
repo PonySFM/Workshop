@@ -39,7 +39,7 @@ namespace PonySFM_Workshop
         {
             get
             {
-                return Revision.GetAdditionalData("UserName");
+                return Revision.GetMetadataValue("UserName");
             }
         }
 
@@ -47,7 +47,7 @@ namespace PonySFM_Workshop
         {
             get
             {
-                return Revision.GetAdditionalData("ResourceName");
+                return Revision.GetMetadataValue("ResourceName");
             }
         }
 
@@ -55,7 +55,7 @@ namespace PonySFM_Workshop
         {
             get
             {
-                return Revision.GetAdditionalData("InstallationTime");
+                return Revision.GetMetadataValue("InstallationTime");
             }
         }
 
@@ -140,7 +140,7 @@ namespace PonySFM_Workshop
         {
             foreach (var revision in _db.Revisions)
             {
-                if (revision.MissingAdditionalData())
+                if (revision.MissingMetadata())
                 {
                     Task.Run(async () => { await PonySFMAPIConnector.Instance.FetchMetadata(revision); } ).Wait();
                 }
