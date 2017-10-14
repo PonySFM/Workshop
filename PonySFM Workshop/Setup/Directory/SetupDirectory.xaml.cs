@@ -20,7 +20,7 @@ namespace PonySFM_Workshop
 
         private void BtnBrowse_Click(object sender, RoutedEventArgs e)
         {
-            var newPath = SFM.ShowDirectoryDialog(DirectoryPathBox.Text);
+            var newPath = DialogSystem.ShowDirectoryDialog(DirectoryPathBox.Text);
             if (!string.IsNullOrEmpty(newPath))
                 DirectoryPathBox.Text = newPath;
         }

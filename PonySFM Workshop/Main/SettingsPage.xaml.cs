@@ -24,7 +24,7 @@ namespace PonySFM_Workshop
 
         private void DirectoryBrowseBtn_Click(object sender, RoutedEventArgs e)
         {
-            var newPath = SFM.ShowDirectoryDialog(DirectoryTextBox.Text);
+            var newPath = DialogSystem.ShowDirectoryDialog(DirectoryTextBox.Text);
             if (!string.IsNullOrEmpty(newPath))
                 _presenter.SFMDirectory = newPath;
         }

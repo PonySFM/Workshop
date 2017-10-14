@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -69,6 +70,14 @@ namespace PonySFM_Workshop
             var dialogWindow = new DialogWindow(title, entry);
             dialogWindow.ShowDialog();
             return dialogWindow.Result;
+        }
+
+        public static string ShowDirectoryDialog(string currentDir = null)
+        {
+            var dialog = new FolderBrowserDialog();
+            if (!string.IsNullOrEmpty(currentDir))
+                dialog.SelectedPath = currentDir;
+            return dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK ? dialog.SelectedPath : string.Empty;
         }
     }
 }
