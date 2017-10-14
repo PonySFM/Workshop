@@ -9,12 +9,11 @@ namespace PonySFM_Workshop
     /// </summary>
     public partial class SettingsPage : Page
     {
-        SettingsPresenter _presenter;
+        private readonly SettingsPresenter _presenter;
 
         public SettingsPage(ConfigHandler config)
         {
-            _presenter = new SettingsPresenter(config);
-            _presenter.View = this;
+            _presenter = new SettingsPresenter(config) {View = this};
             InitializeComponent();
         }
 
@@ -47,7 +46,7 @@ namespace PonySFM_Workshop
             GoBack();
         }
 
-        private void GoBack()
+        private static void GoBack()
         {
             MainWindow.Instance.SetPage("MainPage");
         }

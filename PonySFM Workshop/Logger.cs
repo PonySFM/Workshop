@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 
 namespace PonySFM_Workshop
@@ -22,7 +23,7 @@ namespace PonySFM_Workshop
 
         public static void Log(string log)
         {
-            Trace.WriteLine("["+DateTime.Now.ToString()+"] " + log);
+            Trace.WriteLine("["+DateTime.Now.ToString(CultureInfo.CurrentCulture)+"] " + log);
         }
     }
 }

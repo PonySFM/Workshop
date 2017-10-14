@@ -27,17 +27,18 @@ namespace UITest
             fs.CreateDirectory("C:\\tmp\\materials");
             fs.CreateFile("C:\\tmp\\materials\\pony.vmt");
 
-            var files = new List<RevisionFileEntry>();
-            files.Add(RevisionFileEntry.FromFile("C:\\tmp\\models\\pony.vtf", fs));
-            files.Add(RevisionFileEntry.FromFile("C:\\tmp\\materials\\pony.vmt", fs));
+            var files = new List<RevisionFileEntry>
+            {
+                RevisionFileEntry.FromFile("C:\\tmp\\models\\pony.vtf", fs),
+                RevisionFileEntry.FromFile("C:\\tmp\\materials\\pony.vmt", fs)
+            };
 
             var revision = new Revision(1, files);
 
             await revisionManager.InstallRevision(revision, "C:\\tmp", null);
             Assert.IsTrue(revisionManager.VerifyInstalled(revision, null));
 
-            var list = new List<int>();
-            list.Add(1);
+            var list = new List<int> {1};
 
             var deinstallationPresenter = new DeinstallationPresenter(revisionManager, list);
 

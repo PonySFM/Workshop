@@ -8,14 +8,14 @@ namespace PonySFM_Workshop
 {
     public class DeinstallationPresenter : BasePresenter
     {
-        RevisionManager _revisionManager;
-        List<int> _uninstallList;
-        Dictionary<int, int> _uninstallProgress = new Dictionary<int, int>();
+        private readonly RevisionManager _revisionManager;
+        private readonly List<int> _uninstallList;
+        private readonly Dictionary<int, int> _uninstallProgress = new Dictionary<int, int>();
         int _progress;
-        string _installationLog;
-        string _currentStatus;
+        private string _installationLog;
+        private string _currentStatus;
 
-        public int MaxProgress { get { return 100; } }
+        public int MaxProgress => 100;
 
         public int Progress
         {
@@ -73,9 +73,9 @@ namespace PonySFM_Workshop
 
             foreach (var id in _uninstallList)
             {
-                Progress<int> progress = new Progress<int>(i => SetProgress(id, i));
+                var progress = new Progress<int>(i => SetProgress(id, i));
 
-                LogInstallation(string.Format("Uninstalling revision {0}\n", id));
+                LogInstallation($"Uninstalling revision {id}\n");
                 await _revisionManager.UninstallRevision(id, progress);
 
                 NotifyPropertyChange("Progress");

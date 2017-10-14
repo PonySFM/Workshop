@@ -15,7 +15,7 @@ namespace CoreLibTest
         /// <summary>
         /// Simplistic version of how the gameinfo.txt file looks. Should do it for testing.
         /// </summary>
-        private readonly string gameinfoData =
+        private const string GameinfoData =
             "\"GameInfo\"\n" +
             "{\n" +
             "   SearchPaths\n" +
@@ -26,7 +26,7 @@ namespace CoreLibTest
             "   }\n" +
             "}";
 
-        private readonly string gameinfoDataComplete =
+        private readonly string GameinfoDataComplete =
             "\"GameInfo\"\n" +
             "{\n" +
             "   SearchPaths\n" +
@@ -41,7 +41,7 @@ namespace CoreLibTest
         /// <summary>
         /// Gameinfo data missing 'SearchPaths' key
         /// </summary>
-        private readonly string gameinfoDataInvalid =
+        private const string GameinfoDataInvalid =
             "\"GameInfo\"\n" +
             "{\n" +
             "}";
@@ -50,7 +50,7 @@ namespace CoreLibTest
         public void TestCorrectExecution()
         {
             var fs = new MockFileSystem();
-            fs.CreateFile("C:\\gameinfo.txt", Encoding.UTF8.GetBytes(gameinfoData));
+            fs.CreateFile("C:\\gameinfo.txt", Encoding.UTF8.GetBytes(GameinfoData));
             var handler = new GameinfoHandler("C:\\gameinfo.txt", fs);
 
             var error = handler.Execute();
@@ -58,15 +58,15 @@ namespace CoreLibTest
             Assert.AreEqual(GameinfoHandlerError.Success, error);
 
             var newdata = Encoding.UTF8.GetString(fs.ReadFile("C:\\gameinfo.txt")).Replace("\r", "");
-            Assert.IsTrue(newdata.IndexOf(GameinfoHandler.GameinfoLine) != -1);
-            Assert.AreEqual(gameinfoDataComplete, newdata);
+            Assert.IsTrue(newdata.IndexOf(GameinfoHandler.GameinfoLine, StringComparison.Ordinal) != -1);
+            Assert.AreEqual(GameinfoDataComplete, newdata);
         }
 
         [TestMethod]
         public void TestFaultyExecution()
         {
             var fs = new MockFileSystem();
-            fs.CreateFile("C:\\gameinfo.txt", Encoding.UTF8.GetBytes(gameinfoDataInvalid));
+            fs.CreateFile("C:\\gameinfo.txt", Encoding.UTF8.GetBytes(GameinfoDataInvalid));
             var handler = new GameinfoHandler("C:\\gameinfo.txt", fs);
 
             var error = handler.Execute();
@@ -78,7 +78,7 @@ namespace CoreLibTest
         public void TestNOPExecution()
         {
             var fs = new MockFileSystem();
-            fs.CreateFile("C:\\gameinfo.txt", Encoding.UTF8.GetBytes(gameinfoDataComplete));
+            fs.CreateFile("C:\\gameinfo.txt", Encoding.UTF8.GetBytes(GameinfoDataComplete));
             var handler = new GameinfoHandler("C:\\gameinfo.txt", fs);
 
             var error = handler.Execute();
@@ -90,7 +90,7 @@ namespace CoreLibTest
         public void TestBackup()
         {
             var fs = new MockFileSystem();
-            fs.CreateFile("C:\\gameinfo.txt", Encoding.UTF8.GetBytes(gameinfoData));
+            fs.CreateFile("C:\\gameinfo.txt", Encoding.UTF8.GetBytes(GameinfoData));
             var handler = new GameinfoHandler("C:\\gameinfo.txt", fs);
 
             handler.CreateBackup();
@@ -98,7 +98,7 @@ namespace CoreLibTest
             Assert.IsTrue(fs.FileExists("C:\\gameinfo.txt.bak"));
             var backupdata = fs.ReadFile("C:\\gameinfo.txt.bak");
 
-            Assert.AreEqual(gameinfoData, Encoding.UTF8.GetString(backupdata));
+            Assert.AreEqual(GameinfoData, Encoding.UTF8.GetString(backupdata));
 
             /* Now test RestoreBackup */
             fs.DeleteFile("C:\\gameinfo.txt");

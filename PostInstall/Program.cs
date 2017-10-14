@@ -8,30 +8,34 @@ using System.Threading.Tasks;
 
 namespace PostInstall
 {
-    class Program
+    internal class Program
     {
-        static void RegisterURLProtocol(string protocolName, string applicationPath, string description)
+        private static void RegisterUrlProtocol(string protocolName, string applicationPath, string description)
         {
             // Create new key for desired URL protocol
-            RegistryKey myKey=Registry.ClassesRoot.CreateSubKey(protocolName);
+            var key = Registry.ClassesRoot.CreateSubKey(protocolName);
 
             // Assign protocol
-            myKey.SetValue(null, description);
-            myKey.SetValue("URL Protocol", string.Empty);
+            if (key != null)
+            {
+                key.SetValue(null, description);
+                key.SetValue("URL Protocol", string.Empty);
 
-            // Register Shell values
-            Registry.ClassesRoot.CreateSubKey(protocolName + "\\Shell");
-            Registry.ClassesRoot.CreateSubKey(protocolName + "\\Shell\\open");
-            myKey = Registry.ClassesRoot.CreateSubKey(protocolName + "\\Shell\\open\\command");
+                // Register Shell values
+                Registry.ClassesRoot.CreateSubKey(protocolName + "\\Shell");
+                Registry.ClassesRoot.CreateSubKey(protocolName + "\\Shell\\open");
+            }
+
+            key = Registry.ClassesRoot.CreateSubKey(protocolName + "\\Shell\\open\\command");
 
             // Specify application handling the URL protocol
-            myKey.SetValue(null, "\"" + applicationPath + "\" %1");
+            key?.SetValue(null, "\"" + applicationPath + "\" %1");
         }
 
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            RegisterURLProtocol("ponysfm", Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "PonySFM Workshop.exe"), "PonySFM Installer Client");
+            RegisterUrlProtocol("ponysfm", Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "PonySFM Workshop.exe"), "PonySFM Installer Client");
         }
     }
 }

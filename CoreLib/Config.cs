@@ -5,8 +5,8 @@ namespace CoreLib
 {
     public class Config
     {
-        static string ConfigLocation = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\PonySFM";
-        static string ConfigFileLocation = ConfigLocation + "\\config.xml";
+        private static readonly string ConfigLocation = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\PonySFM";
+        private static readonly string ConfigFileLocation = ConfigLocation + "\\config.xml";
 
         static bool CheckConfigExists()
         {

@@ -6,7 +6,7 @@ namespace CoreLib
 {
     public class ConfigParser
     {
-        IFileSystem _fs;
+        private readonly IFileSystem _fs;
 
         public ConfigParser(IFileSystem fs)
         {
@@ -15,20 +15,13 @@ namespace CoreLib
 
         public void Write(ConfigFile file, XmlDocument doc)
         {
-            var elem = file.ToXML(doc);
+            var elem = file.ToXml(doc);
             doc.AppendChild(elem);
         }
 
         public ConfigFile Read(XmlDocument doc)
         {
-            if (doc.FirstChild != null)
-            {
-                return ConfigFile.FromXML((XmlElement)doc.FirstChild);
-            }
-            else
-            {
-                return null;
-            }
+            return doc.FirstChild != null ? ConfigFile.FromXml((XmlElement)doc.FirstChild) : null;
         }
     }
 }

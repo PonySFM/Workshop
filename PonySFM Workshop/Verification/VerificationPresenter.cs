@@ -8,20 +8,14 @@ namespace PonySFM_Workshop
 {
     public class VerificationPresenter : BasePresenter
     {
-        RevisionManager _revisionManager;
-        List<int> _ids;
-        int _progress;
-        private Dictionary<int, int> _uninstallProgress = new Dictionary<int, int>();
-        string _installationLog;
-        string _currentStatus;
+        private readonly RevisionManager _revisionManager;
+        private readonly List<int> _ids;
+        private int _progress;
+        private readonly Dictionary<int, int> _uninstallProgress = new Dictionary<int, int>();
+        private string _installationLog;
+        private string _currentStatus;
 
-        public int MaxProgress
-        {
-            get
-            {
-                return _uninstallProgress.Count * 100;
-            }
-        }
+        public int MaxProgress => _uninstallProgress.Count * 100;
 
         public int Progress
         {
@@ -76,18 +70,19 @@ namespace PonySFM_Workshop
 
         public async Task<List<int>> Execute()
         {
-            List<int> failedIDs = new List<int>();
+            var failedIDs = new List<int>();
             foreach (var id in _ids)
             {
-                Progress<int> progress = new Progress<int>(i => SetProgress(id, i));
-                bool v = false;
+                var progress = new Progress<int>(i => SetProgress(id, i));
+                var valid = false;
+
                 LogInstallation("Verifying revision " + id + "\n");
                 await Task.Factory.StartNew(() =>
                 {
-                    v = _revisionManager.VerifyInstalled(id, progress);
+                    valid = _revisionManager.VerifyInstalled(id, progress);
                 });
 
-                if (!v)
+                if (!valid)
                 {
                     failedIDs.Add(id);
                 }

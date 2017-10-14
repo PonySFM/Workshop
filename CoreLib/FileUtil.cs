@@ -9,7 +9,7 @@ namespace CoreLib
         public static string GetChecksum(Stream stream)
         {
             var sha = new SHA256Managed();
-            byte[] checksum = sha.ComputeHash(stream);
+            var checksum = sha.ComputeHash(stream);
             return BitConverter.ToString(checksum).Replace("-", string.Empty);
         }
     }

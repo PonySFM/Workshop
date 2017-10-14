@@ -4,19 +4,20 @@ using System.Threading.Tasks;
 using System.Threading;
 using CoreLib.Interface;
 using System;
+using System.Linq;
 
 namespace CoreLib
 {
     public class DirectoryCopier
     {
-        IFileSystem _fs;
-        string _source;
-        string _dest;
-        bool _copySubDirs;
-        int _progress;
-        int _totalFiles;
-        bool _copyAll;
-        CancellationToken _cancel;
+        private readonly IFileSystem _fs;
+        private readonly string _source;
+        private readonly string _dest;
+        private readonly bool _copySubDirs;
+        private int _progress;
+        private int _totalFiles;
+        private bool _copyAll;
+        private CancellationToken _cancel;
 
         public delegate void FileExistsHandler(object sender, DirectoryCopierFileExistsEventArgs e);
         public event FileExistsHandler OnFileExists;
@@ -49,14 +50,14 @@ namespace CoreLib
         {
             _cancel.ThrowIfCancellationRequested();
 
-            List<IFile> sourceFiles = _fs.GetFiles(source);
+            var sourceFiles = _fs.GetFiles(source);
 
             if (!_fs.DirectoryExists(dest))
                 _fs.CreateDirectory(dest);
 
             foreach (var file in sourceFiles)
             {
-                string newPath = Path.Combine(dest, file.Name);
+                var newPath = Path.Combine(dest, file.Name);
 
                 FireFileCopyEvent(file.Path, newPath);
 
@@ -80,6 +81,8 @@ namespace CoreLib
                                 break;
                             case DirectoryCopierFileCopyMode.Cancel:
                                 throw new System.OperationCanceledException();
+                            default:
+                                throw new ArgumentOutOfRangeException();
                         }
                     }
 
@@ -95,7 +98,7 @@ namespace CoreLib
                 var dirs = _fs.GetDirectories(source);
                 foreach (var dir in dirs)
                 {
-                    string newDirPath = Path.Combine(dest, dir.Name);
+                    var newDirPath = Path.Combine(dest, dir.Name);
                     await CopyDirectory(dir.Path, newDirPath, true);
                 }
             }
@@ -103,16 +106,16 @@ namespace CoreLib
 
         private int CountFiles(string source, bool subdirs)
         {
-            int ret = 0;
+            var ret = 0;
 
-            List<IFile> sourceFiles = _fs.GetFiles(source);
+            var sourceFiles = _fs.GetFiles(source);
 
             ret += sourceFiles.Count;
 
             var dirs = _fs.GetDirectories(source);
-            if (subdirs)
-                foreach (var dir in dirs)
-                    ret += CountFiles(dir.Path, true);
+            if (!subdirs) return ret;
+
+            ret += dirs.Sum(dir => CountFiles(dir.Path, true));
 
             return ret;
         }

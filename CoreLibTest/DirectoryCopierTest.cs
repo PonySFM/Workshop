@@ -61,8 +61,8 @@ namespace CoreLibTest
         {
             var fs = new MockFileSystem();
             var directoryCopier = new DirectoryCopier(fs, "C:\\fakeDir", "C:\\SFM", true);
-            List<Tuple<string, string>> copiedFiles = new List<Tuple<string,string>>();
-            List<int> progressHistory = new List<int>();
+            var copiedFiles = new List<Tuple<string,string>>();
+            var progressHistory = new List<int>();
 
             fs.CreateFile("C:\\fakeDir\\file1.txt");
             fs.CreateFile("C:\\SFM\\file1.txt");
@@ -141,7 +141,7 @@ namespace CoreLibTest
             fs.CreateFile("C:\\SFM\\file1.txt");
             fs.CreateFile("C:\\SFM\\file2.txt");
 
-            int timesEventCalled = 0;
+            var timesEventCalled = 0;
 
             directoryCopier.OnFileExists += delegate (object sender, DirectoryCopierFileExistsEventArgs e)
             {

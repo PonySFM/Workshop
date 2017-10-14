@@ -10,14 +10,13 @@ namespace PonySFM_Workshop
     /// </summary>
     public partial class DeinstallationWindow : MetroWindow
     {
-        DeinstallationPresenter _presenter;
-        bool _closeOnFinish;
-        bool _showDetails;
+        private readonly DeinstallationPresenter _presenter;
+        private readonly bool _closeOnFinish;
+        private bool _showDetails;
 
         public DeinstallationWindow(RevisionManager revisionManager, List<int> ids, bool closeOnFinish = false)
         {
-            _presenter = new DeinstallationPresenter(revisionManager, ids);
-            _presenter.View = this;
+            _presenter = new DeinstallationPresenter(revisionManager, ids) {View = this};
             _closeOnFinish = closeOnFinish;
             InitializeComponent();
         }

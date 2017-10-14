@@ -6,33 +6,14 @@ namespace CoreLib
 {
     public class RevisionDatabase
     {
-        private List<Revision> _revisions = new List<Revision>();
-        private string _filepath;
-        private IFileSystem _fs;
+        private readonly IFileSystem _fs;
 
-        public List<Revision> Revisions
-        {
-            get
-            {
-                return _revisions;
-            }
-        }
-
-        public string Filepath
-        {
-            get
-            {
-                return _filepath;
-            }
-            set
-            {
-                _filepath = value;
-            }
-        }
+        public List<Revision> Revisions { get; } = new List<Revision>();
+        public string Filepath { get; set; }
 
         public RevisionDatabase(string filepath, IFileSystem fs)
         {
-            _filepath = filepath;
+            Filepath = filepath;
             _fs = fs;
 
             if (!fs.FileExists(filepath))
@@ -43,38 +24,38 @@ namespace CoreLib
 
         public void AddToDB(Revision revision)
         {
-            _revisions.Add(revision);
+            Revisions.Add(revision);
         }
 
         internal void RemoveRevision(int id)
         {
-            var revision = _revisions.Find(r => r.ID == id);
+            var revision = Revisions.Find(r => r.ID == id);
             if (revision != null)
-                _revisions.Remove(revision);
+                Revisions.Remove(revision);
         }
 
         public void RefreshData(XmlDocument doc)
         {
-            _revisions.Clear();
+            Revisions.Clear();
             foreach(XmlElement elem in doc.FirstChild.ChildNodes)
             {
-                _revisions.Add(Revision.CreateFromXML(elem));
+                Revisions.Add(Revision.CreateFromXml(elem));
             }
         }
 
         public void RefreshDataDisk()
         {
-            var doc = _fs.OpenXML(_filepath);
+            var doc = _fs.OpenXML(Filepath);
             RefreshData(doc);
         }
 
         public XmlDocument WriteDB()
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             var root = doc.CreateElement("PonySFM");
 
-            foreach (var revision in _revisions)
-                root.AppendChild(revision.ToXML(doc, _fs));
+            foreach (var revision in Revisions)
+                root.AppendChild(revision.ToXml(doc, _fs));
 
             doc.AppendChild(root);
             return doc;
@@ -83,7 +64,7 @@ namespace CoreLib
         public void WriteDBDisk()
         {
             var doc = WriteDB();
-            _fs.SaveXML(doc, _filepath);
+            _fs.SaveXML(doc, Filepath);
         }
     }
 }

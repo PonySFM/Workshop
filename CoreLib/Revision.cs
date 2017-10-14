@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using CoreLib.Interface;
 
@@ -8,34 +9,8 @@ namespace CoreLib
 {
     public class RevisionFileEntry
     {
-        string _path;
-        string _sha512;
-
-        public string Path
-        {
-            get
-            {
-                return _path;
-            }
-
-            set
-            {
-                _path = value;
-            }
-        }
-
-        public string Sha512
-        {
-            get
-            {
-                return _sha512;
-            }
-
-            set
-            {
-                _sha512 = value;
-            }
-        }
+        public string Path { get; set; }
+        public string Sha512 { get; set; }
 
         public RevisionFileEntry(string path, string sha256)
         {
@@ -63,11 +38,10 @@ namespace CoreLib
             Metadata = new Dictionary<string, string>();
         }
 
-        public static Revision CreateFromXML(XmlElement elem)
+        public static Revision CreateFromXml(XmlElement elem)
         {
-            List<RevisionFileEntry> files = new List<RevisionFileEntry>();
-            int id = Convert.ToInt32(elem.GetAttribute("ID"));
-            Dictionary<string, string> metaData = new Dictionary<string, string>();
+            var id = Convert.ToInt32(elem.GetAttribute("ID"));
+            var metaData = new Dictionary<string, string>();
 
             foreach (XmlAttribute attr in elem.Attributes)
             {
@@ -77,18 +51,12 @@ namespace CoreLib
                     metaData[attr.Name] = attr.Value;
             }
 
-            foreach(XmlElement file in elem.ChildNodes)
-            {
-                files.Add(new RevisionFileEntry(file.GetAttribute("Location"), file.GetAttribute("SHA512")));
-            }
+            var files = (from XmlElement file in elem.ChildNodes select new RevisionFileEntry(file.GetAttribute("Location"), file.GetAttribute("SHA512"))).ToList();
 
-            var rev = new Revision(id, files);
-            rev.Metadata = metaData;
-
-            return rev;
+            return new Revision(id, files) {Metadata = metaData};
         }
 
-        public XmlElement ToXML(XmlDocument doc, IFileSystem fs)
+        public XmlElement ToXml(XmlDocument doc, IFileSystem fs)
         {
             var elem = doc.CreateElement("Revision");
             elem.SetAttribute("ID", ID.ToString());
@@ -123,21 +91,17 @@ namespace CoreLib
 
             foreach (var file in Files)
             {
-                if (file.Path.StartsWith(currentDir))
-                {
-                    var newPath = file.Path.Replace(currentDir, "");
-                    newPath = Path.Combine(topDir, newPath);
-                    file.Path = newPath;
-                }
+                if (!file.Path.StartsWith(currentDir)) continue;
+
+                var newPath = file.Path.Replace(currentDir, "");
+                newPath = Path.Combine(topDir, newPath);
+                file.Path = newPath;
             }
         }
 
         public string GetMetadataValue(string key)
         {
-            if (Metadata.ContainsKey(key))
-                return Metadata[key];
-            else
-                return "N/A";
+            return Metadata.ContainsKey(key) ? Metadata[key] : "N/A";
         }
 
         /// <summary>
@@ -151,13 +115,13 @@ namespace CoreLib
 
         public static Revision CreateTemporaryRevisionFromFolder(int id, string dir, IFileSystem fs)
         {
-            List<RevisionFileEntry> fileEntries = new List<RevisionFileEntry>();
+            var fileEntries = new List<RevisionFileEntry>();
 
             GetFileEntriesFromDirectory(fileEntries, dir, fs);
             return new Revision(id, fileEntries);
         }
 
-        private static void GetFileEntriesFromDirectory(List<RevisionFileEntry> list, string dir, IFileSystem fs)
+        private static void GetFileEntriesFromDirectory(ICollection<RevisionFileEntry> list, string dir, IFileSystem fs)
         {
             var files = fs.GetFiles(dir);
             var dirs = fs.GetDirectories(dir);

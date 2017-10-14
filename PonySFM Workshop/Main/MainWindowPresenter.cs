@@ -10,16 +10,9 @@ namespace PonySFM_Workshop
     /* TODO: BasePresenter is false here because actually only want NotifyPropertyChange. Refactor? */
     public class RevisionListItem : BasePresenter
     {
-        Revision _revision;
-        bool _checked;
+        private bool _checked;
 
-        public int ID
-        {
-            get
-            {
-                return Revision.ID;
-            }
-        }
+        public int ID => Revision.ID;
 
         public bool Checked
         {
@@ -35,42 +28,10 @@ namespace PonySFM_Workshop
             }
         }
 
-        public string UserName
-        {
-            get
-            {
-                return Revision.GetMetadataValue("UserName");
-            }
-        }
-
-        public string ResourceName
-        {
-            get
-            {
-                return Revision.GetMetadataValue("ResourceName");
-            }
-        }
-
-        public string InstallationTime
-        {
-            get
-            {
-                return Revision.GetMetadataValue("InstallationTime");
-            }
-        }
-
-        public Revision Revision
-        {
-            get
-            {
-                return _revision;
-            }
-
-            set
-            {
-                _revision = value;
-            }
-        }
+        public Revision Revision { get; set; }
+        public string UserName => Revision.GetMetadataValue("UserName");
+        public string ResourceName => Revision.GetMetadataValue("ResourceName");
+        public string InstallationTime => Revision.GetMetadataValue("InstallationTime");
 
         public RevisionListItem(Revision revision)
         {
@@ -80,17 +41,11 @@ namespace PonySFM_Workshop
 
     public class MainWindowPresenter : BasePresenter
     {
-        ObservableCollection<RevisionListItem> _items = new ObservableCollection<RevisionListItem>();
-        RevisionDatabase _db;
-        RevisionManager _revisionManager;
+        private readonly ObservableCollection<RevisionListItem> _items = new ObservableCollection<RevisionListItem>();
+        private readonly RevisionDatabase _db;
+        private readonly RevisionManager _revisionManager;
 
-        public ObservableCollection<RevisionListItem> InstalledRevisions
-        {
-            get
-            {
-                return _items;
-            }
-        }
+        public ObservableCollection<RevisionListItem> InstalledRevisions => _items;
 
         public MainWindowPresenter(RevisionManager revisionManager)
         {
@@ -103,37 +58,25 @@ namespace PonySFM_Workshop
         public void OnUninstall()
         {
             var toUninstall = _items.Where(x => x.Checked);
-            List<int> ids = new List<int>();
+            var ids = toUninstall.Select(rev => rev.ID).ToList();
 
-            foreach (var rev in toUninstall)
-            {
-                ids.Add(rev.ID);
-            }
+            if (ids.Count == 0) return;
 
-            if(ids.Count > 0)
-            {
-                var w = new DeinstallationWindow(_revisionManager, ids, true);
-                w.ShowDialog();
-                PopulateListData();
-            }
+            var w = new DeinstallationWindow(_revisionManager, ids, true);
+            w.ShowDialog();
+            PopulateListData();
         }
 
         public void OnVerify()
         {
             var toVerify = _items.Where(x => x.Checked);
-            List<int> ids = new List<int>();
+            var ids = toVerify.Select(rev => rev.ID).ToList();
 
-            foreach (var rev in toVerify)
-            {
-                ids.Add(rev.ID);
-            }
+            if (ids.Count == 0) return;
 
-            if(ids.Count > 0)
-            {
-                var w = new VerificationWindow(ids, _revisionManager);
-                w.ShowDialog();
-                PopulateListData();
-            }
+            var w = new VerificationWindow(ids, _revisionManager);
+            w.ShowDialog();
+            PopulateListData();
         }
 
         private void FixMissingInfo()

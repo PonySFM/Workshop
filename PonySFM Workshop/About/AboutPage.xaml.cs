@@ -20,13 +20,13 @@ namespace PonySFM_Workshop
             DataContext = this;
         }
 
-        void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             Process.Start(e.Uri.AbsoluteUri);
             e.Handled = true;
         }
 
-        void Hyperlink_RequestPage(object sender, RequestNavigateEventArgs e)
+        private void Hyperlink_RequestPage(object sender, RequestNavigateEventArgs e)
         {
             MainWindow.Instance.SetPage("LicensesPage");
             e.Handled = true;
@@ -37,7 +37,7 @@ namespace PonySFM_Workshop
             GoBack();
         }
 
-        void GoBack()
+        private static void GoBack()
         {
             MainWindow.Instance.SetPage("MainPage");
         }

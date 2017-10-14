@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,16 +15,15 @@ namespace CoreLib
 
     public class RevisionManager
     {
-        ConfigFile _configFile;
-        IFileSystem _fs;
-        string _path;
-        RevisionDatabase _db;
-        SFMDirectoryParser _dirParser;
+        private readonly ConfigFile _configFile;
+        private readonly IFileSystem _fs;
+        private readonly string _path;
+        private readonly SFMDirectoryParser _dirParser;
 
         public delegate void FileExistsHandler(object sender, DirectoryCopierFileExistsEventArgs e);
         public event FileExistsHandler OnFileExists;
 
-        public RevisionDatabase Database => _db;
+        public RevisionDatabase Database { get; }
 
         public RevisionManager(ConfigFile configFile, IFileSystem fs)
         {
@@ -32,7 +32,7 @@ namespace CoreLib
             _path = configFile.SFMDirectoryPath;
             _dirParser = new SFMDirectoryParser(_path, fs);
             CreateDataFolder();
-            _db = new RevisionDatabase(Path.Combine(_dirParser.InstallationPath, "ponysfm.xml"), _fs);
+            Database = new RevisionDatabase(Path.Combine(_dirParser.InstallationPath, "ponysfm.xml"), _fs);
         }
 
         public void CreateDataFolder()
@@ -52,7 +52,7 @@ namespace CoreLib
                 progress?.Report(e.Progress);
 
             directoryCopier.OnFileExists += (s, e) =>
-                OnFileExists(s, e);
+                OnFileExists?.Invoke(s, e);
 
             try
             {
@@ -64,26 +64,26 @@ namespace CoreLib
             }
 
             revision.ChangeTopDirectory(topDir, _dirParser.InstallationPath);
-            revision.Metadata["InstallationTime"] = DateTime.Now.ToString();
-            _db.AddToDB(revision);
-            _db.WriteDBDisk();
+            revision.Metadata["InstallationTime"] = DateTime.Now.ToString(CultureInfo.CurrentCulture);
+            Database.AddToDB(revision);
+            Database.WriteDBDisk();
 
             return InstallationResult.Success;
         }
 
         public async Task UninstallRevision(int id, IProgress<int> progress)
         {
-            Revision revision = _db.Revisions.Find(r => r.ID == id);
+            var revision = Database.Revisions.Find(r => r.ID == id);
 
             if (revision == null)
                 return;
 
-            int totalCount = revision.Files.Count;
-            int i = 0;
+            var totalCount = revision.Files.Count;
+            var i = 0;
 
             await Task.Factory.StartNew(() =>
             {
-                _db.RemoveRevision(id);
+                Database.RemoveRevision(id);
 
                 /* FIXME: totally guranteed to be sorted by directory! */
                 foreach (var file in revision.Files)
@@ -98,13 +98,13 @@ namespace CoreLib
                     progress?.Report(i / totalCount * 100);
                 }
 
-                _db.WriteDBDisk();
+                Database.WriteDBDisk();
             });
         }
 
         public bool VerifyInstalled(Revision revision, IProgress<int> progress)
         {
-            int i = 0;
+            var i = 0;
             foreach (var file in revision.Files)
             {
                 if (!_fs.FileExists(file.Path))
@@ -113,7 +113,7 @@ namespace CoreLib
                 if (_fs.GetChecksum(file.Path) != file.Sha512)
                     return false;
 
-                double p = i / (double)revision.Files.Count * 100;
+                var p = i / (double)revision.Files.Count * 100;
                 progress?.Report((int)p);
                 i++;
             }
@@ -123,17 +123,14 @@ namespace CoreLib
 
         public bool VerifyInstalled(int id, IProgress<int> progress)
         {
-            Revision revision = _db.Revisions.Find(x => x.ID == id);
+            var revision = Database.Revisions.Find(x => x.ID == id);
 
-            if (revision == null)
-                return false;
-
-            return VerifyInstalled(revision, progress);
+            return revision != null && VerifyInstalled(revision, progress);
         }
 
         public bool IsInstalled(int id)
         {
-            return _db.Revisions.Find(x => x.ID == id) != null;
+            return Database.Revisions.Find(x => x.ID == id) != null;
         }
     }
 }

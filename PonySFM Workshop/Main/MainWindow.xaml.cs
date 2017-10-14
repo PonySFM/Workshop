@@ -23,38 +23,18 @@ namespace PonySFM_Workshop
 
         private static MainWindow _instance;
 
-        public static MainWindow Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = new MainWindow();
-                return _instance;
-            }
-        }
+        public static MainWindow Instance => _instance ?? (_instance = new MainWindow());
 
-        private Dictionary<string, Page> _pages = new Dictionary<string, Page>();
+        private readonly Dictionary<string, Page> _pages = new Dictionary<string, Page>();
 
-        static bool MenuIsOpen;
+        static bool _menuIsOpen;
 
-        public string StatusBarText
-        {
-            get
-            {
-                /* FIXME: this gets called twice on startup, before _configFile exists and after */
-                return "SFM Directory: \"" + _configFile?.SFMDirectoryPath + "\"";
-            }
-        }
+        public string StatusBarText => "SFM Directory: \"" + _configFile?.SFMDirectoryPath + "\"";
 
         private MainWindow()
         {
             InitializeComponent();
             StatusBarTextBlock.DataContext = this;
-        }
-
-        public static void Initiate()
-        {
-            new MainWindow();
         }
 
         public void InitialisePages()
@@ -82,21 +62,21 @@ namespace PonySFM_Workshop
 
         public void RefreshListData()
         {
-            (_pages["MainPage"] as MainPage).RefreshListData();
+            ((MainPage) _pages["MainPage"]).RefreshListData();
         }
 
-        void CloseMenu()
+        private void CloseMenu()
         {
             MenuBar.BeginStoryboard(FindResource("MenuBarClose") as Storyboard);
 
-            MenuIsOpen = false;
+            _menuIsOpen = false;
         }
 
-        void OpenMenu()
+        private void OpenMenu()
         {
             MenuBar.BeginStoryboard(FindResource("MenuBarOpen") as Storyboard);
 
-            MenuIsOpen = true;
+            _menuIsOpen = true;
         }
         // Menu buttons
 
@@ -119,7 +99,7 @@ namespace PonySFM_Workshop
         {
             Process.Start(Path.Combine(_sfmDirParser.Path, "sfm.exe"));
 
-            if (MenuIsOpen)
+            if (_menuIsOpen)
                 CloseMenu();
         }
 
@@ -134,7 +114,7 @@ namespace PonySFM_Workshop
         {
             Process.Start(ModManager.PonySFMURL);
 
-            if (MenuIsOpen)
+            if (_menuIsOpen)
                 CloseMenu();
         }
 
@@ -166,7 +146,7 @@ namespace PonySFM_Workshop
 
         private void MetroWindow_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (MenuIsOpen && e.GetPosition(sender as IInputElement).X > MenuBar.Width)
+            if (_menuIsOpen && e.GetPosition(sender as IInputElement).X > MenuBar.Width)
                 CloseMenu();
         }
 
@@ -181,11 +161,6 @@ namespace PonySFM_Workshop
         }
 
         private void DonateButton_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start("https://www.patreon.com/PonySFM");
-        }
-
-        private void HelpButton_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://www.patreon.com/PonySFM");
         }

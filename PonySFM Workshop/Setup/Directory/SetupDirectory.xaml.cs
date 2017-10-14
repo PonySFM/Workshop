@@ -10,7 +10,7 @@ namespace PonySFM_Workshop
     /// </summary>
     public partial class SetupDirectory : Page
     {
-        private ConfigHandler _config;
+        private readonly ConfigHandler _config;
 
         public SetupDirectory(ConfigHandler config)
         {
@@ -32,7 +32,7 @@ namespace PonySFM_Workshop
 
         private void BtnNext_Click(object sender, RoutedEventArgs e)
         {
-            string dir = DirectoryPathBox.Text;
+            var dir = DirectoryPathBox.Text;
             var parser = new SFMDirectoryParser(dir, WindowsFileSystem.Instance);
             var error = parser.Validate();
 

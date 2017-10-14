@@ -47,7 +47,7 @@ namespace PonySFM_Workshop
             if (item == null)
                 return;
 
-            var url = PonySFMAPIConnector.Instance.GetRevisionURL((item as RevisionListItem).Revision);
+            var url = PonySFMAPIConnector.Instance.GetRevisionUrl((item as RevisionListItem).Revision);
             Process.Start(url);
         }
 

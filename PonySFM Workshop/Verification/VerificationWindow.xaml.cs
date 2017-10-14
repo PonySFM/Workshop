@@ -10,34 +10,33 @@ namespace PonySFM_Workshop
     /// </summary>
     public partial class VerificationWindow : MetroWindow
     {
-        RevisionManager _revisionManager;
-        VerificationPresenter _presenter;
-        bool _showDetails;
+        private readonly RevisionManager _revisionManager;
+        private readonly VerificationPresenter _presenter;
+        private bool _showDetails;
 
         public VerificationWindow(List<int> ids, RevisionManager revisionManager)
         {
-            _presenter = new VerificationPresenter(revisionManager, ids);
-            _presenter.View = this;
+            _presenter = new VerificationPresenter(revisionManager, ids) {View = this};
             _revisionManager = revisionManager;
             InitializeComponent();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List<int> failedIDS = await _presenter.Execute();
-            if (failedIDS.Count > 0)
+            var failedIDs = await _presenter.Execute();
+            if (failedIDs.Count == 0) return;
+
+            var answer = MessageBox.Show($"{failedIDs.Count} revisions failed to validate. Reinstall them?", "Validation failed", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation);
+
+            if(answer == MessageBoxResult.Yes)
             {
-                var answer = MessageBox.Show(string.Format("{0} revisions failed to validate. Reinstall them?", failedIDS.Count), "Validation failed", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation);
-                if(answer == MessageBoxResult.Yes)
-                {
-                    var deinstallationWindow = new DeinstallationWindow(_revisionManager, failedIDS, true);
-                    deinstallationWindow.ShowDialog();
+                var deinstallationWindow = new DeinstallationWindow(_revisionManager, failedIDs, true);
+                deinstallationWindow.ShowDialog();
 
-                    var installationWindow = new InstallationWindow(failedIDS, _revisionManager, true);
-                    installationWindow.ShowDialog();
+                var installationWindow = new InstallationWindow(failedIDs, _revisionManager, true);
+                installationWindow.ShowDialog();
 
-                    Close();
-                }
+                Close();
             }
         }
 

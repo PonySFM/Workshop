@@ -15,7 +15,7 @@ namespace CoreLibTest
             var doc = new XmlDocument();
             var configFile = new ConfigFile("C:\\SFM");
             var configParser = new ConfigParser(new MockFileSystem());
-            doc.AppendChild(configFile.ToXML(doc));
+            doc.AppendChild(configFile.ToXml(doc));
 
             var parsedConfig = configParser.Read(doc);
 
@@ -34,7 +34,7 @@ namespace CoreLibTest
             configParser.Write(configFile, doc);
 
             Assert.IsTrue(doc.ChildNodes.Count == 1);
-            Assert.IsTrue(configFile.Equals(ConfigFile.FromXML((XmlElement)doc.FirstChild)));
+            Assert.IsTrue(configFile.Equals(ConfigFile.FromXml((XmlElement)doc.FirstChild)));
         }
     }
 }

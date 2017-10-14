@@ -12,26 +12,23 @@ namespace PonySFM_Workshop
     /// </summary>
     public partial class SetupWindow : MetroWindow
     {
-        private static SetupWindow singleton;
-        private bool isFinished = false;
+        private static SetupWindow _singleton;
+        private bool _isFinished = false;
 
-        public static SetupWindow Instance =>
-            singleton == null ?
-                singleton = new SetupWindow() :
-                singleton;
+        public static SetupWindow Instance => _singleton ?? (_singleton = new SetupWindow());
 
-        private List<Page> pages = new List<Page>();
-        private int pageIndex = 0;
+        private readonly List<Page> _pages = new List<Page>();
+        private int _pageIndex = 0;
 
         public SetupWindow()
         {
             InitializeComponent();
             /* Order matters here */
-            pages.Add(new SetupGreeting());
+            _pages.Add(new SetupGreeting());
             /* TODO: where to put config? Global var? */
-            /// Settings could be a public static variable in <see cref="ConfigHandler"/> or another
-            /// represented class, such as Settings.
-            pages.Add(new SetupDirectory(new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance)));
+            // Settings could be a public static variable in <see cref="ConfigHandler"/> or another
+            // represented class, such as Settings.
+            _pages.Add(new SetupDirectory(new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance)));
         }
 
         public void SetPage(Page page)
@@ -41,17 +38,17 @@ namespace PonySFM_Workshop
 
         public void NextPage()
         {
-            SetPage(pages[++pageIndex]);
+            SetPage(_pages[++_pageIndex]);
         }
 
         public void PrevPage()
         {
-            SetPage(pages[--pageIndex]);
+            SetPage(_pages[--_pageIndex]);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!isFinished)
+            if (!_isFinished)
                 e.Cancel = MessageBox.Show("Do you really want to cancel the setup?", "PonySFM Setup", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No;
             else
                 e.Cancel = false;
@@ -59,7 +56,7 @@ namespace PonySFM_Workshop
 
         public void GoToMainWindow()
         {
-            isFinished = true;
+            _isFinished = true;
             MainWindow.Instance.InitialisePages();
             MainWindow.Instance.Show();
             Close();

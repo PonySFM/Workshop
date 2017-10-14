@@ -13,14 +13,14 @@ namespace CoreLib
             SFMDirectoryPath = sfmDirPath;
         }
 
-        public static ConfigFile FromXML(XmlElement elem)
+        public static ConfigFile FromXml(XmlElement elem)
         {
             return new ConfigFile(elem.InnerText);
         }
 
-        public XmlElement ToXML(XmlDocument doc)
+        public XmlElement ToXml(XmlDocument doc)
         {
-            XmlElement elem = doc.CreateElement("SFMDirectoryPath");
+            var elem = doc.CreateElement("SFMDirectoryPath");
             elem.InnerText = SFMDirectoryPath;
             return elem;
         }

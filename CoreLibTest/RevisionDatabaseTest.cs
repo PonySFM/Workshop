@@ -12,14 +12,14 @@ namespace CoreLibTest
     [TestClass]
     public class RevisionDatabaseTest
     {
-        private static string filepath;
-        private static string stubfile;
+        private static string _filepath;
+        private static string _stubfile;
 
         [ClassInitialize]
         public static void Setup(TestContext context)
         {
-            filepath = Path.Combine(Path.GetTempPath(), "ponysfmtest.xml");
-            stubfile = Path.Combine(Path.GetTempPath(), "stubtest.xml");
+            _filepath = Path.Combine(Path.GetTempPath(), "ponysfmtest.xml");
+            _stubfile = Path.Combine(Path.GetTempPath(), "stubtest.xml");
         }
 
         [TestMethod]
@@ -27,10 +27,10 @@ namespace CoreLibTest
         public void CreateDefaultDB()
         {
             var fs = new MockFileSystem();
-            var db = new RevisionDatabase(filepath, fs);
-            Assert.IsTrue(fs.FileExists(filepath));
+            var db = new RevisionDatabase(_filepath, fs);
+            Assert.IsTrue(fs.FileExists(_filepath));
 
-            var doc = fs.OpenXML(filepath);
+            var doc = fs.OpenXML(_filepath);
 
             Assert.IsTrue(doc.HasChildNodes);
             Assert.IsTrue(doc.FirstChild.Name == "PonySFM");
@@ -41,17 +41,17 @@ namespace CoreLibTest
         [TestCategory("RevisionDatabase")]
         public void PopulateData()
         {
-            MockFileSystem fs = new MockFileSystem();
-            fs.CreateFile(stubfile);
-            RevisionDatabase db = new RevisionDatabase(filepath, fs);
-            Assert.IsTrue(fs.FileExists(filepath));
+            var fs = new MockFileSystem();
+            fs.CreateFile(_stubfile);
+            var db = new RevisionDatabase(_filepath, fs);
+            Assert.IsTrue(fs.FileExists(_filepath));
 
-            for (int i = 0; i < 5; i ++)
+            for (var i = 0; i < 5; i ++)
                 db.Revisions.Add(CreateStubRevision(fs));
 
             db.WriteDBDisk();
 
-            XmlDocument doc = fs.OpenXML(filepath);
+            var doc = fs.OpenXML(_filepath);
 
             Assert.IsTrue(doc.HasChildNodes);
             Assert.IsTrue(doc.FirstChild.Name == "PonySFM");
@@ -67,25 +67,22 @@ namespace CoreLibTest
 
                 foreach (XmlElement fileElem in elem.ChildNodes)
                 {
-                    Assert.IsTrue(fileElem.GetAttribute("Location") == stubfile);
+                    Assert.IsTrue(fileElem.GetAttribute("Location") == _stubfile);
                 }
             }
         }
 
-        private Revision CreateStubRevision(IFileSystem fs)
+        private static Revision CreateStubRevision(IFileSystem fs)
         {
             var r = new Random();
-            int id = r.Next(1000);
-            List<RevisionFileEntry> files = new List<RevisionFileEntry>();
-            for(int i = 0; i < 5; i++)
+            var id = r.Next(1000);
+            var files = new List<RevisionFileEntry>();
+            for(var i = 0; i < 5; i++)
             {
-                files.Add(RevisionFileEntry.FromFile(stubfile, fs));
+                files.Add(RevisionFileEntry.FromFile(_stubfile, fs));
             }
 
-            var rev = new Revision(id, files);
-            rev.Metadata["Test"] = "Cake";
-
-            return rev;
+            return new Revision(id, files) {Metadata = {["Test"] = "Cake"}};
         }
     }
 }

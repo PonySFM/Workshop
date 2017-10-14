@@ -14,8 +14,8 @@ namespace CoreLibTest
             var configFile = new ConfigFile("C:\\Gaben");
             var fakeDoc = new XmlDocument();
 
-            var xml = configFile.ToXML(fakeDoc);
-            var parsedFromXML = ConfigFile.FromXML(xml);
+            var xml = configFile.ToXml(fakeDoc);
+            var parsedFromXML = ConfigFile.FromXml(xml);
 
             Assert.IsTrue(parsedFromXML.Equals(configFile), "Converting to XML and then deconverting should return same result");
         }

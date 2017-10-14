@@ -5,8 +5,8 @@ namespace CoreLib
 {
     public class TempRevisionParser
     {
-        IFileSystem _fs;
-        string _path;
+        private readonly IFileSystem _fs;
+        private readonly string _path;
 
         public TempRevisionParser(string path, IFileSystem fs)
         {
@@ -16,23 +16,22 @@ namespace CoreLib
 
         public string FindModFolder()
         {
-            string ret = string.Empty;
+            var ret = string.Empty;
             var folders = _fs.GetDirectories(_path, true);
             foreach (var folder in folders)
             {
-                if (IsModFolder(folder.Path))
-                {
-                    ret = Directory.GetParent(folder.Path).FullName;
-                    break;
-                }
+                if (!IsModFolder(folder.Path)) continue;
+
+                ret = Directory.GetParent(folder.Path).FullName;
+                break;
             }
 
             return ret; 
         }
 
-        private bool IsModFolder(string folder)
+        private static bool IsModFolder(string folder)
         {
-            string onlyName = Path.GetFileName(folder).ToLower();
+            var onlyName = Path.GetFileName(folder)?.ToLower();
             return onlyName == "materials" || onlyName == "models" || onlyName == "maps" || onlyName == "sounds" || onlyName == "particles" || onlyName == "scripts";
         }
     }

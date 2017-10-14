@@ -10,7 +10,7 @@ namespace CoreLibTest
         [TestCategory("MockFileSystem")]
         public void GetFilesReturnsCorrectFiles()
         {
-            MockFileSystem fs = new MockFileSystem();
+            var fs = new MockFileSystem();
 
             fs.CreateFile("C:\\someFolder\\myFile.txt");
             fs.CreateFile("C:\\someFolder\\gaben.txt");
@@ -23,7 +23,7 @@ namespace CoreLibTest
         [TestCategory("MockFileSystem")]
         public void CopyFile()
         {
-            MockFileSystem fs = new MockFileSystem();
+            var fs = new MockFileSystem();
             fs.CreateFile("C:\\someFolder\\myFile.txt"); /* TODO: set data */
             fs.CopyFile("C:\\someFolder\\myFile.txt", "C:\\someFolder\\copy.txt");
 

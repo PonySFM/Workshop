@@ -1,12 +1,13 @@
-﻿using CoreLib;
+﻿using System;
+using CoreLib;
 using CoreLib.Impl;
 
 namespace PonySFM_Workshop
 {
     public class SettingsPresenter : BasePresenter
     {
-        ConfigHandler _config;
-        ConfigFile _file;
+        private readonly ConfigHandler _config;
+        private ConfigFile _file;
 
         public string SFMDirectory
         {
@@ -40,17 +41,20 @@ namespace PonySFM_Workshop
             var parser = new SFMDirectoryParser(SFMDirectory, WindowsFileSystem.Instance);
             var error = parser.Validate();
 
-            if(error == SFMDirectoryParserError.NotExists)
+            switch (error)
             {
-                SaveError = "SFM Directory does not exist.";
-                Reset();
-                return false;
-            }
-            else if(error == SFMDirectoryParserError.NotLikely)
-            {
-                SaveError = "SFM Directory is not valid.";
-                Reset();
-                return false;
+                case SFMDirectoryParserError.NotExists:
+                    SaveError = "SFM Directory does not exist.";
+                    Reset();
+                    return false;
+                case SFMDirectoryParserError.NotLikely:
+                    SaveError = "SFM Directory is not valid.";
+                    Reset();
+                    return false;
+                case SFMDirectoryParserError.OK:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             _file.SFMDirectoryPath = parser.Path;

@@ -10,9 +10,9 @@ namespace CoreLib
 {
     public class ConfigHandler
     {
-        private ConfigParser _configParser;
-        private IFileSystem _fs;
-        private string _filepath;
+        private readonly ConfigParser _configParser;
+        private readonly IFileSystem _fs;
+        private readonly string _filepath;
 
         public ConfigHandler(string filepath, IFileSystem fs)
         {

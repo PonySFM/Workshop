@@ -13,7 +13,7 @@ namespace CoreLibTest
         [TestCategory("SFMDirectoryParser")]
         public void IdentifyInvalidDirectory()
         {
-            string baseDir = "C:\\SecretPlace\\";
+            const string baseDir = "C:\\SecretPlace\\";
             var fs = new MockFileSystem();
             var parser = new SFMDirectoryParser(baseDir, fs);
             Assert.AreEqual(SFMDirectoryParserError.NotExists, parser.Validate());
@@ -23,7 +23,7 @@ namespace CoreLibTest
         [TestCategory("SFMDirectoryParser")]
         public void ShouldUseGameDirIfItExists()
         {
-            string baseDir = "C:\\SFM\\";
+            const string baseDir = "C:\\SFM\\";
             var fs = new MockFileSystem();
             fs.CreateDirectory(baseDir);
             fs.CreateDirectory(baseDir + "game");
@@ -41,7 +41,7 @@ namespace CoreLibTest
         [TestCategory("SFMDirectoryParser")]
         public void IdentifyNotLikelyDirectory()
         {
-            string baseDir = "C:\\AwesomeStuff\\";
+            const string baseDir = "C:\\AwesomeStuff\\";
             var fs = new MockFileSystem();
             fs.AddFile(new MockFile(baseDir, MockFileType.Directory));
             string[] subDirs = { "Ponies", "NSFWStuff" };
@@ -57,7 +57,7 @@ namespace CoreLibTest
         [TestCategory("SFMDirectoryParser")]
         public void IdentifyCorrectDirectory()
         {
-            string baseDir = "C:\\SourceFilmmaker\\game";
+            const string baseDir = "C:\\SourceFilmmaker\\game";
             var fs = new MockFileSystem();
             /* Create a fake default SFM installation */
             fs.AddFile(new MockFile(baseDir, MockFileType.Directory));

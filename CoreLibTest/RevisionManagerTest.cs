@@ -9,7 +9,7 @@ namespace CoreLibTest
     [TestClass]
     public class RevisionManagerTest
     {
-        private string dir = "C:\\SFM";
+        private readonly string dir = "C:\\SFM";
 
         [TestMethod]
         [TestCategory("RevisionManager")]
@@ -40,9 +40,11 @@ namespace CoreLibTest
             fs.CreateDirectory("C:\\tmp\\materials");
             fs.CreateFile("C:\\tmp\\materials\\pony.vmt");
 
-            var files = new List<RevisionFileEntry>();
-            files.Add(RevisionFileEntry.FromFile("C:\\tmp\\models\\pony.vtf", fs));
-            files.Add(RevisionFileEntry.FromFile("C:\\tmp\\materials\\pony.vmt", fs));
+            var files = new List<RevisionFileEntry>
+            {
+                RevisionFileEntry.FromFile("C:\\tmp\\models\\pony.vtf", fs),
+                RevisionFileEntry.FromFile("C:\\tmp\\materials\\pony.vmt", fs)
+            };
 
             var revision = new Revision(1, files);
 
@@ -68,9 +70,11 @@ namespace CoreLibTest
             fs.CreateDirectory("C:\\tmp\\materials");
             fs.CreateFile("C:\\tmp\\materials\\pony.vmt");
 
-            var files = new List<RevisionFileEntry>();
-            files.Add(RevisionFileEntry.FromFile("C:\\tmp\\models\\pony.vtf", fs));
-            files.Add(RevisionFileEntry.FromFile("C:\\tmp\\materials\\pony.vmt", fs));
+            var files = new List<RevisionFileEntry>
+            {
+                RevisionFileEntry.FromFile("C:\\tmp\\models\\pony.vtf", fs),
+                RevisionFileEntry.FromFile("C:\\tmp\\materials\\pony.vmt", fs)
+            };
 
             var revision = new Revision(1, files);
 
