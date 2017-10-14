@@ -25,11 +25,12 @@ namespace PonySFM_Workshop
     /// </summary>
     public partial class DialogWindow : MetroWindow
     {
-        public DialogWindow(string entry = "Are you sure?")
+        public DialogWindow(string title, string entry)
         {
             InitializeComponent();
             Result = PonySFM_Workshop.DialogResult.Cancel;
             DialogLabel.Text = entry;
+            Title = title;
         }
 
         public DialogResult Result { get; private set; }
@@ -63,14 +64,11 @@ namespace PonySFM_Workshop
 
     public static class DialogSystem
     {
-        public static DialogResult Show()
+        public static DialogResult Show(string title, string entry)
         {
-            return new DialogWindow().Result;
-        }
-
-        public static DialogResult Show(string entry)
-        {
-            return new DialogWindow(entry).Result;
+            var dialogWindow = new DialogWindow(title, entry);
+            dialogWindow.ShowDialog();
+            return dialogWindow.Result;
         }
     }
 }

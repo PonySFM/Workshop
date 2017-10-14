@@ -46,10 +46,7 @@ namespace PonySFM_Workshop
             /* FIXME: This should block. It doesn't block. Why doesn't it block? */
             ret = Dispatcher.Invoke(() =>
             {
-                var window = new DialogWindow(string.Format("The file {0} already exists. Overwrite?", file2));
-                window.ShowDialog();
-                var result = window.Result;
-                switch (result)
+                switch (DialogSystem.Show("Conflict", string.Format("The file {0} already exists. Overwrite?", file2)))
                 {
                     case PonySFM_Workshop.DialogResult.Ok:
                         ret = DirectoryCopierFileCopyMode.Copy;
@@ -62,6 +59,7 @@ namespace PonySFM_Workshop
                         break;
                     case PonySFM_Workshop.DialogResult.Cancel:
                         ret = DirectoryCopierFileCopyMode.Cancel;
+                        /* TODO: delete already installed files */
                         break;
                 }
 
