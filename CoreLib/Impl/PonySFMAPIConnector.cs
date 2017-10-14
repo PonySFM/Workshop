@@ -9,8 +9,9 @@ namespace CoreLib.Impl
 {
     public class PonySFMAPIConnector : IAPIConnector
     {
-        string _baseUrl = "https://ponysfm.com";
         static PonySFMAPIConnector singleton;
+        string _baseUrl = "https://ponysfm.com";
+        CookedWebClient _webClient = new CookedWebClient();
 
         public static PonySFMAPIConnector Instance
         {
@@ -24,31 +25,39 @@ namespace CoreLib.Impl
 
         private PonySFMAPIConnector()
         {
+            _webClient.Headers.Add("user-agent", "PSFM_ModManager-" + ModManager.Version);
         }
 
-        public async Task DownloadRevisionAdditionalInformation(Revision revision)
+        /// <summary>
+        /// Fetch a JSON object from a given URL
+        /// </summary>
+        /// <typeparam name="T">JSON object class</typeparam>
+        /// <param name="url">e.g. /api/thing.json</param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        private async Task<T> FetchJSON<T>(string url, params object[] args)
+        {
+            var data = await _webClient.DownloadStringTaskAsync(new Uri(_baseUrl + string.Format(url, args)));
+            return JsonConvert.DeserializeObject<T>(data, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+        }
+
+        /// <summary>
+        /// Fetches and sets metadata for the specified revision.
+        /// </summary>
+        /// <param name="revision"></param>
+        /// <returns></returns>
+        public async Task FetchMetadata(Revision revision)
         {
             int id = revision.ID;
-            var settings = new JsonSerializerSettings()
-            {
-                NullValueHandling = NullValueHandling.Ignore
-            };
 
-            var webClient = new CookedWebClient();
-            webClient.Headers.Add("user-agent", "PSFM_ModManager-" + ModManager.Version);
-
-            var ret = await webClient.DownloadStringTaskAsync(new Uri(string.Format("{0}/api/revision.json?id={1}", _baseUrl, id)));
-            var revisionAPIObject = JsonConvert.DeserializeObject<RevisionAPIObject>(ret);
-
-            ret = await webClient.DownloadStringTaskAsync(new Uri(string.Format("{0}/api/resource.json?id={1}", _baseUrl, revisionAPIObject.resource_id)));
-            var resourceAPIObject = JsonConvert.DeserializeObject<ResourceAPIObject>(ret, settings);
+            var revisionAPIObject = await FetchJSON<RevisionAPIObject>("/api/revision.json?id={0}", id);
+            var resourceAPIObject = await FetchJSON<ResourceAPIObject>("/api/resource.json?id={0}", revisionAPIObject.resource_id);
 
             revision.AdditionalData["ResourceName"] = resourceAPIObject.name;
 
-            if(resourceAPIObject.user_id != 0)
+            if(resourceAPIObject.HasUser())
             {
-                ret = await webClient.DownloadStringTaskAsync(new Uri(string.Format("{0}/api/user.json?id={1}", _baseUrl, resourceAPIObject.user_id)));
-                var userAPIObject = JsonConvert.DeserializeObject<UserAPIObject>(ret);
+                var userAPIObject = await FetchJSON<UserAPIObject>("/api/user.json?id={0}", resourceAPIObject.user_id);
                 revision.AdditionalData["UserName"] = userAPIObject.name;
             }
             else
@@ -59,15 +68,12 @@ namespace CoreLib.Impl
 
         public async Task DownloadRevisionZIP(int id, string filepath, IProgress<int> progress)
         {
-            var webClient = new CookedWebClient();
-            webClient.Headers.Add("user-agent", "PSFM_ModManager-" + ModManager.Version);
-
-            webClient.DownloadProgressChanged += delegate (object sender, DownloadProgressChangedEventArgs e)
+            _webClient.DownloadProgressChanged += delegate (object sender, DownloadProgressChangedEventArgs e)
             {
                 progress.Report(e.ProgressPercentage);
             };
 
-            await webClient.DownloadFileTaskAsync(new Uri(string.Format("{0}/rev/{1}/internal_download_redirect", _baseUrl, id)),
+            await _webClient.DownloadFileTaskAsync(new Uri(string.Format("{0}/rev/{1}/internal_download_redirect", _baseUrl, id)),
                 filepath);
         }
 

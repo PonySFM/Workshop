@@ -8,6 +8,6 @@ namespace CoreLib.Interface
     {
         int FetchCurrentVersion();
         Task DownloadRevisionZIP(int id, string filepath, IProgress<int> progress);
-        Task DownloadRevisionAdditionalInformation(Revision revision);
+        Task FetchMetadata(Revision revision);
     }
 }

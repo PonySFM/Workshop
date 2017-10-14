@@ -34,7 +34,7 @@ namespace CoreLib.Impl
             _fakeRevisions.Add(new Tuple<string, Revision>(dir, revision));
         }
 
-        public async Task DownloadRevisionAdditionalInformation(Revision revision)
+        public async Task FetchMetadata(Revision revision)
         {
             // NOP
             await Task.FromResult(false);

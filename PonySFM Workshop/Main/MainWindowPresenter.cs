@@ -142,7 +142,7 @@ namespace PonySFM_Workshop
             {
                 if (revision.MissingAdditionalData())
                 {
-                    Task.Run(async () => { await PonySFMAPIConnector.Instance.DownloadRevisionAdditionalInformation(revision); } ).Wait();
+                    Task.Run(async () => { await PonySFMAPIConnector.Instance.FetchMetadata(revision); } ).Wait();
                 }
             }
             _revisionManager.Database.WriteDBDisk();

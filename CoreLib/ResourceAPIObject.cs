@@ -13,5 +13,10 @@
         public string slug;
         public int score;
         public string content_type;
+
+        public bool HasUser()
+        {
+            return user_id != 0;
+        }
     }
 }
