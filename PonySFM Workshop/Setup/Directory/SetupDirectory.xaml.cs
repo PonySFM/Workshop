@@ -45,7 +45,7 @@ namespace PonySFM_Workshop.Setup.Directory
 
             if (error == SFMDirectoryParserError.NotLikely)
                 if (MessageBox.Show("The directory does not seem like the typical SFM installation. Continue?",
-                    "Error", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.No)
+                    "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                     return;
 
             _config.Write(new ConfigFile(parser.Path));
