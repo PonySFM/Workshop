@@ -1,30 +1,20 @@
-﻿using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 
 namespace PonySFM_Workshop.Base
 {
-    public class BasePresenter : IPresenter, INotifyPropertyChanged
+    public class BasePresenter : BaseNotifyPropertyChanged, IPresenter
     {
-        protected FrameworkElement _view;
+        private FrameworkElement _view;
 
         public FrameworkElement View
         {
-            get
-            {
-                return _view;
-            }
+            get => _view;
 
             set
             {
                 _view = value;
                 _view.DataContext = this;
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void NotifyPropertyChange(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

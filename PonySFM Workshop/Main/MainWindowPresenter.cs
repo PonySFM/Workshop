@@ -7,8 +7,7 @@ using PonySFM_Workshop.Base;
 
 namespace PonySFM_Workshop.Main
 {
-    /* TODO: BasePresenter is false here because actually only want NotifyPropertyChange. Refactor? */
-    public class RevisionListItem : BasePresenter
+    public class RevisionListItem : BaseNotifyPropertyChanged
     {
         private bool _checked;
 
@@ -28,7 +27,7 @@ namespace PonySFM_Workshop.Main
             }
         }
 
-        public Revision Revision { get; set; }
+        public Revision Revision { get; private set; }
         public string UserName => Revision.GetMetadataValue("UserName");
         public string ResourceName => Revision.GetMetadataValue("ResourceName");
         public string InstallationTime => Revision.GetMetadataValue("InstallationTime");
