@@ -2,7 +2,7 @@
 
 namespace PonySFM_Workshop.Base
 {
-    public class BasePresenter : BaseNotifyPropertyChanged, IPresenter
+    public abstract class BasePresenter : BaseNotifyPropertyChanged, IPresenter
     {
         private FrameworkElement _view;
 
