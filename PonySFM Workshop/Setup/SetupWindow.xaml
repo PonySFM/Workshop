@@ -10,7 +10,7 @@
         GlowBrush="{StaticResource AccentColorBrush}"
         Style="{DynamicResource CleanWindowStyleKey}"
         WindowStartupLocation="CenterScreen"
-        Title="PonySFM Setup" Height="460.845" Width="600" Closing="Window_Closing">
+        Title="" Height="460.845" Width="600" Closing="Window_Closing">
     <Grid>
         <StackPanel Height="Auto">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,0">

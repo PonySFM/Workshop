@@ -10,6 +10,7 @@
         GlowBrush="{StaticResource AccentColorBrush}"
         Style="{StaticResource CleanWindowStyleKey}"
         ResizeMode="CanResizeWithGrip"
+        WindowStartupLocation="CenterScreen"
         Title="" Closed="MetroWindow_Closed"
         ShowIconOnTitleBar="True"
         MouseDown="MetroWindow_MouseDown" Loaded="MetroWindow_Loaded">

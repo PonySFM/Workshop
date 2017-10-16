@@ -12,7 +12,7 @@
             <Label FontSize="20" HorizontalAlignment="Center" Content="PonySFM Workshop Setup"/>
             <Label HorizontalAlignment="Center" FontSize="13" Content="Welcome to the PonySFM Workshop!"/>
             <Label HorizontalAlignment="Center" FontSize="13" Content="Just a few more things to set up."/>
-            <Image x:Name="image" Height="100" Width="100"/>
+            <Image x:Name="Image" Height="100" Width="100"/>
         </StackPanel>
         <Button Name="BtnNext" Width="60" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,30" Click="BtnNext_Click">Next</Button>
     </Grid>
