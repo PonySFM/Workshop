@@ -2,7 +2,7 @@ language: csharp
 solution: "PonySFM Desktop.sln"
 install:
   - nuget restore "PonySFM Desktop.sln"
-  - nuget install NUnit.Runners -Version 3.8.1 -OutputDirectory testrunner
+  - nuget install NUnit.console -Version 3.7.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release ./CoreLibTest/CoreLibTest.csproj
-  - mono ./testrunner/NUnit.Runners.3.8.1/tools/nunit-console.exe ./CoreLibTest/bin/Release/CoreLibTest.dll
+  - mono ./testrunner/NUnit.console.3.7.0/tools/nunit3-console.exe ./CoreLibTest/bin/Release/CoreLibTest.dll
