@@ -18,7 +18,7 @@ namespace PonySFM_Workshop.Installation
 
         public InstallationWindow(List<int> ids, RevisionManager revisionMgr, bool closeOnFinish = false)
         {
-            _presenter = new InstallationPresenter(PonySfmapiConnector.Instance, WindowsFileSystem.Instance, revisionMgr, ids);
+            _presenter = new InstallationPresenter(PonySFMAPIConnector.Instance, WindowsFileSystem.Instance, revisionMgr, ids);
             _presenter.View = this;
             _closeOnFinish = closeOnFinish;
 

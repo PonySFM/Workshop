@@ -14,13 +14,13 @@ namespace PonySFM_Workshop.Main
         readonly ConfigFile _configFile;
         MainWindow _window;
         readonly MainWindowPresenter _presenter;
-        SfmDirectoryParser _sfmDirParser;
+        SFMDirectoryParser _sfmDirParser;
 
         public MainPage(MainWindow window, ConfigFile configFile, RevisionManager revisionManager)
         {
             _window = window;
             _configFile = configFile;
-            _sfmDirParser = new SfmDirectoryParser(_configFile.SfmDirectoryPath, WindowsFileSystem.Instance);
+            _sfmDirParser = new SFMDirectoryParser(_configFile.SfmDirectoryPath, WindowsFileSystem.Instance);
             _presenter = new MainWindowPresenter(revisionManager);
             _presenter.View = this;
             InitializeComponent();
@@ -46,7 +46,7 @@ namespace PonySFM_Workshop.Main
             if (item == null)
                 return;
 
-            var url = PonySfmapiConnector.Instance.GetRevisionUrl((item as RevisionListItem).Revision);
+            var url = PonySFMAPIConnector.Instance.GetRevisionUrl((item as RevisionListItem).Revision);
             Process.Start(url);
         }
 

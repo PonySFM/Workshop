@@ -3,7 +3,7 @@ using CoreLib.Interface;
 
 namespace CoreLib
 {
-    public class SfmDirectoryParser
+    public class SFMDirectoryParser
     {
         private readonly IFileSystem _fs;
 
@@ -11,7 +11,7 @@ namespace CoreLib
         public string GameinfoPath { get; }
         public string InstallationPath { get; }
 
-        public SfmDirectoryParser(string filepath, IFileSystem fs)
+        public SFMDirectoryParser(string filepath, IFileSystem fs)
         {
             Path = filepath;
             _fs = fs;
@@ -37,15 +37,15 @@ namespace CoreLib
                 _fs.CreateDirectory(InstallationPath);
         }
 
-        public SfmDirectoryParserError Validate()
+        public SFMDirectoryParserError Validate()
         {
             if ((!_fs.DirectoryExists(Path)))
-                return SfmDirectoryParserError.NotExists;
+                return SFMDirectoryParserError.NotExists;
 
             if (!HasCorrectSubDirs())
-                return SfmDirectoryParserError.NotLikely;
+                return SFMDirectoryParserError.NotLikely;
 
-            return SfmDirectoryParserError.Ok;
+            return SFMDirectoryParserError.Ok;
         }
 
         private bool HasCorrectSubDirs()

@@ -1,6 +1,6 @@
 ﻿namespace CoreLib
 {
-    public enum SfmDirectoryParserError
+    public enum SFMDirectoryParserError
     {
         Ok,
         NotExists,

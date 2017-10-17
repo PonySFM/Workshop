@@ -12,7 +12,7 @@ namespace CoreLib
         private readonly ConfigFile _configFile;
         private readonly IFileSystem _fs;
         private readonly string _path;
-        private readonly SfmDirectoryParser _dirParser;
+        private readonly SFMDirectoryParser _dirParser;
 
         public delegate void FileExistsHandler(object sender, DirectoryCopierFileExistsEventArgs e);
         public event FileExistsHandler OnFileExists;
@@ -24,7 +24,7 @@ namespace CoreLib
             _configFile = configFile;
             _fs = fs;
             _path = configFile.SfmDirectoryPath;
-            _dirParser = new SfmDirectoryParser(_path, fs);
+            _dirParser = new SFMDirectoryParser(_path, fs);
             CreateDataFolder();
             Database = new RevisionDatabase(Path.Combine(_dirParser.InstallationPath, "ponysfm.xml"), _fs);
         }

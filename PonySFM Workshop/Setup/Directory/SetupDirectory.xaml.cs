@@ -34,16 +34,16 @@ namespace PonySFM_Workshop.Setup.Directory
         private void BtnNext_Click(object sender, RoutedEventArgs e)
         {
             var dir = DirectoryPathBox.Text;
-            var parser = new SfmDirectoryParser(dir, WindowsFileSystem.Instance);
+            var parser = new SFMDirectoryParser(dir, WindowsFileSystem.Instance);
             var error = parser.Validate();
 
-            if (error == SfmDirectoryParserError.NotExists)
+            if (error == SFMDirectoryParserError.NotExists)
             {
                 MessageBox.Show("The path chosen is not a valid directory.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            if (error == SfmDirectoryParserError.NotLikely)
+            if (error == SFMDirectoryParserError.NotLikely)
                 if (MessageBox.Show("The directory does not seem like the typical SFM installation. Continue?",
                     "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                     return;

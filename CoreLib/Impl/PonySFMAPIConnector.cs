@@ -7,15 +7,15 @@ using CoreLib.Interface;
 
 namespace CoreLib.Impl
 {
-    public class PonySfmapiConnector : IApiConnector
+    public class PonySFMAPIConnector : IApiConnector
     {
-        private static PonySfmapiConnector _singleton;
+        private static PonySFMAPIConnector _singleton;
         private const string BaseUrl = "https://ponysfm.com";
         private readonly CookedWebClient _webClient = new CookedWebClient();
 
-        public static PonySfmapiConnector Instance => _singleton ?? (_singleton = new PonySfmapiConnector());
+        public static PonySFMAPIConnector Instance => _singleton ?? (_singleton = new PonySFMAPIConnector());
 
-        private PonySfmapiConnector()
+        private PonySFMAPIConnector()
         {
             _webClient.Headers.Add("user-agent", "PSFM_ModManager-" + ModManager.Version);
         }

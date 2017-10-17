@@ -39,20 +39,20 @@ namespace PonySFM_Workshop.Main
 
         public bool Save()
         {
-            var parser = new SfmDirectoryParser(SfmDirectory, WindowsFileSystem.Instance);
+            var parser = new SFMDirectoryParser(SfmDirectory, WindowsFileSystem.Instance);
             var error = parser.Validate();
 
             switch (error)
             {
-                case SfmDirectoryParserError.NotExists:
+                case SFMDirectoryParserError.NotExists:
                     SaveError = "SFM Directory does not exist.";
                     Reset();
                     return false;
-                case SfmDirectoryParserError.NotLikely:
+                case SFMDirectoryParserError.NotLikely:
                     SaveError = "SFM Directory is not valid.";
                     Reset();
                     return false;
-                case SfmDirectoryParserError.Ok:
+                case SFMDirectoryParserError.Ok:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

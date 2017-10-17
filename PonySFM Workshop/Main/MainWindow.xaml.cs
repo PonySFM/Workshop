@@ -18,7 +18,7 @@ namespace PonySFM_Workshop.Main
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private SfmDirectoryParser _sfmDirParser;
+        private SFMDirectoryParser _sfmDirParser;
         private ConfigFile _configFile;
 
         private static MainWindow _instance;
@@ -42,7 +42,7 @@ namespace PonySFM_Workshop.Main
             var config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
             var configFile = config.Read();
             var revMgr = new RevisionManager(configFile, WindowsFileSystem.Instance);
-            var sfmDirParser = new SfmDirectoryParser(configFile.SfmDirectoryPath, WindowsFileSystem.Instance);
+            var sfmDirParser = new SFMDirectoryParser(configFile.SfmDirectoryPath, WindowsFileSystem.Instance);
 
             _sfmDirParser = sfmDirParser;
             _configFile = configFile;
