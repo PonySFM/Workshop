@@ -1,16 +1,14 @@
-﻿using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System.IO;
 using CoreLib;
 using CoreLib.Impl;
-using CoreLib.Interface;
 
 namespace CoreLibTest
 {
-    [TestClass]
+    [TestFixture]
     public class SFMDirectoryParserTest
     {
-        [TestMethod]
-        [TestCategory("SFMDirectoryParser")]
+        [Test]
         public void IdentifyInvalidDirectory()
         {
             const string baseDir = "C:\\SecretPlace\\";
@@ -19,8 +17,7 @@ namespace CoreLibTest
             Assert.AreEqual(SFMDirectoryParserError.NotExists, parser.Validate());
         }
 
-        [TestMethod]
-        [TestCategory("SFMDirectoryParser")]
+        [Test]
         public void ShouldUseGameDirIfItExists()
         {
             const string baseDir = "C:\\SFM\\";
@@ -37,8 +34,7 @@ namespace CoreLibTest
             Assert.AreEqual("C:\\SFM2", otherParser.Path);
         }
 
-        [TestMethod]
-        [TestCategory("SFMDirectoryParser")]
+        [Test]
         public void IdentifyNotLikelyDirectory()
         {
             const string baseDir = "C:\\AwesomeStuff\\";
@@ -53,8 +49,7 @@ namespace CoreLibTest
             Assert.AreEqual(SFMDirectoryParserError.NotLikely, parser.Validate());
         }
 
-        [TestMethod]
-        [TestCategory("SFMDirectoryParser")]
+        [Test]
         public void IdentifyCorrectDirectory()
         {
             const string baseDir = "C:\\SourceFilmmaker\\game";

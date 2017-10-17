@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreLib;
@@ -6,13 +6,12 @@ using CoreLib.Impl;
 
 namespace CoreLibTest
 {
-    [TestClass]
+    [TestFixture]
     public class RevisionManagerTest
     {
         private readonly string _dir = "C:\\SFM";
 
-        [TestMethod]
-        [TestCategory("RevisionManager")]
+        [Test]
         public void CreatesDirectory()
         {
             var configFile = new ConfigFile(_dir);
@@ -22,8 +21,7 @@ namespace CoreLibTest
             Assert.IsTrue(fs.DirectoryExists(_dir));
         }
 
-        [TestMethod]
-        [TestCategory("RevisionManager")]
+        [Test]
         public async Task InstallsRevisionCorrectly()
         {
             var configFile = new ConfigFile(_dir);
@@ -52,8 +50,7 @@ namespace CoreLibTest
             Assert.IsTrue(revisionManager.VerifyInstalled(revision, null));
         }
 
-        [TestMethod]
-        [TestCategory("RevisionManager")]
+        [Test]
         public async Task UninstallsRevisionCorrectly()
         {
             var configFile = new ConfigFile(_dir);

@@ -1,14 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System.Xml;
 using CoreLib;
 
 namespace CoreLibTest
 {
-    [TestClass]
+    [TestFixture]
     public class ConfigFileTest
     {
-        [TestMethod]
-        [TestCategory("ConfigFile")]
+        [Test]
         public void EnsureCorrectXmlParsing()
         {
             var configFile = new ConfigFile("C:\\Gaben");

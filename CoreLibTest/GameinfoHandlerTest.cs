@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using NUnit.Framework;
+using System;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CoreLib;
 using CoreLib.Impl;
 
 namespace CoreLibTest
 {
-    [TestClass]
+    [TestFixture]
     public class GameinfoHandlerTest
     {
         /// <summary>
@@ -46,7 +43,7 @@ namespace CoreLibTest
             "{\n" +
             "}";
 
-        [TestMethod]
+        [Test]
         public void TestCorrectExecution()
         {
             var fs = new MockFileSystem();
@@ -62,7 +59,7 @@ namespace CoreLibTest
             Assert.AreEqual(_gameinfoDataComplete, newdata);
         }
 
-        [TestMethod]
+        [Test]
         public void TestFaultyExecution()
         {
             var fs = new MockFileSystem();
@@ -74,7 +71,7 @@ namespace CoreLibTest
             Assert.AreEqual(GameinfoHandlerError.FileInvalid, error);
         }
 
-        [TestMethod]
+        [Test]
         public void TestNopExecution()
         {
             var fs = new MockFileSystem();
@@ -86,7 +83,7 @@ namespace CoreLibTest
             Assert.AreEqual(GameinfoHandlerError.AlreadyAdded, error);
         }
 
-        [TestMethod]
+        [Test]
         public void TestBackup()
         {
             var fs = new MockFileSystem();

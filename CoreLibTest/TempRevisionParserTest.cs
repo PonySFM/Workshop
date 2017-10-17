@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using CoreLib;
 using CoreLib.Impl;
 
 namespace CoreLibTest
 {
-    [TestClass]
+    [TestFixture]
     public class TempRevisionParserTest
     {
-        [TestMethod]
+        [Test]
         public void FindsModFolder()
         {
             var fs = new MockFileSystem();

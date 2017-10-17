@@ -1,13 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using CoreLib.Impl;
 
 namespace CoreLibTest
 {
-    [TestClass]
+    [TestFixture]
     public class MockFileSystemTest
     {
-        [TestMethod]
-        [TestCategory("MockFileSystem")]
+        [Test]
         public void GetFilesReturnsCorrectFiles()
         {
             var fs = new MockFileSystem();
@@ -19,8 +18,7 @@ namespace CoreLibTest
             Assert.AreEqual(files.Count, 2);
         }
 
-        [TestMethod]
-        [TestCategory("MockFileSystem")]
+        [Test]
         public void CopyFile()
         {
             var fs = new MockFileSystem();

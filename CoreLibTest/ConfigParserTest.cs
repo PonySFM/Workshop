@@ -1,15 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System.Xml;
 using CoreLib;
 using CoreLib.Impl;
 
 namespace CoreLibTest
 {
-    [TestClass]
+    [TestFixture]
     public class ConfigParserTest
     {
-        [TestMethod]
-        [TestCategory("ConfigParser")]
+        [Test]
         public void ParsesCorrectly()
         {
             var doc = new XmlDocument();
@@ -23,8 +22,7 @@ namespace CoreLibTest
             Assert.IsTrue(doc.ChildNodes.Count == 1);
         }
 
-        [TestMethod]
-        [TestCategory("ConfigParser")]
+        [Test]
         public void WritesCorrectly()
         {
             var configFile = new ConfigFile("C:\\SFM");

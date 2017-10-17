@@ -1,6 +1,6 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Xml;
 using CoreLib;
@@ -9,21 +9,20 @@ using CoreLib.Interface;
 
 namespace CoreLibTest
 {
-    [TestClass]
+    [TestFixture]
     public class RevisionDatabaseTest
     {
         private static string _filepath;
         private static string _stubfile;
 
-        [ClassInitialize]
-        public static void Setup(TestContext context)
+        [OneTimeSetUp]
+        public static void Setup()
         {
             _filepath = Path.Combine(Path.GetTempPath(), "ponysfmtest.xml");
             _stubfile = Path.Combine(Path.GetTempPath(), "stubtest.xml");
         }
 
-        [TestMethod]
-        [TestCategory("RevisionDatabase")]
+        [Test]
         public void CreateDefaultDb()
         {
             var fs = new MockFileSystem();
@@ -37,8 +36,7 @@ namespace CoreLibTest
             Assert.IsTrue(!doc.FirstChild.HasChildNodes);
         }
 
-        [TestMethod]
-        [TestCategory("RevisionDatabase")]
+        [Test]
         public void PopulateData()
         {
             var fs = new MockFileSystem();

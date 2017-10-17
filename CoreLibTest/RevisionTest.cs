@@ -1,15 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System.IO;
 using CoreLib;
 using CoreLib.Impl;
 
 namespace CoreLibTest
 {
-    [TestClass]
+    [TestFixture]
     public class RevisionTest
     {
-        [TestMethod]
-        [TestCategory("RevisionTest")]
+        [Test]
         public void CreatesTempRevisionCorrectly()
         {
             var fs = new MockFileSystem();

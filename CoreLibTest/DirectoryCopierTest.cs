@@ -1,5 +1,5 @@
-﻿using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
@@ -8,11 +8,10 @@ using CoreLib.Impl;
 
 namespace CoreLibTest
 {
-    [TestClass]
+    [TestFixture]
     public class DirectoryCopierTest
     {
-        [TestMethod]
-        [TestCategory("DirectoryCopier")]
+        [Test]
         public async Task CopiesDirectoryCorrectlyOnlyFiles()
         {
             var fs = new MockFileSystem();
@@ -28,8 +27,7 @@ namespace CoreLibTest
             Assert.IsTrue(fs.FileExists("C:\\SFM\\file2.txt"));
         }
 
-        [TestMethod]
-        [TestCategory("DirectoryCopier")]
+        [Test]
         public async Task CopiesDirectoryCorrectlyWithSubDirs()
         {
             var fs = new MockFileSystem();
@@ -55,8 +53,7 @@ namespace CoreLibTest
             Assert.IsTrue(fs.FileExists("C:\\SFM\\folder\\folder2\\file4.txt"));
         }
 
-        [TestMethod]
-        [TestCategory("DirectoryCopier")]
+        [Test]
         public async Task FiresEventCorrectly()
         {
             var fs = new MockFileSystem();
@@ -94,8 +91,7 @@ namespace CoreLibTest
             Assert.IsTrue(progressHistory.Contains(100));
         }
 
-        [TestMethod]
-        [TestCategory("DirectoryCopier")]
+        [Test]
         public async Task FiresEventCorrectlyWithOverwrite()
         {
             var fs = new MockFileSystem();
@@ -125,8 +121,7 @@ namespace CoreLibTest
             Assert.AreEqual(fs.ReadFile("C:\\SFM\\file1.txt"), d1);
         }
 
-        [TestMethod]
-        [TestCategory("DirectoryCopier")]
+        [Test]
         public async Task CopyAllShouldSkipEvents()
         {
             var fs = new MockFileSystem();

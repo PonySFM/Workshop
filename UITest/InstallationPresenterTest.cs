@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CoreLib;
 using CoreLib.Impl;
-using PonySFM_Workshop;
 using PonySFM_Workshop.Installation;
+using NUnit.Framework;
 
 namespace UITest
 {
-    [TestClass]
+    [TestFixture]
     public class InstallationPresenterTest
     {
-        [TestMethod]
+        [Test]
         public async Task ExecutesCorrectly()
         {
             var fs = new MockFileSystem();

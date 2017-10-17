@@ -1,12 +1,12 @@
-﻿using CoreLib.Impl;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using CoreLib.Impl;
 
 namespace CoreLibTest
 {
-    [TestClass]
+    [TestFixture]
     public class SnakeCaseContractResolverTest
     {
-        [TestMethod]
+        [Test]
         public void ResolvesCorrectly()
         {
             Assert.AreEqual(SnakeCaseContractResolver.GetSnakeCase("ID"), "id");
