@@ -16,7 +16,7 @@ namespace UITest
             var fs = new MockFileSystem();
             var api = new MockApiConnector(fs);
             var revisionMgr = new RevisionManager(new ConfigFile("C:\\SFM"), fs);
-            var ids = new List<int>() { 1337 };
+            var ids = new List<int> { 1337 };
             var installationPresenter = new InstallationPresenter(api, fs, revisionMgr, ids);
 
             /* Create fake revision to download */
