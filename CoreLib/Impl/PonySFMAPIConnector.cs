@@ -7,15 +7,15 @@ using CoreLib.Interface;
 
 namespace CoreLib.Impl
 {
-    public class PonySFMAPIConnector : IAPIConnector
+    public class PonySfmapiConnector : IApiConnector
     {
-        private static PonySFMAPIConnector _singleton;
+        private static PonySfmapiConnector _singleton;
         private const string BaseUrl = "https://ponysfm.com";
         private readonly CookedWebClient _webClient = new CookedWebClient();
 
-        public static PonySFMAPIConnector Instance => _singleton ?? (_singleton = new PonySFMAPIConnector());
+        public static PonySfmapiConnector Instance => _singleton ?? (_singleton = new PonySfmapiConnector());
 
-        private PonySFMAPIConnector()
+        private PonySfmapiConnector()
         {
             _webClient.Headers.Add("user-agent", "PSFM_ModManager-" + ModManager.Version);
         }
@@ -30,7 +30,12 @@ namespace CoreLib.Impl
         private async Task<T> FetchJson<T>(string url, params object[] args)
         {
             var data = await _webClient.DownloadStringTaskAsync(new Uri(BaseUrl + string.Format(url, args)));
-            return JsonConvert.DeserializeObject<T>(data, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+            var settings = new JsonSerializerSettings()
+            {
+                ContractResolver = new SnakeCaseContractResolver(),
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            return JsonConvert.DeserializeObject<T>(data, settings);
         }
 
         /// <summary>
@@ -42,15 +47,15 @@ namespace CoreLib.Impl
         {
             var id = revision.ID;
 
-            var revisionApiObject = await FetchJson<RevisionAPIObject>("/api/revision.json?id={0}", id);
-            var resourceApiObject = await FetchJson<ResourceAPIObject>("/api/resource.json?id={0}", revisionApiObject.resource_id);
+            var revisionApiObject = await FetchJson<RevisionApiObject>("/api/revision.json?id={0}", id);
+            var resourceApiObject = await FetchJson<ResourceApiObject>("/api/resource.json?id={0}", revisionApiObject.ResourceID);
 
-            revision.Metadata["ResourceName"] = resourceApiObject.name;
+            revision.Metadata["ResourceName"] = resourceApiObject.Name;
 
             if(resourceApiObject.HasUser())
             {
-                var userApiObject = await FetchJson<UserAPIObject>("/api/user.json?id={0}", resourceApiObject.user_id);
-                revision.Metadata["UserName"] = userApiObject.name;
+                var userApiObject = await FetchJson<UserApiObject>("/api/user.json?id={0}", resourceApiObject.UserId);
+                revision.Metadata["UserName"] = userApiObject.Name;
             }
             else
             {
@@ -58,7 +63,7 @@ namespace CoreLib.Impl
             }
         }
 
-        public async Task DownloadRevisionZIP(int id, string filepath, IProgress<int> progress)
+        public async Task DownloadRevisionZip(int id, string filepath, IProgress<int> progress)
         {
             _webClient.DownloadProgressChanged += delegate (object sender, DownloadProgressChangedEventArgs e)
             {

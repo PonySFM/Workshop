@@ -1,9 +1,14 @@
-﻿namespace CoreLib
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace CoreLib
 {
-    public class UserAPIObject
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
+    public class UserApiObject
     {
-        public int id;
-        public string name;
-        public string slug;
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Slug { get; set; }
     }
 }

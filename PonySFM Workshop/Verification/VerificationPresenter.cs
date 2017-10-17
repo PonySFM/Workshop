@@ -92,9 +92,9 @@ namespace PonySFM_Workshop.Verification
             if(failedIDs.Count > 0)
             {
                 LogInstallation("Some revisions failed to validate:\n");
-                foreach (var failedID in failedIDs)
+                foreach (var failedId in failedIDs)
                 {
-                    LogInstallation("    " + failedID + "\n");
+                    LogInstallation("    " + failedId + "\n");
                 }
             }
             else

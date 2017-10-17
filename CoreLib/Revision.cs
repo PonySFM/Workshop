@@ -7,29 +7,11 @@ using CoreLib.Interface;
 
 namespace CoreLib
 {
-    public class RevisionFileEntry
-    {
-        public string Path { get; set; }
-        public string Sha512 { get; set; }
-
-        public RevisionFileEntry(string path, string sha256)
-        {
-            Path = path;
-            Sha512 = sha256;
-        }
-
-        public static RevisionFileEntry FromFile(string path, IFileSystem fs)
-        {
-            var checksum = fs.GetChecksum(path);
-            return new RevisionFileEntry(path, checksum);
-        }
-    }
-
     public class Revision
     {
-        public int ID { get; set; }
-        public List<RevisionFileEntry> Files { get; set; }
-        public Dictionary<string, string> Metadata { get; set; }
+        public int ID { get; private set; }
+        public List<RevisionFileEntry> Files { get; private set; }
+        public Dictionary<string, string> Metadata { get; private set; }
 
         public Revision(int id, List<RevisionFileEntry> files)
         {

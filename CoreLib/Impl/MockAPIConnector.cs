@@ -6,12 +6,12 @@ using CoreLib.Interface;
 
 namespace CoreLib.Impl
 {
-    public class MockAPIConnector : IAPIConnector
+    public class MockApiConnector : IApiConnector
     {
         private readonly List<Tuple<string, Revision>> _fakeRevisions = new List<Tuple<string, Revision>>();
         private readonly IFileSystem _fs;
 
-        public MockAPIConnector(IFileSystem fs)
+        public MockApiConnector(IFileSystem fs)
         {
             _fs = fs;
         }
@@ -27,7 +27,7 @@ namespace CoreLib.Impl
             await Task.FromResult(false);
         }
 
-        public async Task DownloadRevisionZIP(int id, string filepath, IProgress<int> progress)
+        public async Task DownloadRevisionZip(int id, string filepath, IProgress<int> progress)
         {
             var rev = _fakeRevisions.Find(r => r.Item2.ID == id);
             if (rev == null)

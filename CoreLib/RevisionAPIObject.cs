@@ -1,17 +1,22 @@
-﻿namespace CoreLib
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace CoreLib
 {
-    public class RevisionAPIObject
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
+    public class RevisionApiObject
     {
-        public int id;
-        public string changeset;
-        public int filesize;
-        public string filename;
-        public int resource_id;
-        public int no;
-        public int mdl_count;
-        public int vtf_count;
-        public int vmt_count;
-        public int bsp_count;
-        public int wav_count;
+        public int ID { get; set; }
+        public string Changeset { get; set; }
+        public int Filesize { get; set; }
+        public string Filename { get; set; }
+        public int ResourceID { get; set; }
+        public int No { get; set; }
+        public int MdlCount { get; set; }
+        public int VtfCount { get; set; }
+        public int VmtCount { get; set; }
+        public int BspCount { get; set; }
+        public int WavCount { get; set; }
     }
 }

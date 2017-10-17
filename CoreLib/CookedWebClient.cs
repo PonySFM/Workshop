@@ -5,16 +5,16 @@ namespace CoreLib
 {
     public class CookedWebClient : WebClient
     {
-        CookieContainer cookies = new CookieContainer();
+        readonly CookieContainer _cookies = new CookieContainer();
 
-        public CookieContainer Cookies { get { return cookies; } }
+        public CookieContainer Cookies { get { return _cookies; } }
 
         protected override WebRequest GetWebRequest(Uri address)
         {
-            WebRequest request = base.GetWebRequest(address);
+            var request = base.GetWebRequest(address);
 
             if(request.GetType() == typeof(HttpWebRequest))
-              ((HttpWebRequest)request).CookieContainer = cookies;
+              ((HttpWebRequest)request).CookieContainer = _cookies;
 
             return request;
         }

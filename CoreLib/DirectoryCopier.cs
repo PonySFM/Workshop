@@ -139,45 +139,4 @@ namespace CoreLib
             OnProgress?.Invoke(this, eventArgs);
         }
     }
-
-    public class DirectoryProgressEventArgs : EventArgs
-    {
-        public int Progress { get; private set; }
-
-        public DirectoryProgressEventArgs(int progress)
-        {
-            Progress = progress;
-        }
-    }
-
-    public class DirectoryCopierCopyEventArgs : EventArgs
-    {
-        public string File1 { get; private set; }
-        public string File2 { get; private set; }
-
-        public DirectoryCopierCopyEventArgs(string file1, string file2)
-        {
-            File1 = file1;
-            File2 = file2;
-        }
-    }
-
-    public enum DirectoryCopierFileCopyMode
-    {
-        DoNotCopy,
-        Copy,
-        CopyAll,
-        Cancel
-    }
-
-    public class DirectoryCopierFileExistsEventArgs : DirectoryCopierCopyEventArgs
-    {
-        public DirectoryCopierFileCopyMode FileCopyMode { get; set; }
-
-        public DirectoryCopierFileExistsEventArgs(string file1, string file2) : base(file1, file2)
-        {
-            /* This default value will only be used if no one registers to the OnFileCopy event */
-            FileCopyMode = DirectoryCopierFileCopyMode.Copy;
-        }
-    }
 }

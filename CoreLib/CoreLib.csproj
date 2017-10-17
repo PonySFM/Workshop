@@ -55,8 +55,18 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DirectoryCopier.cs" />
+    <Compile Include="DirectoryCopierCopyEventArgs.cs" />
+    <Compile Include="DirectoryCopierFileCopyMode.cs" />
+    <Compile Include="DirectoryCopierFileExistsEventArgs.cs" />
+    <Compile Include="DirectoryProgressEventArgs.cs" />
     <Compile Include="FileUtil.cs" />
     <Compile Include="GameinfoHandler.cs" />
+    <Compile Include="GameinfoHandlerError.cs" />
+    <Compile Include="Impl\MockFile.cs" />
+    <Compile Include="Impl\MockFileType.cs" />
+    <Compile Include="Impl\SnakeCaseContractResolver.cs" />
+    <Compile Include="Impl\WindowsFile.cs" />
+    <Compile Include="InstallationResult.cs" />
     <Compile Include="Interface\IAPIConnector.cs" />
     <Compile Include="Interface\IFile.cs" />
     <Compile Include="Interface\IFileSystem.cs" />
@@ -71,8 +81,10 @@
     <Compile Include="Revision.cs" />
     <Compile Include="RevisionAPIObject.cs" />
     <Compile Include="RevisionDatabase.cs" />
+    <Compile Include="RevisionFileEntry.cs" />
     <Compile Include="RevisionManager.cs" />
     <Compile Include="SFMDirectoryParser.cs" />
+    <Compile Include="SFMDirectoryParserError.cs" />
     <Compile Include="TempRevisionParser.cs" />
     <Compile Include="UserAPIObject.cs" />
     <Compile Include="Impl\WindowsFileSystem.cs" />

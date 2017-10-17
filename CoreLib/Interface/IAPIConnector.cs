@@ -4,10 +4,10 @@ using CoreLib;
 
 namespace CoreLib.Interface
 {
-    public interface IAPIConnector
+    public interface IApiConnector
     {
         int FetchCurrentVersion();
-        Task DownloadRevisionZIP(int id, string filepath, IProgress<int> progress);
+        Task DownloadRevisionZip(int id, string filepath, IProgress<int> progress);
         Task FetchMetadata(Revision revision);
     }
 }

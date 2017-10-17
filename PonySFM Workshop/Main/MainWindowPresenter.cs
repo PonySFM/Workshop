@@ -7,37 +7,6 @@ using PonySFM_Workshop.Base;
 
 namespace PonySFM_Workshop.Main
 {
-    public class RevisionListItem : BaseNotifyPropertyChanged
-    {
-        private bool _checked;
-
-        public int ID => Revision.ID;
-
-        public bool Checked
-        {
-            get
-            {
-                return _checked;
-            }
-
-            set
-            {
-                _checked = value;
-                NotifyPropertyChange("Checked");
-            }
-        }
-
-        public Revision Revision { get; private set; }
-        public string UserName => Revision.GetMetadataValue("UserName");
-        public string ResourceName => Revision.GetMetadataValue("ResourceName");
-        public string InstallationTime => Revision.GetMetadataValue("InstallationTime");
-
-        public RevisionListItem(Revision revision)
-        {
-            Revision = revision;
-        }
-    }
-
     public class MainWindowPresenter : BasePresenter
     {
         private readonly ObservableCollection<RevisionListItem> _items = new ObservableCollection<RevisionListItem>();
@@ -84,10 +53,10 @@ namespace PonySFM_Workshop.Main
             {
                 if (revision.MissingMetadata())
                 {
-                    Task.Run(async () => { await PonySFMAPIConnector.Instance.FetchMetadata(revision); } ).Wait();
+                    Task.Run(async () => { await PonySfmapiConnector.Instance.FetchMetadata(revision); } ).Wait();
                 }
             }
-            _revisionManager.Database.WriteDBDisk();
+            _revisionManager.Database.WriteDbDisk();
             NotifyPropertyChange("InstalledRevisions");
         }
 

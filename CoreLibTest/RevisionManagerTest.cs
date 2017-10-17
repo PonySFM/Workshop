@@ -9,24 +9,24 @@ namespace CoreLibTest
     [TestClass]
     public class RevisionManagerTest
     {
-        private readonly string dir = "C:\\SFM";
+        private readonly string _dir = "C:\\SFM";
 
         [TestMethod]
         [TestCategory("RevisionManager")]
         public void CreatesDirectory()
         {
-            var configFile = new ConfigFile(dir);
+            var configFile = new ConfigFile(_dir);
             var fs = new MockFileSystem();
             var revisionManager = new RevisionManager(configFile, fs);
 
-            Assert.IsTrue(fs.DirectoryExists(dir));
+            Assert.IsTrue(fs.DirectoryExists(_dir));
         }
 
         [TestMethod]
         [TestCategory("RevisionManager")]
         public async Task InstallsRevisionCorrectly()
         {
-            var configFile = new ConfigFile(dir);
+            var configFile = new ConfigFile(_dir);
             var fs = new MockFileSystem();
             var revisionManager = new RevisionManager(configFile, fs);
 
@@ -56,7 +56,7 @@ namespace CoreLibTest
         [TestCategory("RevisionManager")]
         public async Task UninstallsRevisionCorrectly()
         {
-            var configFile = new ConfigFile(dir);
+            var configFile = new ConfigFile(_dir);
             var fs = new MockFileSystem();
             var revisionManager = new RevisionManager(configFile, fs);
 

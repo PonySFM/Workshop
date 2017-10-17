@@ -24,13 +24,13 @@ namespace CoreLibTest
 
         [TestMethod]
         [TestCategory("RevisionDatabase")]
-        public void CreateDefaultDB()
+        public void CreateDefaultDb()
         {
             var fs = new MockFileSystem();
             var db = new RevisionDatabase(_filepath, fs);
             Assert.IsTrue(fs.FileExists(_filepath));
 
-            var doc = fs.OpenXML(_filepath);
+            var doc = fs.OpenXml(_filepath);
 
             Assert.IsTrue(doc.HasChildNodes);
             Assert.IsTrue(doc.FirstChild.Name == "PonySFM");
@@ -49,9 +49,9 @@ namespace CoreLibTest
             for (var i = 0; i < 5; i ++)
                 db.Revisions.Add(CreateStubRevision(fs));
 
-            db.WriteDBDisk();
+            db.WriteDbDisk();
 
-            var doc = fs.OpenXML(_filepath);
+            var doc = fs.OpenXml(_filepath);
 
             Assert.IsTrue(doc.HasChildNodes);
             Assert.IsTrue(doc.FirstChild.Name == "PonySFM");

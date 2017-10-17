@@ -6,13 +6,6 @@ using CoreLib.Interface;
 
 namespace CoreLib
 {
-    public enum GameinfoHandlerError
-    {
-        AlreadyAdded,
-        FileInvalid,
-        Success
-    }
-
     public class GameinfoHandler
     {
         private readonly string _filepath;

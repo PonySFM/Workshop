@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace CoreLib.Interface
 {
-    public interface IZIPFile
+    public interface IZipFile
     {
         Task Extract(string dir, IProgress<int> progress);
     }

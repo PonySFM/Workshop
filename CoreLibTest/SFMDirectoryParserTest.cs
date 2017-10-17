@@ -7,7 +7,7 @@ using CoreLib.Interface;
 namespace CoreLibTest
 {
     [TestClass]
-    public class SFMDirectoryParserTest
+    public class SfmDirectoryParserTest
     {
         [TestMethod]
         [TestCategory("SFMDirectoryParser")]
@@ -15,8 +15,8 @@ namespace CoreLibTest
         {
             const string baseDir = "C:\\SecretPlace\\";
             var fs = new MockFileSystem();
-            var parser = new SFMDirectoryParser(baseDir, fs);
-            Assert.AreEqual(SFMDirectoryParserError.NotExists, parser.Validate());
+            var parser = new SfmDirectoryParser(baseDir, fs);
+            Assert.AreEqual(SfmDirectoryParserError.NotExists, parser.Validate());
         }
 
         [TestMethod]
@@ -27,13 +27,13 @@ namespace CoreLibTest
             var fs = new MockFileSystem();
             fs.CreateDirectory(baseDir);
             fs.CreateDirectory(baseDir + "game");
-            var parser = new SFMDirectoryParser(baseDir, fs);
+            var parser = new SfmDirectoryParser(baseDir, fs);
             Assert.AreEqual("C:\\SFM\\game", parser.Path);
 
             /* But not in this case */
             fs.CreateDirectory("C:\\SFM2");
             fs.CreateDirectory("C:\\SFM2\\gaben");
-            var otherParser = new SFMDirectoryParser("C:\\SFM2", fs);
+            var otherParser = new SfmDirectoryParser("C:\\SFM2", fs);
             Assert.AreEqual("C:\\SFM2", otherParser.Path);
         }
 
@@ -49,8 +49,8 @@ namespace CoreLibTest
             {
                 fs.AddFile(new MockFile(Path.Combine(baseDir, d), MockFileType.Directory));
             }
-            var parser = new SFMDirectoryParser(baseDir, fs);
-            Assert.AreEqual(SFMDirectoryParserError.NotLikely, parser.Validate());
+            var parser = new SfmDirectoryParser(baseDir, fs);
+            Assert.AreEqual(SfmDirectoryParserError.NotLikely, parser.Validate());
         }
 
         [TestMethod]
@@ -66,8 +66,8 @@ namespace CoreLibTest
             {
                 fs.AddFile(new MockFile(Path.Combine(baseDir, d), MockFileType.Directory));
             }
-            var parser = new SFMDirectoryParser(baseDir, fs);
-            Assert.AreEqual(SFMDirectoryParserError.OK, parser.Validate());
+            var parser = new SfmDirectoryParser(baseDir, fs);
+            Assert.AreEqual(SfmDirectoryParserError.Ok, parser.Validate());
         }
     }
 }

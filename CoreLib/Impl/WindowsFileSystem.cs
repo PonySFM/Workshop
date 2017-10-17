@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -9,27 +8,6 @@ using CoreLib.Interface;
 
 namespace CoreLib.Impl
 {
-    public class WindowsFile : IFile
-    {
-        public string Name => System.IO.Path.GetFileName(Path);
-        public string Path { get; }
-
-        public WindowsFile(string path)
-        {
-            Path = path;
-        }
-
-        public bool IsDirectory()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsFile()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     public class WindowsFileSystem : IFileSystem
     {
         private static WindowsFileSystem _singleton;
@@ -89,7 +67,7 @@ namespace CoreLib.Impl
             return dirInfo.GetDirectories("*.*", opt).Select(file => new WindowsFile(file.FullName)).Cast<IFile>().ToList();
         }
 
-        public XmlDocument OpenXML(string filepath)
+        public XmlDocument OpenXml(string filepath)
         {
             var doc = new XmlDocument();
             doc.Load(filepath);
@@ -97,7 +75,7 @@ namespace CoreLib.Impl
             return doc;
         }
 
-        public void SaveXML(XmlDocument doc, string filepath)
+        public void SaveXml(XmlDocument doc, string filepath)
         {
             doc.Save(filepath);
         }
@@ -119,9 +97,9 @@ namespace CoreLib.Impl
             });
         }
 
-        public IZIPFile OpenZIP(string filepath)
+        public IZipFile OpenZip(string filepath)
         {
-            return new ZIPFile(filepath);
+            return new ZipFile(filepath);
         }
 
         public string GetTempPath()

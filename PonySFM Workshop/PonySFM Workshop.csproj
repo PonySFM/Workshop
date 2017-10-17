@@ -77,6 +77,8 @@
     </Compile>
     <Compile Include="Base\BaseNotifyPropertyChanged.cs" />
     <Compile Include="ControlBox.cs" />
+    <Compile Include="DialogBox\DialogResult.cs" />
+    <Compile Include="DialogBox\DialogSystem.cs" />
     <Compile Include="DialogBox\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
@@ -88,6 +90,7 @@
     <Compile Include="Main\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main\RevisionListItem.cs" />
     <Compile Include="Main\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>

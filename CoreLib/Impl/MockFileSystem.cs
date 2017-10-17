@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -8,34 +9,10 @@ using CoreLib.Interface;
 
 namespace CoreLib.Impl
 {
-    public enum MockFileType
-    {
-        File, Directory,
-    }
-    
-    public class MockFile : IFile
-    {
-        public string Name => System.IO.Path.GetFileName(Path);
-
-        public string Path { get; set; }
-        public MockFileType FileType { get; set; }
-        public byte[] Data { get; set; }
-
-        public MockFile(string path, MockFileType fileType, byte[] data = null)
-        {
-            Path = path;
-            FileType = fileType;
-            Data = data;
-        }
-
-        public bool IsDirectory() => FileType == MockFileType.Directory;
-        public bool IsFile() => FileType == MockFileType.File;
-    }
-    
     public class MockFileSystem : IFileSystem
     {
-        private List<MockFile> files = new List<MockFile>();
-        private Random _random;
+        private readonly List<MockFile> _files = new List<MockFile>();
+        private readonly Random _random;
 
         public MockFileSystem()
         {
@@ -66,12 +43,12 @@ namespace CoreLib.Impl
 
         public void AddFile(MockFile file)
         {
-            files.Add(file);
+            _files.Add(file);
         }
 
         private bool EntryExists(string path, MockFileType type)
         {
-            foreach (var file in files)
+            foreach (var file in _files)
             {
                 if (file.Path == path && file.FileType == type)
                     return true;
@@ -86,12 +63,12 @@ namespace CoreLib.Impl
         /// <returns>Returns true if found.</returns>
         private bool EntryExists(MockFile file)
         {
-            return files.Contains(file);
+            return _files.Contains(file);
         }
 
-        public MockFile GetEntryByPath(string path)
+        private MockFile GetEntryByPath(string path)
         {
-            foreach (var file in files)
+            foreach (var file in _files)
             {
                 if (file.Path == path)
                     return file;
@@ -101,25 +78,21 @@ namespace CoreLib.Impl
 
         public IEnumerable<MockFile> GetEntries(string path)
         {
-            foreach (var file in files)
-            {
-                if (file.Path == path)
-                    yield return file;
-            }
+            return _files.Where(file => file.Path == path);
         }
 
         public void DeleteEntry(MockFile item)
         {
-            files.Remove(item);
+            _files.Remove(item);
         }
 
-        public void DeleteEntry(string path)
+        private void DeleteEntry(string path)
         {
-            foreach (var file in files)
+            foreach (var file in _files)
             {
                 if (file.Path == path)
                 {
-                    files.Remove(file);
+                    _files.Remove(file);
                     return;
                 }
             }
@@ -146,22 +119,21 @@ namespace CoreLib.Impl
             return GetEntryByPath(path).Data;
         }
 
-        public XmlDocument OpenXML(string filepath)
+        public XmlDocument OpenXml(string filepath)
         {
             var doc = new XmlDocument();
             var data = ReadFile(filepath);
-            string str = Encoding.UTF8.GetString(data);
+            var str = Encoding.UTF8.GetString(data);
             doc.LoadXml(str);
 
             return doc;
         }
 
-        public void SaveXML(XmlDocument doc, string filepath)
+        public void SaveXml(XmlDocument doc, string filepath)
         {
-            MemoryStream memStream = new MemoryStream();
+            var memStream = new MemoryStream();
             doc.Save(memStream);
 
-            string str = Encoding.UTF8.GetString(memStream.ToArray());
             memStream.Flush();
             memStream.Position = 0;
 
@@ -179,12 +151,12 @@ namespace CoreLib.Impl
 
         public List<IFile> GetFiles(string dir)
         {
-            List<IFile> ret = new List<IFile>();
+            var ret = new List<IFile>();
 
             if (!dir.EndsWith("\\"))
                 dir = dir + "\\";
 
-            foreach (var file in files)
+            foreach (var file in _files)
             {
                 var s = file.Path.Replace(dir, "");
                 if (file.IsFile() && file.Path.StartsWith(dir) && !s.Contains("\\"))
@@ -198,14 +170,14 @@ namespace CoreLib.Impl
 
         public List<IFile> GetDirectories(string dir, bool recursive = false)
         {
-            List<IFile> ret = new List<IFile>();
+            var ret = new List<IFile>();
 
             if (!dir.EndsWith("\\"))
                 dir = dir + "\\";
 
-            foreach (var file in files)
+            foreach (var file in _files)
             {
-                bool cond = file.IsDirectory() && file.Path.StartsWith(dir);
+                var cond = file.IsDirectory() && file.Path.StartsWith(dir);
                 if (!recursive)
                     cond = cond && !file.Path.Trim(dir.ToCharArray()).Contains("\\");
                 if (cond)
@@ -230,7 +202,7 @@ namespace CoreLib.Impl
             if (!dir.EndsWith("\\"))
                 dir = dir + "\\";
 
-            foreach (var file in files)
+            foreach (var file in _files)
             {
                 var s = file.Path.Replace(dir, "");
                 if (file.IsFile() && file.Path.StartsWith(dir) &&
@@ -251,7 +223,7 @@ namespace CoreLib.Impl
             if (!dir.EndsWith("\\"))
                 dir = dir + "\\";
 
-            foreach (var file in files)
+            foreach (var file in _files)
             {
                 var s = file.Path.Replace(dir, "");
                 if (file.IsDirectory() && file.Path.StartsWith(dir) &&
@@ -264,9 +236,9 @@ namespace CoreLib.Impl
 
         public void DeleteFile(string filepath)
         {
-            var file = files.Find(f => f.Path == filepath && f.IsFile());
+            var file = _files.Find(f => f.Path == filepath && f.IsFile());
             if (file != null)
-                files.Remove(file);
+                _files.Remove(file);
         }
 
         public void DeleteDirectory(string filepath)
@@ -281,9 +253,9 @@ namespace CoreLib.Impl
                 DeleteDirectory(dir.Path);
             }
 
-            var direntry = files.Find(f => f.Path == filepath && f.IsDirectory());
+            var direntry = _files.Find(f => f.Path == filepath && f.IsDirectory());
             if (direntry != null)
-                files.Remove(direntry);
+                _files.Remove(direntry);
         }
 
         public Task CopyFileAsync(string src, string dest)
@@ -293,9 +265,9 @@ namespace CoreLib.Impl
             });
         }
 
-        public IZIPFile OpenZIP(string filepath)
+        public IZipFile OpenZip(string filepath)
         {
-            return new MockZIPFile(filepath, this);
+            return new MockZipFile(filepath, this);
         }
 
         public string GetTempPath()

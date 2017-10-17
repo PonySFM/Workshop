@@ -17,12 +17,12 @@ namespace CoreLib
             _fs = fs;
 
             if (!fs.FileExists(filepath))
-                WriteDBDisk();
+                WriteDbDisk();
             else
                 RefreshDataDisk();
         }
 
-        public void AddToDB(Revision revision)
+        public void AddToDb(Revision revision)
         {
             Revisions.Add(revision);
         }
@@ -45,11 +45,11 @@ namespace CoreLib
 
         public void RefreshDataDisk()
         {
-            var doc = _fs.OpenXML(Filepath);
+            var doc = _fs.OpenXml(Filepath);
             RefreshData(doc);
         }
 
-        public XmlDocument WriteDB()
+        public XmlDocument WriteDb()
         {
             var doc = new XmlDocument();
             var root = doc.CreateElement("PonySFM");
@@ -61,10 +61,10 @@ namespace CoreLib
             return doc;
         }
 
-        public void WriteDBDisk()
+        public void WriteDbDisk()
         {
-            var doc = WriteDB();
-            _fs.SaveXML(doc, Filepath);
+            var doc = WriteDb();
+            _fs.SaveXml(doc, Filepath);
         }
     }
 }

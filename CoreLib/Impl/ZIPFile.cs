@@ -5,18 +5,18 @@ using CoreLib.Interface;
 
 namespace CoreLib.Impl
 {
-    public class ZIPFile : IZIPFile
+    public class ZipFile : IZipFile
     {
         private readonly string _path;
 
-        public ZIPFile(string path)
+        public ZipFile(string path)
         {
             _path = path;
         }
 
         public async Task Extract(string dir, IProgress<int> progress)
         {
-            using (var zip = ZipFile.Read(_path))
+            using (var zip = Ionic.Zip.ZipFile.Read(_path))
             {
                 var total = zip.Entries.Count;
                 var i = 0;

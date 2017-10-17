@@ -18,7 +18,7 @@ namespace PonySFM_Workshop.Main
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private SFMDirectoryParser _sfmDirParser;
+        private SfmDirectoryParser _sfmDirParser;
         private ConfigFile _configFile;
 
         private static MainWindow _instance;
@@ -29,7 +29,7 @@ namespace PonySFM_Workshop.Main
 
         static bool _menuIsOpen;
 
-        public string StatusBarText => "SFM Directory: \"" + _configFile?.SFMDirectoryPath + "\"";
+        public string StatusBarText => "SFM Directory: \"" + _configFile?.SfmDirectoryPath + "\"";
 
         private MainWindow()
         {
@@ -42,7 +42,7 @@ namespace PonySFM_Workshop.Main
             var config = new ConfigHandler(ModManager.ConfigFileLocation, WindowsFileSystem.Instance);
             var configFile = config.Read();
             var revMgr = new RevisionManager(configFile, WindowsFileSystem.Instance);
-            var sfmDirParser = new SFMDirectoryParser(configFile.SFMDirectoryPath, WindowsFileSystem.Instance);
+            var sfmDirParser = new SfmDirectoryParser(configFile.SfmDirectoryPath, WindowsFileSystem.Instance);
 
             _sfmDirParser = sfmDirParser;
             _configFile = configFile;
@@ -90,7 +90,7 @@ namespace PonySFM_Workshop.Main
 
         private void MenuItemOpenSFMDir_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(_configFile.SFMDirectoryPath);
+            Process.Start(_configFile.SfmDirectoryPath);
 
             CloseMenu();
         }
@@ -112,7 +112,7 @@ namespace PonySFM_Workshop.Main
 
         private void MenuItemOpenPonySFM_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(ModManager.PonySFMURL);
+            Process.Start(ModManager.PonySfmurl);
 
             if (_menuIsOpen)
                 CloseMenu();

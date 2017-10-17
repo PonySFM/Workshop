@@ -7,7 +7,7 @@ namespace CoreLib
     {
         ///TODO: Use <see cref="System.Version"/> instead, if possible.
         public static readonly int Version = 100;
-        public static readonly string PonySFMURL = "https://ponysfm.com";
+        public static readonly string PonySfmurl = "https://ponysfm.com";
         public static readonly string ConfigLocation = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\PonySFM";
         public static readonly string ConfigFileLocation = ConfigLocation + "\\config.xml";
 

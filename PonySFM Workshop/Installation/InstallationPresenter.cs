@@ -20,7 +20,7 @@ namespace PonySFM_Workshop.Installation
     {
         public delegate void FileExistsHandler(object sender, DirectoryCopierFileExistsEventArgs e);
 
-        private readonly IAPIConnector _api;
+        private readonly IApiConnector _api;
         private readonly IFileSystem _fs;
         private readonly List<int> _ids;
         private readonly StringBuilder _installationLog = new StringBuilder();
@@ -31,7 +31,7 @@ namespace PonySFM_Workshop.Installation
 
         private int _progress;
 
-        public InstallationPresenter(IAPIConnector api, IFileSystem fs, RevisionManager revisionMgr, List<int> ids)
+        public InstallationPresenter(IApiConnector api, IFileSystem fs, RevisionManager revisionMgr, List<int> ids)
         {
             _api = api;
             _fs = fs;
@@ -81,7 +81,7 @@ namespace PonySFM_Workshop.Installation
         {
             var zipTmp = _fs.GetTempPath();
             var tempDir = _fs.GetTempPath();
-            IZIPFile zip = null;
+            IZipFile zip = null;
 
             var progress = new Progress<int>(i => SetProgress(_currentProgressState, i));
             _revisionMgr.OnFileExists += (s, e) => OnFileExists?.Invoke(s, e);
@@ -97,7 +97,7 @@ namespace PonySFM_Workshop.Installation
             Action cleanup = delegate
             {
                 if (zip != null)
-                    if (zip is MockZIPFile)
+                    if (zip is MockZipFile)
                         _fs.DeleteDirectory(zipTmp);
                     else
                         _fs.DeleteFile(zipTmp);
@@ -106,7 +106,7 @@ namespace PonySFM_Workshop.Installation
 
             try
             {
-                await _api.DownloadRevisionZIP(id, zipTmp, progress);
+                await _api.DownloadRevisionZip(id, zipTmp, progress);
             }
             catch (WebException e)
             {
@@ -117,7 +117,7 @@ namespace PonySFM_Workshop.Installation
 
             _currentProgressState = ProgressState.Extraction;
             LogInstallation("Extracting zip file...\n");
-            zip = _fs.OpenZIP(zipTmp);
+            zip = _fs.OpenZip(zipTmp);
             await zip.Extract(tempDir, progress);
 
             var parser = new TempRevisionParser(tempDir, _fs);

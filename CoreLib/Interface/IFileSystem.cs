@@ -18,15 +18,15 @@ namespace CoreLib.Interface
         void CreateFile(string path, byte[] data = null);
         void CreateDirectory(string path);
 
-        XmlDocument OpenXML(string filepath);
-        void SaveXML(XmlDocument doc, string filepath);
+        XmlDocument OpenXml(string filepath);
+        void SaveXml(XmlDocument doc, string filepath);
 
         string GetChecksum(string filepath);
 
         void DeleteFile(string filepath);
         void DeleteDirectory(string filepath);
 
-        IZIPFile OpenZIP(string filepath);
+        IZipFile OpenZip(string filepath);
 
         string GetTempPath();
 

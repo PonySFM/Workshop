@@ -15,7 +15,7 @@ namespace UITest
         public async Task ExecutesCorrectly()
         {
             var fs = new MockFileSystem();
-            var api = new MockAPIConnector(fs);
+            var api = new MockApiConnector(fs);
             var revisionMgr = new RevisionManager(new ConfigFile("C:\\SFM"), fs);
             var ids = new List<int>() { 1337 };
             var installationPresenter = new InstallationPresenter(api, fs, revisionMgr, ids);

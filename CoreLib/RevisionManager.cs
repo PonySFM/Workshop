@@ -7,18 +7,12 @@ using CoreLib.Interface;
 
 namespace CoreLib
 {
-    public enum InstallationResult
-    {
-        Cancelled,
-        Success
-    }
-
     public class RevisionManager
     {
         private readonly ConfigFile _configFile;
         private readonly IFileSystem _fs;
         private readonly string _path;
-        private readonly SFMDirectoryParser _dirParser;
+        private readonly SfmDirectoryParser _dirParser;
 
         public delegate void FileExistsHandler(object sender, DirectoryCopierFileExistsEventArgs e);
         public event FileExistsHandler OnFileExists;
@@ -29,8 +23,8 @@ namespace CoreLib
         {
             _configFile = configFile;
             _fs = fs;
-            _path = configFile.SFMDirectoryPath;
-            _dirParser = new SFMDirectoryParser(_path, fs);
+            _path = configFile.SfmDirectoryPath;
+            _dirParser = new SfmDirectoryParser(_path, fs);
             CreateDataFolder();
             Database = new RevisionDatabase(Path.Combine(_dirParser.InstallationPath, "ponysfm.xml"), _fs);
         }
@@ -65,8 +59,8 @@ namespace CoreLib
 
             revision.ChangeTopDirectory(topDir, _dirParser.InstallationPath);
             revision.Metadata["InstallationTime"] = DateTime.Now.ToString(CultureInfo.CurrentCulture);
-            Database.AddToDB(revision);
-            Database.WriteDBDisk();
+            Database.AddToDb(revision);
+            Database.WriteDbDisk();
 
             return InstallationResult.Success;
         }
@@ -98,7 +92,7 @@ namespace CoreLib
                     progress?.Report(i / totalCount * 100);
                 }
 
-                Database.WriteDBDisk();
+                Database.WriteDbDisk();
             });
         }
 

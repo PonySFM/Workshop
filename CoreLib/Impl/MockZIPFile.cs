@@ -5,12 +5,12 @@ using CoreLib.Interface;
 
 namespace CoreLib.Impl
 {
-    public class MockZIPFile : IZIPFile
+    public class MockZipFile : IZipFile
     {
         private readonly string _path;
         private readonly IFileSystem _fs;
 
-        public MockZIPFile(string path, IFileSystem fs)
+        public MockZipFile(string path, IFileSystem fs)
         {
             _path = path;
             _fs = fs;

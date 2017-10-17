@@ -10,15 +10,15 @@ namespace PonySFM_Workshop.Main
         private readonly ConfigHandler _config;
         private ConfigFile _file;
 
-        public string SFMDirectory
+        public string SfmDirectory
         {
             get
             {
-                return _file.SFMDirectoryPath;
+                return _file.SfmDirectoryPath;
             }
             set
             {
-                _file.SFMDirectoryPath = value;
+                _file.SfmDirectoryPath = value;
                 NotifyPropertyChange("SFMDirectory");
             }
         }
@@ -39,26 +39,26 @@ namespace PonySFM_Workshop.Main
 
         public bool Save()
         {
-            var parser = new SFMDirectoryParser(SFMDirectory, WindowsFileSystem.Instance);
+            var parser = new SfmDirectoryParser(SfmDirectory, WindowsFileSystem.Instance);
             var error = parser.Validate();
 
             switch (error)
             {
-                case SFMDirectoryParserError.NotExists:
+                case SfmDirectoryParserError.NotExists:
                     SaveError = "SFM Directory does not exist.";
                     Reset();
                     return false;
-                case SFMDirectoryParserError.NotLikely:
+                case SfmDirectoryParserError.NotLikely:
                     SaveError = "SFM Directory is not valid.";
                     Reset();
                     return false;
-                case SFMDirectoryParserError.OK:
+                case SfmDirectoryParserError.Ok:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            _file.SFMDirectoryPath = parser.Path;
+            _file.SfmDirectoryPath = parser.Path;
 
             _config.Write(_file);
             MainWindow.Instance.RefreshListData();

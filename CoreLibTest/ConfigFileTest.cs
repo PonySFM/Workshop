@@ -9,15 +9,15 @@ namespace CoreLibTest
     {
         [TestMethod]
         [TestCategory("ConfigFile")]
-        public void EnsureCorrectXMLParsing()
+        public void EnsureCorrectXmlParsing()
         {
             var configFile = new ConfigFile("C:\\Gaben");
             var fakeDoc = new XmlDocument();
 
             var xml = configFile.ToXml(fakeDoc);
-            var parsedFromXML = ConfigFile.FromXml(xml);
+            var parsedFromXml = ConfigFile.FromXml(xml);
 
-            Assert.IsTrue(parsedFromXML.Equals(configFile), "Converting to XML and then deconverting should return same result");
+            Assert.IsTrue(parsedFromXml.Equals(configFile), "Converting to XML and then deconverting should return same result");
         }
     }
 }

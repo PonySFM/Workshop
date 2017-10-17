@@ -26,7 +26,7 @@ namespace CoreLibTest
             "   }\n" +
             "}";
 
-        private readonly string GameinfoDataComplete =
+        private readonly string _gameinfoDataComplete =
             "\"GameInfo\"\n" +
             "{\n" +
             "   SearchPaths\n" +
@@ -59,7 +59,7 @@ namespace CoreLibTest
 
             var newdata = Encoding.UTF8.GetString(fs.ReadFile("C:\\gameinfo.txt")).Replace("\r", "");
             Assert.IsTrue(newdata.IndexOf(GameinfoHandler.GameinfoLine, StringComparison.Ordinal) != -1);
-            Assert.AreEqual(GameinfoDataComplete, newdata);
+            Assert.AreEqual(_gameinfoDataComplete, newdata);
         }
 
         [TestMethod]
@@ -75,10 +75,10 @@ namespace CoreLibTest
         }
 
         [TestMethod]
-        public void TestNOPExecution()
+        public void TestNopExecution()
         {
             var fs = new MockFileSystem();
-            fs.CreateFile("C:\\gameinfo.txt", Encoding.UTF8.GetBytes(GameinfoDataComplete));
+            fs.CreateFile("C:\\gameinfo.txt", Encoding.UTF8.GetBytes(_gameinfoDataComplete));
             var handler = new GameinfoHandler("C:\\gameinfo.txt", fs);
 
             var error = handler.Execute();

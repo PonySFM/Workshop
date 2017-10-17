@@ -28,14 +28,14 @@ namespace CoreLib
 
         public ConfigFile Read()
         {
-            return _configParser.Read(_fs.OpenXML(_filepath));
+            return _configParser.Read(_fs.OpenXml(_filepath));
         }
 
         public void Write(ConfigFile file)
         {
             var doc = new XmlDocument();
             _configParser.Write(file, doc);
-            _fs.SaveXML(doc, _filepath);
+            _fs.SaveXml(doc, _filepath);
         }
     }
 }
