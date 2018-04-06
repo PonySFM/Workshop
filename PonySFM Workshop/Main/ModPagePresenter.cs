@@ -14,9 +14,9 @@ namespace PonySFM_Workshop.Main
         public string ResourceName => Revision.GetMetadataValue("ResourceName");
         public string UserName => Revision.GetMetadataValue("UserName");
         public string InstallationTime => Revision.GetMetadataValue("InstallationTime");
-        public String Size => Revision.GetMetadataValue("Size");
+        public string Size => FileUtil.GetHumanReadableFileSize(Convert.ToInt64(Revision.GetMetadataValue("Size")));
 
-        public String FileList
+        public string FileList
         {
             get
             {

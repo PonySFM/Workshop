@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreLib;
@@ -54,7 +55,7 @@ namespace PonySFM_Workshop.Main
                 if (revision.MissingMetadata())
                 {
                     Task.Run(async () => { await PonySFMAPIConnector.Instance.FetchMetadata(revision); } ).Wait();
-                    revision.Metadata["Size"] = FileUtil.GetHumanReadableFileSize(revision.CalculateSizeOnDisk(WindowsFileSystem.Instance));
+                    revision.Metadata["Size"] = Convert.ToString(revision.CalculateSizeOnDisk(WindowsFileSystem.Instance));
                 }
             }
             _revisionManager.Database.WriteDbDisk();

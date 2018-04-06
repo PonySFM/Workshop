@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using CoreLib.Interface;
 
@@ -65,6 +66,11 @@ namespace CoreLib
         {
             var doc = WriteDb();
             _fs.SaveXml(doc, Filepath);
+        }
+
+        public long CalculateTotalSize()
+        {
+            return Revisions.Sum(revision => revision.CalculateSizeOnDisk(_fs));
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using CoreLib;
 
 namespace PonySFM_Workshop.About
 {
@@ -10,12 +11,17 @@ namespace PonySFM_Workshop.About
     /// </summary>
     public partial class AboutPage : Page
     {
+        private readonly RevisionDatabase _revisionDatabase;
+
         public string ProjectNameAndVersion =>
             System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + " v" +
             System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-        public AboutPage()
+        public string TotalDiskSize => FileUtil.GetHumanReadableFileSize(_revisionDatabase.CalculateTotalSize());
+
+        public AboutPage(RevisionDatabase revisionDatabase)
         {
+            _revisionDatabase = revisionDatabase;
             InitializeComponent();
             DataContext = this;
         }

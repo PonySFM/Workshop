@@ -14,7 +14,7 @@ namespace PonySFM_Workshop.Licenses
             LegalMentionTextBox.Text =
 @"PonySFM Workshop
 
-Copyright © PonySFM 2016
+Copyright © PonySFM 2018
 
 PonySFM Workshop is built using open source software:
 - DotNetZip

@@ -33,6 +33,10 @@
             </StackPanel>
 
             <TextBlock Name="ProjectNameTextBlock" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="14" Text="{Binding ProjectNameAndVersion}"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="14">
+            Total size on disk:
+            <TextBlock Text="{Binding TotalDiskSize}"></TextBlock>
+            </TextBlock>
 
             <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="14">
                 Copyrights © 
