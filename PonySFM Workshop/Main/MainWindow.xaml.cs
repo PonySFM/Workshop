@@ -60,6 +60,11 @@ namespace PonySFM_Workshop.Main
             ContentFrame.Navigate(_pages[page]);
         }
 
+        public void SetPage(Page page)
+        {
+            ContentFrame.Navigate(page);
+        }
+
         public void RefreshListData()
         {
             ((MainPage) _pages["MainPage"]).RefreshListData();

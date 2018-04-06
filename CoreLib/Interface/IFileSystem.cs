@@ -18,6 +18,8 @@ namespace CoreLib.Interface
         void CreateFile(string path, byte[] data = null);
         void CreateDirectory(string path);
 
+        long GetFileSize(string path);
+
         XmlDocument OpenXml(string filepath);
         void SaveXml(XmlDocument doc, string filepath);
 

@@ -39,7 +39,7 @@
             <Hyperlink NavigateUri="http://ponysfm.com" RequestNavigate="Hyperlink_RequestNavigate">
                 PonySFM
             </Hyperlink>
-                2016-2017
+                2016-2018
             </TextBlock>
 
             <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="14">

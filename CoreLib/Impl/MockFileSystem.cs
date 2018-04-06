@@ -36,6 +36,11 @@ namespace CoreLib.Impl
             return EntryExists(path, MockFileType.Directory);
         }
 
+        public long GetFileSize(string path)
+        {
+            return GetEntryByPath(path).Data.Length;
+        }
+
         public bool FileExists(string path)
         {
             return EntryExists(path, MockFileType.File);

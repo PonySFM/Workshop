@@ -54,6 +54,7 @@ namespace PonySFM_Workshop.Main
                 if (revision.MissingMetadata())
                 {
                     Task.Run(async () => { await PonySFMAPIConnector.Instance.FetchMetadata(revision); } ).Wait();
+                    revision.Metadata["Size"] = FileUtil.GetHumanReadableFileSize(revision.CalculateSizeOnDisk(WindowsFileSystem.Instance));
                 }
             }
             _revisionManager.Database.WriteDbDisk();

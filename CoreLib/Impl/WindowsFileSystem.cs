@@ -28,6 +28,11 @@ namespace CoreLib.Impl
             Directory.CreateDirectory(path);
         }
 
+        public long GetFileSize(string path)
+        {
+            return new FileInfo(path).Length;
+        }
+
         public void CreateFile(string path, byte[] data = null)
         {
             var file = File.Create(path);

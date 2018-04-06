@@ -92,7 +92,13 @@ namespace CoreLib
         /// <returns></returns>
         public bool MissingMetadata()
         {
-            return !Metadata.ContainsKey("UserName") || !Metadata.ContainsKey("ResourceName");
+            var keys = new List<string> { "UserName", "ResourceName", "Size" };
+            return keys.Any(key => !Metadata.ContainsKey(key));
+        }
+
+        public long CalculateSizeOnDisk(IFileSystem fs)
+        {
+            return Files.Sum(file => fs.GetFileSize(file.Path));
         }
 
         public static Revision CreateTemporaryRevisionFromFolder(int id, string dir, IFileSystem fs)

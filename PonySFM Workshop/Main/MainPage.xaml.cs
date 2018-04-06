@@ -15,11 +15,13 @@ namespace PonySFM_Workshop.Main
         MainWindow _window;
         readonly MainWindowPresenter _presenter;
         SFMDirectoryParser _sfmDirParser;
+        private readonly RevisionManager _revisionManager;
 
         public MainPage(MainWindow window, ConfigFile configFile, RevisionManager revisionManager)
         {
             _window = window;
             _configFile = configFile;
+            _revisionManager = revisionManager;
             _sfmDirParser = new SFMDirectoryParser(_configFile.SfmDirectoryPath, WindowsFileSystem.Instance);
             _presenter = new MainWindowPresenter(revisionManager);
             _presenter.View = this;
@@ -46,7 +48,7 @@ namespace PonySFM_Workshop.Main
             if (item == null)
                 return;
 
-            var url = PonySFMAPIConnector.Instance.GetRevisionUrl((item as RevisionListItem).Revision);
+            var url = PonySFMAPIConnector.Instance.GetRevisionUrl(((RevisionListItem)item).Revision);
             Process.Start(url);
         }
 
@@ -61,8 +63,7 @@ namespace PonySFM_Workshop.Main
             if (item == null)
                 return;
 
-            var entry = (item as RevisionListItem);
-            entry.Checked = !entry.Checked;
+            MainWindow.Instance.SetPage(new ModPage(_revisionManager, ((RevisionListItem)item).Revision));
         }
 
         private void CheckAllBox_Checked(object sender, RoutedEventArgs e)

@@ -90,6 +90,10 @@
     <Compile Include="Main\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main\ModPage.xaml.cs">
+      <DependentUpon>ModPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Main\ModPagePresenter.cs" />
     <Compile Include="Main\RevisionListItem.cs" />
     <Compile Include="Main\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -132,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Main\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\ModPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

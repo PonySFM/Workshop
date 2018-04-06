@@ -58,6 +58,7 @@ namespace CoreLib
             }
 
             revision.ChangeTopDirectory(topDir, _dirParser.InstallationPath);
+            revision.Metadata["Size"] = FileUtil.GetHumanReadableFileSize(revision.CalculateSizeOnDisk(_fs));
             revision.Metadata["InstallationTime"] = DateTime.Now.ToString(CultureInfo.CurrentCulture);
             Database.AddToDb(revision);
             Database.WriteDbDisk();

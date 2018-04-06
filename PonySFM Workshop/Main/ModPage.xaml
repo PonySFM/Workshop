@@ -1,0 +1,52 @@
+﻿<Page x:Class="PonySFM_Workshop.Main.ModPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PonySFM_Workshop.Main"
+      mc:Ignorable="d" 
+      d:DesignHeight="350" d:DesignWidth="600"
+      Title="ModPage">
+
+    <Grid>
+        <DockPanel>
+            <StackPanel>
+                <Grid Height="50" VerticalAlignment="Center" Margin="10,0">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button x:Name="BackBtn" Width="40" Height="40" Style="{DynamicResource MetroCircleButtonStyle}" VerticalAlignment="Center" Click="BackBtn_OnClick">
+                            <Rectangle Width="10" Height="10">
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_chevron_left}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Button>
+                        <Label FontSize="30" Content="{Binding ResourceName}"></Label>
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label FontSize="16" FontWeight="Bold">Creator:</Label>
+                    <Label FontSize="16" Content="{Binding UserName}"></Label>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label FontSize="16" FontWeight="Bold">Installed on:</Label>
+                    <Label FontSize="16" Content="{Binding InstallationTime}"></Label>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label FontSize="16" FontWeight="Bold">Size on disk:</Label>
+                    <Label FontSize="16" Content="{Binding Size}"></Label>
+                </StackPanel>
+
+                <Label FontSize="16" FontWeight="Bold" Margin="0,20,0,0">Files:</Label>
+                <!--<TextBox HorizontalAlignment="Left" DockPanel.Dock="Bottom" Visibility="Visible" Margin="0,0,0,0" Text="{Binding FileList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="Auto" Height="Auto" VerticalScrollBarVisibility="Visible"></TextBox>-->
+            </StackPanel>
+        </DockPanel>
+
+        <StackPanel Orientation="Horizontal" Height="Auto" VerticalAlignment="Bottom" Margin="25,0,0,10">
+            <Button x:Name="UninstallBtn" Click="UninstallBtn_OnClick">Uninstall</Button>
+            <Button x:Name="VerifyBtn" Click="VerifyBtn_OnClick" Margin="10,0,0,0">Verify</Button>
+        </StackPanel>
+    </Grid>
+</Page>
