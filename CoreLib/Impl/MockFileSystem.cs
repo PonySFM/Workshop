@@ -38,7 +38,8 @@ namespace CoreLib.Impl
 
         public long GetFileSize(string path)
         {
-            return GetEntryByPath(path).Data.Length;
+            var entry = GetEntryByPath(path);
+            return entry?.Data?.Length ?? 0;
         }
 
         public bool FileExists(string path)
