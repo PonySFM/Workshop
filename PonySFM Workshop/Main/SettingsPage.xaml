@@ -26,7 +26,7 @@
                     <StackPanel Width="300">
                         <Label FontSize="16">SFM Directory</Label>
                         <StackPanel Margin="0,0,-222,0" Orientation="Horizontal">
-                            <TextBox x:Name="DirectoryTextBox" Text="{Binding SFMDirectory}" Width="446"></TextBox>
+                            <TextBox x:Name="DirectoryTextBox" Text="{Binding SfmDirectory}" Width="446"></TextBox>
                             <Button x:Name="DirectoryBrowseBtn" Click="DirectoryBrowseBtn_Click">Browse</Button>
                         </StackPanel>
                     </StackPanel>
