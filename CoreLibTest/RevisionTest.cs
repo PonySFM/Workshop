@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System.IO;
+using System.Linq;
 using CoreLib;
 using CoreLib.Impl;
 
@@ -12,20 +13,15 @@ namespace CoreLibTest
         public void CreatesTempRevisionCorrectly()
         {
             var fs = new MockFileSystem();
-            var tmp = Path.GetTempFileName();
 
-            fs.CreateDirectory(Path.Combine(tmp, "models"));
-            fs.CreateDirectory(Path.Combine(tmp, "materials"));
+            var rev1 = Util.CreateFakeTempRevision(fs);
+            var rev2 = Revision.CreateTemporaryRevisionFromFolder(1337, "C:\\tmp", fs);
 
-            fs.CreateFile(Path.Combine(tmp, "materials", "material.ext"));
-            fs.CreateFile(Path.Combine(tmp, "models", "model.ext"));
-
-            var revision = Revision.CreateTemporaryRevisionFromFolder(1337, tmp, fs);
-
-            Assert.AreEqual(2, revision.Files.Count);
-
-            Assert.IsTrue(revision.Files.Exists(r => r.Path == Path.Combine(tmp, "materials", "material.ext")));
-            Assert.IsTrue(revision.Files.Exists(r => r.Path == Path.Combine(tmp, "models", "model.ext")));
+            Assert.AreEqual(rev1.Files.Count, rev2.Files.Count);
+            foreach (var file in rev1.Files)
+            {
+                Assert.IsTrue(rev2.Files.Any(x => x.Path == file.Path));
+            }
         }
     }
 }
