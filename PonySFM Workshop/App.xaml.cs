@@ -9,6 +9,7 @@ using CoreLib;
 using CoreLib.Impl;
 using System.Threading.Tasks;
 using System.IO;
+using System.Reflection;
 using System.Security.Principal;
 
 namespace PonySFM_Workshop
@@ -18,14 +19,37 @@ namespace PonySFM_Workshop
     /// </summary>
     public partial class App : Application
     {
+        private static void RegisterUriProtocol(string protocolName, string applicationPath, string description)
+        {
+            // Create new key for desired URL protocol
+            var key = Registry.ClassesRoot.CreateSubKey(protocolName);
+
+            // Assign protocol
+            if (key != null)
+            {
+                key.SetValue(null, description);
+                key.SetValue("URL Protocol", string.Empty);
+
+                // Register Shell values
+                Registry.ClassesRoot.CreateSubKey(protocolName + "\\Shell");
+                Registry.ClassesRoot.CreateSubKey(protocolName + "\\Shell\\open");
+            }
+
+            key = Registry.ClassesRoot.CreateSubKey(protocolName + "\\Shell\\open\\command");
+
+            // Specify application handling the URL protocol
+            key?.SetValue(null, "\"" + applicationPath + "\" %1");
+        }
+
         private static void InstallUriProtocol()
         {
             var processStartInfo = new ProcessStartInfo
             {
-                FileName = "PostInstall.exe",
+                FileName = Assembly.GetExecutingAssembly().Location,
                 Verb = "runas",
                 WindowStyle = ProcessWindowStyle.Normal,
-                UseShellExecute = true
+                UseShellExecute = true,
+                Arguments = "--register-uri-protocol"
             };
 
             Logger.Log("Prompting to install URI protocol...\n");
@@ -36,7 +60,7 @@ namespace PonySFM_Workshop
             }
             catch (Exception e)
             {
-                Logger.Log("Failed to call PostInstall.exe: " + e.Message);
+                Logger.Log("Failed to install URI protocol: " + e.Message);
                 return;
             }
             finally
@@ -45,8 +69,7 @@ namespace PonySFM_Workshop
             }
         }
 
-
-        private bool UriProtocolExists()
+        private static bool UriProtocolExists()
         {
             var regValue = Registry.GetValue(@"HKEY_CLASSES_ROOT\ponysfm", "URL protocol", null);
             if (regValue == null)
@@ -150,12 +173,21 @@ namespace PonySFM_Workshop
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            bool installUriProtocol = e.Args.Length > 0 && e.Args[0] == "--register-uri-protocol";
+            if (installUriProtocol)
+            {
+                RegisterUriProtocol("ponysfm", Assembly.GetExecutingAssembly().Location, "PonySFM Installer Client");
+                return;
+            }
+
             ModManager.CreateFolders();
 
 #if !DEBUG
-            if (!UriProtocolExists())
+            if (!UriProtocolExists()) {
                 InstallUriProtocol();
+            }
 #endif
+
             bool mutexCreated;
             // The string can be anything, but re-producing the same GUID would be quite a thing.
             _appMutex = new Mutex(true, MainMutexName, out mutexCreated);

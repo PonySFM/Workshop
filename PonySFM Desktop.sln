@@ -1,14 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PonySFM Workshop", "PonySFM Workshop\PonySFM Workshop.csproj", "{0C0983AB-3EB7-4D61-B584-C2C457C15C70}"
-	ProjectSection(ProjectDependencies) = postProject
-		{0784127B-44F3-443E-9619-701F1A5ADE7D} = {0784127B-44F3-443E-9619-701F1A5ADE7D}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostInstall", "PostInstall\PostInstall.csproj", "{0784127B-44F3-443E-9619-701F1A5ADE7D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreLib", "CoreLib\CoreLib.csproj", "{51BFDF63-A26E-4BCC-AAA3-B97CAB61EE61}"
 EndProject
@@ -26,10 +21,6 @@ Global
 		{0C0983AB-3EB7-4D61-B584-C2C457C15C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C0983AB-3EB7-4D61-B584-C2C457C15C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C0983AB-3EB7-4D61-B584-C2C457C15C70}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0784127B-44F3-443E-9619-701F1A5ADE7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0784127B-44F3-443E-9619-701F1A5ADE7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0784127B-44F3-443E-9619-701F1A5ADE7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0784127B-44F3-443E-9619-701F1A5ADE7D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51BFDF63-A26E-4BCC-AAA3-B97CAB61EE61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51BFDF63-A26E-4BCC-AAA3-B97CAB61EE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51BFDF63-A26E-4BCC-AAA3-B97CAB61EE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
