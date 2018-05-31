@@ -1,8 +1,0 @@
-language: csharp
-solution: "PonySFM Desktop.sln"
-install:
-  - nuget restore "PonySFM Desktop.sln"
-  - nuget install NUnit.console -Version 3.7.0 -OutputDirectory testrunner
-script:
-  - xbuild /p:Configuration=Release ./CoreLibTest/CoreLibTest.csproj
-  - mono ./testrunner/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./CoreLibTest/bin/Release/CoreLibTest.dll
