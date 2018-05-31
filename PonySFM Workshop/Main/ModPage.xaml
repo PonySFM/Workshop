@@ -10,7 +10,7 @@
 
     <Grid>
         <DockPanel>
-            <StackPanel>
+            <StackPanel DockPanel.Dock="Top">
                 <Grid Height="50" VerticalAlignment="Center" Margin="10,0">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Button x:Name="BackBtn" Width="40" Height="40" Style="{DynamicResource MetroCircleButtonStyle}" VerticalAlignment="Center" Click="BackBtn_OnClick">
@@ -39,14 +39,17 @@
                     <Label FontSize="16" Content="{Binding Size}"></Label>
                 </StackPanel>
 
-                <Label FontSize="16" FontWeight="Bold" Margin="0,20,0,0">Files:</Label>
-                <!--<TextBox HorizontalAlignment="Left" DockPanel.Dock="Bottom" Visibility="Visible" Margin="0,0,0,0" Text="{Binding FileList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Width="Auto" Height="Auto" VerticalScrollBarVisibility="Visible"></TextBox>-->
+                <!--
+                <Label FontSize="16" FontWeight="Bold">Files:</Label>
+                <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Visible" Margin="20,0,20,0" Text="{Binding FileList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" VerticalScrollBarVisibility="Visible"></TextBox>
+                -->
+            </StackPanel>
+
+
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Height="Auto" VerticalAlignment="Bottom" Margin="25,0,0,10">
+                <Button x:Name="UninstallBtn" Click="UninstallBtn_OnClick">Uninstall</Button>
+                <Button x:Name="VerifyBtn" Click="VerifyBtn_OnClick" Margin="10,0,0,0">Verify</Button>
             </StackPanel>
         </DockPanel>
-
-        <StackPanel Orientation="Horizontal" Height="Auto" VerticalAlignment="Bottom" Margin="25,0,0,10">
-            <Button x:Name="UninstallBtn" Click="UninstallBtn_OnClick">Uninstall</Button>
-            <Button x:Name="VerifyBtn" Click="VerifyBtn_OnClick" Margin="10,0,0,0">Verify</Button>
-        </StackPanel>
     </Grid>
 </Page>
