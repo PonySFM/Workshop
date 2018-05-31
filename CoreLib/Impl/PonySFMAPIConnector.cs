@@ -70,7 +70,9 @@ namespace CoreLib.Impl
                 progress.Report(e.ProgressPercentage);
             };
 
-            await _webClient.DownloadFileTaskAsync(new Uri($"{BaseUrl}/rev/{id}/internal_download_redirect"),
+            var validationToken = _webClient.DownloadString($"{BaseUrl}/api/token");
+
+            await _webClient.DownloadFileTaskAsync(new Uri($"{BaseUrl}/rev/{id}/download?token={validationToken}"),
                 filepath);
         }
 
